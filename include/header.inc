@@ -19,10 +19,12 @@ echo '<link rel="stylesheet" type="text/css" href="css/screen.css">';
 echo '<body>';
 
 echo '<div><a href="index.php">Start</a>
+	    <a href="booking.php">Reservierung</a>
+	    <a href="schedule.php">Belegungsplan</a>
 	    <a href="imprint.php">Impressum</a>
 	    </div>';
 
-echo '<div><img src="images/logo_small.png" />';
+echo '<div><a href="index.php"><img src="images/logo_small.png" /></a>';
 echo "<h1>$PAGE_HEADLINE</h1></div>";
 
 ?>

@@ -20,6 +20,7 @@ for ($i=1; $i<=7; $i++)
     echo "<th>$i.12.2009</th>";
     }
 
+
 echo '</tr><tr><th>Belegung</th>';
 for ($i=1; $i<=7; $i++)
     {

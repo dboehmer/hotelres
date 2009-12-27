@@ -1,9 +1,12 @@
 
-body {font-family:'georgia';}
+body {font-family:'georgia';font-size:12pt;}
 
 h1,h2,h3 {font-family:'tahoma';}
 
 
 // DEBUG LINE: makes every writings green
 //body {color:#0f0;}
+
+
+div#footer {color:#888;font-size:10pt; text-align:center;}
 

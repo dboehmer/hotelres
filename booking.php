@@ -8,7 +8,7 @@ include('include/header.inc');
 ?>
 
 
-<form action="">
+<form action="booking.php" method="post">
 
 <table>
 <tr><th>Name:</th>
