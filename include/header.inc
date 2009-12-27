@@ -14,12 +14,16 @@ echo '<?xml version="1.0" ?>
 echo "<title>$PAGE_TITLE</title>
 </head>";
 
+echo '<link rel="stylesheet" type="text/css" href="css/screen.css">';
 
 echo '<body>';
 
-echo '<div><a href="index.php">Start</a>';
+echo '<div><a href="index.php">Start</a>
+	    <a href="imprint.php">Impressum</a>
+	    </div>';
 
-echo "<h1>$PAGE_HEADLINE</h1>";
+echo '<div><img src="images/logo_small.png" />';
+echo "<h1>$PAGE_HEADLINE</h1></div>";
 
 ?>
 
