@@ -7,6 +7,6 @@ $MYSQL_PASSWORD="qompdqtS92dw2FMn";
 $MYSQL_DATABASE="d00cbbb6";
 
 
-
+$LANGUAGE="de"
 
 ?>

@@ -4,6 +4,7 @@ include_once("include/config.inc");
 // TODO do session handling stuff here
 
 include_once("include/db.inc");
+include_once("include/i18n.inc");
 
 echo '<?xml version="1.0" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -12,7 +13,7 @@ echo '<?xml version="1.0" ?>
 
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">';
-echo "<title>$PAGE_TITLE</title>
+echo "<title>" . t($PAGE_TITLE) . "</title>
 </head>";
 
 echo '<link rel="stylesheet" type="text/css" href="css/screen.css">';
@@ -26,7 +27,7 @@ echo '<div><a href="index.php">Start</a>
 	    </div>';
 
 echo '<div><a href="index.php"><img src="images/logo_small.png" /></a>';
-echo "<h1>$PAGE_HEADLINE</h1></div>";
+echo "<h1>" . t($PAGE_HEADLINE) . "</h1></div>";
 
 ?>
 
