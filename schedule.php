@@ -6,7 +6,7 @@ $PAGE_HEADLINE='Belegungsplan';
 include('include/header.inc');
 
 
-if ($_GET['show'] == 1)
+if ($_GET['booking'] == 1)
 	{
 	
 	echo '<form><table>';
@@ -22,6 +22,13 @@ if ($_GET['show'] == 1)
 	echo '<input type="submit" value="Änderungen speichern">';
 	
 	echo '</form>';
+	
+	}
+	
+if ($_GET['room'] == 1)
+	{
+	echo '<h2>Raumbelegung Raum 1</h2>';
+	
 	
 	}
 
