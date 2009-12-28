@@ -1,8 +1,9 @@
 <?php
+include_once("include/config.inc");
 
 // TODO do session handling stuff here
 
-// TODO do datebase stuff here
+include_once("include/db.inc");
 
 echo '<?xml version="1.0" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

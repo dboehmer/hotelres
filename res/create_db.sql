@@ -18,7 +18,7 @@ CREATE TABLE bookings(
 	id INT NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY(id),
 	room INT NOT NULL,	-- points to rooms.id
-	beginn DATE NOT NULL, --start date
-	end DATE NOT NULL,    --end date
+	beginn DATE NOT NULL, -- start date
+	end DATE NOT NULL,   -- end date
 	comment varchar(500)
 	);
