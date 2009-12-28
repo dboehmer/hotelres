@@ -13,6 +13,12 @@ include('include/header.inc');
 <p>Mit diesem System können Reservierungen erstellt, angesehen und verändert werden.</p>
 
 
+<h2>Typische Aufgaben</h2>
+<ul>
+	<li><a href="schedule.php">Überprüfen Sie bestehende Buchungen im Belegungsplan</a></li>
+	<li><a href="booking.php">Einen neuen Gast einbuchen</a></li>
+</ul>
+
 <?php
 
 include('include/footer.inc');
