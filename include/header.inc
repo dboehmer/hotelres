@@ -22,8 +22,29 @@ include_once("include/i18n.inc");
 
 
 // establish database connection
-good_connect("daniel-boehmer.de", "d00cbbb6", "qompdqtS92dw2FMn", "d00cbbb6");
+good_connect($MYSQL_SERVER, $MYSQL_USERNAME, $MYSQL_PASSWORD, $MYSQL_DATABASE);
 
+
+// user management
+if ($_GET['logout'])
+	{
+		unset($_SESSION['login'], $_SESSION['username']);
+	}
+
+if (($username=$_POST['username']) && ($password=$_POST['password']))
+	{
+		@list($user_exists) = good_query_list("SELECT username FROM users WHERE username='$username' AND password=MD5('$password')");
+		
+		if ($user_exists)
+			{
+				$_SESSION['username']=$username;
+				$_SESSION['login']=true;
+			}
+		else
+			{
+				echo "<p>wrong username or password</p>";
+			}
+	}
 
 // XHTML header
 echo '<?xml version="1.0" ?>
@@ -41,6 +62,13 @@ echo '<link rel="stylesheet" media="screen" type="text/css" href="css/screen.css
 
 echo '<body>';
 
+if ($_SESSION['login'])
+	{
+		echo '<div style="float:left;">'.t("Eingeloggt als ").$_SESSION['username'].' &middot; ';
+		echo '<a href="'.url_add_parameter($_SESSION['REQUEST_URI'],"logout","true").'">'.t("Ausloggen").'</a></div>';
+		
+	}
+
 // add div area with language links
 echo '<div id="language">';
 $langs=array(
@@ -55,7 +83,7 @@ foreach ($langs as $lang => $language)
 	}
 echo '</div>';
 
-echo '<div><a href="index.php"><img src="images/logo_small.png" style="float:left;margin:8pt;" /></a>';
+echo '<div style="clear:both"><a href="index.php"><img src="images/logo_small.png" style="float:left;margin:8pt;" /></a>';
 echo '<h1>Hotelres Burj Al Arab</h1></div>';
 
 // main navigation bar
@@ -68,6 +96,21 @@ echo '<div style="clear:both"><a href="index.php">Start</a>
 
 // main headline on the website -- $PAGE_HEADLINE *must* be defined in the .php file!
 echo "<h2>" . t($PAGE_HEADLINE) . "</h2></div>";
+
+
+// user login form if not logged in yet
+if (!$_SESSION['login'])
+	{
+		echo "<h1>".t("Bitte einloggen")."</h1>";
+		echo "<p>".t("Sie sind nicht eingeloggt. Um auf die Daten zugreifen zu können
+		oder Änderungen vorzunehmen, müssen Sie Benutzernamen und Passwort eingeben.")."</p>";
+		echo '<form action="'.$_SESSION['REQUEST_URI'].'" method="post"><table>';
+		echo '<tr><th>'.t("Benutzername").':</th><td><input type="text" name="username"></td></tr>';
+		echo '<tr><th>'.t("Passwort").':</th><td><input type="password" name="password"></td></tr>';
+		echo '</table><input type="submit" value="'.t("Einloggen").'"></form>';
+		include("include/footer.inc");
+		exit;
+	}
 
 ?>
 

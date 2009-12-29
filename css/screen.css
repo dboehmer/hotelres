@@ -8,7 +8,7 @@ a img {border-style:none;}
 // DEBUG LINE: makes every writings green
 //body {color:#0f0;}
 
-div#language {text-align:right;}
+div#language {float:right;text-align:right;}
 
 div#footer {color:#888;font-size:10pt; text-align:center;}
 
