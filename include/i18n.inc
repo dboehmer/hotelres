@@ -15,21 +15,19 @@
 
 function t($text, $language=false)
 	{
-		global $LANGUAGE;
-		
 		if (!$language)
 			{
-				if ($LANGUAGE)
+				if ($_SESSION['language'])
 					// lang globally set -> use this on
-					$language=$LANGUAGE;
+					$language=$_SESSION['language'];
 				else
 					// lang set nowhere -> use built-in
 					$language="built-in";
 			}
 		
-		if ($language == "built-in")
+		if ($language == "built-in" or $language == "en")
 			{
-				return $text;
+				return "built-in:$text";
 			}
 		else
 			{
