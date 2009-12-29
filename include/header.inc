@@ -26,9 +26,15 @@ good_connect($MYSQL_SERVER, $MYSQL_USERNAME, $MYSQL_PASSWORD, $MYSQL_DATABASE);
 
 
 // user management
-if ($_GET['logout'])
+function logout()
 	{
 		unset($_SESSION['login'], $_SESSION['username']);
+	}
+
+if ($_GET['logout'])
+	{
+		logout();
+		$msg .= t("Sie wurden erfolgreich ausgeloggt!");
 	}
 
 if (($username=$_POST['username']) && ($password=$_POST['password']))
@@ -42,9 +48,22 @@ if (($username=$_POST['username']) && ($password=$_POST['password']))
 			}
 		else
 			{
-				echo "<p>wrong username or password</p>";
+				logout();
+				$msg .= t("Einloggen fehlgeschlagen! Falscher Benutzername oder falsches Passwort!");
 			}
 	}
+// throw out user if idle for too long ($MAX_IDLE_TIME==0 -> ignore)
+elseif ($_SESSION['login'] and $_SESSION['time_last_request'] and ((mktime()-$_SESSION['time_last_request'])>$MAX_IDLE_TIME)  and ($MAX_IDLE_TIME>0))
+	{
+		logout();
+		$msg .= t("Sie haben die maximale Idle-Zeit von $MAX_IDLE_TIME Sekunden überschritten und wurden automatisch ausgeloggt!");
+	} }
+
+//echo "<p>".(mktime()-$_SESSION['time_last_request'])."</p>";
+//echo "<p>".mktime();</p>
+
+// save current timestamp for checking timeout at next request
+$_SESSION['time_last_request'] = mktime();
 
 // XHTML header
 echo '<?xml version="1.0" ?>
@@ -70,16 +89,16 @@ if ($_SESSION['login'])
 	}
 
 // add div area with language links
-echo '<div id="language">';
+echo '<div id="language">'.t("Sprache wählen").":";
 $langs=array(
 		"de" => "Deutsch",
 		"en" => "English");
 foreach ($langs as $lang => $language)
 	{
 		if ($lang == $_SESSION['language'])
-			echo "$language ";
+			echo " $language";
 		else
-			echo '<a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"language",$lang).'">'.$language.'</a> ';
+			echo ' <a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"language",$lang).'">'.$language.'</a>';
 	}
 echo '</div>';
 
@@ -102,6 +121,12 @@ echo "<h2>" . t($PAGE_HEADLINE) . "</h2></div>";
 if (!$_SESSION['login'])
 	{
 		echo "<h1>".t("Bitte einloggen")."</h1>";
+		
+		// show message provided from login/logout scripts above
+		if ($msg)
+			echo "<p>$msg</p>";
+		
+		// show login form
 		echo "<p>".t("Sie sind nicht eingeloggt. Um auf die Daten zugreifen zu können
 		oder Änderungen vorzunehmen, müssen Sie Benutzernamen und Passwort eingeben.")."</p>";
 		echo '<form action="'.$_SESSION['REQUEST_URI'].'" method="post"><table>';
