@@ -11,12 +11,28 @@ if ($_GET['show'] == 1)
 	
 	echo '<form><table>';
 	
-	echo '<tr><td>'.t("Name").':</td><td><input type="text" name="name" value="Christian Heller"></td></tr>';
-	echo '<tr><td>'.t("Anschrift").':</td><td><textarea name="address">Schönauer Straße 113a
+	echo '<tr><th>'.t("Name").':</th><td><input type="text" name="name" value="Christian Heller"></td></tr>';
+	echo '<tr><th>'.t("Anschrift").':</th><td><textarea name="address">Schönauer Straße 113a
 	Leipzig</textarea></td></tr>';
-	echo '<tr><td>'.t("E-Mail").':</td><td><input type="text" name="email" value="christian.heller@ba-leipzig.de"></td></tr>';
-	echo '<tr><td>'.t("Telefon").':</td><td><input type="text" name="phone" value="0341-1234567"></td></tr>';
-			 
+	echo '<tr><th>'.t("E-Mail").':</th><td><input type="text" name="email" value="christian.heller@ba-leipzig.de"></td></tr>';
+	echo '<tr><th>'.t("Telefon").':</th><td><input type="text" name="phone" value="0341-1234567"></td></tr>';
+    echo '<tr><th>'.t("Datum Einchecken").':</th>
+            <td><input type="text" name="startdate"></td></tr>
+
+            <tr><th>'. t("Datum Auschecken").':</th>
+            <td><input type="text" name="enddate"></td></tr>
+
+            <tr><th>'.t("Raum").':</th>
+            <td><select name="room" size="1">';
+
+    $rooms = good_query_table("SELECT id, name  FROM rooms",2);
+    echo $rooms;
+    foreach($rooms as $room)
+        {
+            echo '<option value="' . $room['id'] . '">' . $room['name'] . '</option>';
+        }
+    echo '</select></td></tr>';
+    
 	echo '</table>';
 	
 	echo '<input type="submit" value="'.t("Änderungen speichern").'">';
