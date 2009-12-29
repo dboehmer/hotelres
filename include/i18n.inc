@@ -25,7 +25,7 @@ function t($text, $language=false)
 					$language="built-in";
 			}
 		
-		if ($language == "built-in" or $language == "en")
+		if ($language == "built-in" or $language == "de")
 			{
 				return "built-in:$text";
 			}

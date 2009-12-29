@@ -6,20 +6,20 @@ $PAGE_HEADLINE='Belegungsplan';
 include('include/header.inc');
 
 
-if ($_GET['booking'] == 1)
+if ($_GET['show'] == 1)
 	{
 	
 	echo '<form><table>';
 	
-	echo '<tr><td>Name:</td><td><input type="text" name="name" value="Christian Heller"></td></tr>';
-	echo '<tr><td>Anschrift:</td><td><textarea name="address">Schönauer Straße 113a
+	echo '<tr><td>'.t("Name").':</td><td><input type="text" name="name" value="Christian Heller"></td></tr>';
+	echo '<tr><td>'.t("Anschrift").':</td><td><textarea name="address">Schönauer Straße 113a
 	Leipzig</textarea></td></tr>';
-	echo '<tr><td>E-Mail:</td><td><input type="text" name="email" value="christian.heller@ba-leipzig.de"></td></tr>';
-	echo '<tr><td>Telefon:</td><td><input type="text" name="phone" value="0341-1234567"></td></tr>';
+	echo '<tr><td>'.t("E-Mail").':</td><td><input type="text" name="email" value="christian.heller@ba-leipzig.de"></td></tr>';
+	echo '<tr><td>'.t("Telefon").':</td><td><input type="text" name="phone" value="0341-1234567"></td></tr>';
 			 
 	echo '</table>';
 	
-	echo '<input type="submit" value="Änderungen speichern">';
+	echo '<input type="submit" value="'.t("Änderungen speichern").'">';
 	
 	echo '</form>';
 	

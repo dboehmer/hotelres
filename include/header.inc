@@ -14,11 +14,15 @@ elseif (!$_SESSION['language'] && $LANGUAGE)
 	{
 		$_SESSION['language'] = $LANGUAGE;
 	}
-	
+
 // include library files with setups and functions, alphabetically sorted
 include_once("include/db.inc");
 include_once("include/functions.inc");
 include_once("include/i18n.inc");
+
+
+// establish database connection
+good_connect("daniel-boehmer.de", "d00cbbb6", "qompdqtS92dw2FMn", "d00cbbb6");
 
 
 // XHTML header
@@ -51,10 +55,11 @@ foreach ($langs as $lang => $language)
 	}
 echo '</div>';
 
-echo '<div><a href="index.php"><img src="images/logo_small.png" /></a>';
+echo '<div><a href="index.php"><img src="images/logo_small.png" style="float:left;margin:8pt;" /></a>';
+echo '<h1>Hotelres Burj Al Arab</h1></div>';
 
 // main navigation bar
-echo '<div><a href="index.php">Start</a>
+echo '<div style="clear:both"><a href="index.php">Start</a>
 	    <a href="booking.php">Reservierung</a>
 	    <a href="schedule.php">Belegungsplan</a>
 	    <a href="imprint.php">Impressum</a>
@@ -62,7 +67,7 @@ echo '<div><a href="index.php">Start</a>
 
 
 // main headline on the website -- $PAGE_HEADLINE *must* be defined in the .php file!
-echo "<h1>" . t($PAGE_HEADLINE) . "</h1></div>";
+echo "<h2>" . t($PAGE_HEADLINE) . "</h2></div>";
 
 ?>
 
