@@ -57,7 +57,7 @@ elseif ($_SESSION['login'] and $_SESSION['time_last_request'] and ((mktime()-$_S
 	{
 		logout();
 		$msg .= t("Sie haben die maximale Idle-Zeit von $MAX_IDLE_TIME Sekunden überschritten und wurden automatisch ausgeloggt!");
-	} }
+	}
 
 //echo "<p>".(mktime()-$_SESSION['time_last_request'])."</p>";
 //echo "<p>".mktime();</p>
