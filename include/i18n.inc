@@ -3,16 +3,28 @@
 /*
  * we use i18n using the t() function
  * 
- * t("some english text") => translated text
+ * t("some built-in text") => translated text
  * 
  * language can be selected using 2nd arg, e.g. t("text", "de");
  * 
- * additionally you can define global variable $LANGUAGE with same content
+ * additionally you can define global variable $LANGUAGE with default setting
  * 
  * if nothing is set, built-in language is used
  */
 
 
+// translate text and substitute %s by given parameter, e.g. number
+function t_replace($text, $replacement, $language=false)
+	{
+		$text = t($text, $language);
+        
+        return preg_replace("/%s/", $replacement, $text);
+    }
+
+
+
+
+// translate text to default language or specify language
 function t($text, $language=false)
 	{
 		if (!$language)
