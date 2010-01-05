@@ -5,8 +5,7 @@ $PAGE_HEADLINE='Willkommen bei Hotelsres';
 
 include('include/header.inc');
 
-
-
+// Kommentar hinzugefüht
 
 echo "<p>".t("Willkommen bei Hotelres, dem Reservierungssystem für Ihr Hotel oder Ihre Herberge!")."</p>";
 
