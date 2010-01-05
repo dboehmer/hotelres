@@ -51,9 +51,9 @@ CREATE TABLE users(
     username VARCHAR(50) NOT NULL,   -- credentials
     password VARCHAR(50) NOT NULL,
     salt VARCHAR(50) NOT NULL,   -- so called salt value for improving password security
-    rights SET("admin","manager","guest")   -- different type of accounts
+    rights SET("guest","manager","admin") NOT NULL   -- different type of accounts
     );
 
 -- create default user with admin rights
-INSERT INTO users (username,password) VALUES("admin", "admin");
+INSERT INTO users (username, salt, password, rights) VALUES("admin", "admin", SHA1("adminadmin"), "admin");
 

@@ -39,7 +39,7 @@ if ($_GET['logout'])
 
 if (($username=$_POST['username']) && ($password=$_POST['password']))
 	{
-		@list($user_exists) = good_query_list("SELECT username FROM users WHERE username='$username' AND password=MD5('$password')");
+		@list($user_exists) = good_query_list("SELECT username FROM users WHERE username='$username' AND password=SHA1(CONCAT('$password', salt))");
 		
 		if ($user_exists)
 			{
