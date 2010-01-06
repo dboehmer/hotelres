@@ -15,12 +15,13 @@ echo "<p>".t("Dieses Projekt wurde im Rahmen eines BA-Studiums erstellt von")."<
 <li>Patrick Nicolaus</li>
 </ul>
 
+<? 
+echo "<p>".t_replace("aus der Seminargruppe %s.", false, "IT2007")."</p>"; ?>
+
 <h3>Anschrift</h3>
-<p>Staatliche Berufsakademie Leipzig<br/>Schönauer Straße 113a<br/>0xxxx Leipzig</p>
+<p>Staatliche Berufsakademie Leipzig<br/>Schönauer Straße 113a<br/>04207 Leipzig</p>
 
 <?php
-
-echo "<p>".t("aus der Seminargruppe IT2007.")."</p>";
 
 
 include('include/footer.inc');
