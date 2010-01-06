@@ -10,7 +10,7 @@ $HOTEL_NAME="Burj Al Arab";
 
 $LANGUAGE="de";
 
-$MAX_IDLE_TIME=600; // maximum time between two requests for keep being
+$MAX_IDLE_TIME=3600; // maximum time between two requests for keep being
 					 //	logged in (in secs); zero indicates no timeout
 
 ?>

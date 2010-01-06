@@ -6,8 +6,6 @@ $PAGE_HEADLINE='Willkommen bei Hotelsres';
 include('include/header.inc');
 
 
-echo "<p>".t_replace("Ihre letzte Aktivität liegt %d Sekunden zurück.",false,(mktime()-$_SESSION['time_last_request']))."</p>";
-
 echo "<p>".t("Willkommen bei Hotelres, dem Reservierungssystem für Ihr Hotel oder Ihre Herberge!")."</p>";
 
 echo "<p>".t("Mit diesem System können Reservierungen erstellt, angesehen und verändert werden.")."</p>";
