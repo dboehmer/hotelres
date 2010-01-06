@@ -34,16 +34,18 @@ function logout()
 if ($_GET['logout'])
 	{
 		logout();
-		$msg .= t("Sie wurden erfolgreich ausgeloggt!");
+		$msg .= "<p>".t("Sie wurden erfolgreich ausgeloggt!")."</p>";
 	}
 
-if (($username=$_POST['username']) && ($password=$_POST['password']))
+if (($_POST['action']=="login") && ($username=$_POST['username']) && ($password=$_POST['password']))
 	{
-		@list($user_exists) = good_query_list("SELECT username FROM users WHERE username='$username' AND password=SHA1(CONCAT('$password', salt))");
+		$user = good_query_assoc("SELECT id, username, rights FROM users WHERE username='$username' AND password=SHA1(CONCAT('$password', salt))");
 		
-		if ($user_exists)
+		if ($user['username']==$username)
 			{
+                $_SESSION['id']=$user['id'];
 				$_SESSION['username']=$username;
+                $_SESSION['rights']=$user['rights'];
 				$_SESSION['login']=true;
 			}
 		else
@@ -104,6 +106,7 @@ echo '<h1>Hotelres Burj Al Arab</h1></div>';
 echo '<div style="clear:both"><a href="index.php">Start</a>
 	    <a href="booking.php">Reservierung</a>
 	    <a href="schedule.php">Belegungsplan</a>
+        <a href="usermgmt.php">Benutzerverwaltung</a>
 	    <a href="imprint.php">Impressum</a>
 	    </div>';
 
@@ -119,12 +122,13 @@ if (!$_SESSION['login'])
 		
 		// show message provided from login/logout scripts above
 		if ($msg)
-			echo "<p>$msg</p>";
+			echo "<div class='info'>$msg</div>";
 		
 		// show login form
 		echo "<p>".t("Sie sind nicht eingeloggt. Um auf die Daten zugreifen zu können
 		oder Änderungen vorzunehmen, müssen Sie Benutzernamen und Passwort eingeben.")."</p>";
-		echo '<form action="'.$_SESSION['REQUEST_URI'].'" method="post"><table>';
+		echo '<form action="'.$_SESSION['REQUEST_URI'].'" method="post">
+            <input type="hidden" name="action" value="login"><table>';
 		echo '<tr><th>'.t("Benutzername").':</th><td><input type="text" name="username"></td></tr>';
 		echo '<tr><th>'.t("Passwort").':</th><td><input type="password" name="password"></td></tr>';
 		echo '</table><input type="submit" value="'.t("Einloggen").'"></form>';

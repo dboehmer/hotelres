@@ -29,7 +29,7 @@ function t($text, $language=false)
 		
 		if ($language == "built-in" or $language == "de")
 			{
-				return "built-in:$text";
+				return "$text";
 			}
 		else
 			{
@@ -40,7 +40,7 @@ function t($text, $language=false)
 					}
 				else
 					{
-						return "fallback:$text";
+						return "$text";
 					}
 			}
 	}
