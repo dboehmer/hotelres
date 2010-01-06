@@ -6,6 +6,7 @@ $MYSQL_USERNAME="d00cbbb6";
 $MYSQL_PASSWORD="qompdqtS92dw2FMn";
 $MYSQL_DATABASE="d00cbbb6";
 
+$HOTEL_NAME="Burj Al Arab";
 
 $LANGUAGE="de";
 

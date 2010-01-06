@@ -100,7 +100,7 @@ foreach ($langs as $lang => $language)
 echo '</div>';
 
 echo '<div style="clear:both"><a href="index.php"><img src="images/logo_small.png" style="float:left;margin:8pt;" /></a>';
-echo '<h1>Hotelres Burj Al Arab</h1></div>';
+echo '<h1>Hotelres '.$HOTEL_NAME.'</h1></div>';
 
 // main navigation bar
 echo '<div style="clear:both"><a href="index.php">Start</a>
