@@ -1,0 +1,32 @@
+HOW TO INSTALL HOTELRES
+-----------------------
+
+1. Dependencies
+
+* HTTP Server like Apache, lighttpd
+* server executing PHP
+* MySQL on any host
+* read-write access to one MySQL database
+
+2. Prerequisites
+
+* create user for hotelres with read-write rights to one database
+
+3. Install
+
+* if necessary, create subdir hotelres or alike in www dir (e.g. /var/www)
+* copy hotelres files to this subdir or www root dir
+
+4. Configuration
+
+* edit config.php to your needs, e.g. enter your MySQL credentials
+
+5. First Steps
+
+* access hotelres via browser, e.g. $HOSTNAME/hotelres/
+* create users as needed
+* create rooms available in your location
+
+
+
+Have fun!
