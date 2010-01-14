@@ -16,7 +16,7 @@ CREATE TABLE bookings(
 	room INT NOT NULL,	-- points to rooms.id
     persons INT NOT NULL,  -- number of persons who will come
     guest INT NOT NULL,   -- points to guests.id
-	beginn DATE NOT NULL, -- start date
+	begin DATE NOT NULL, -- start date
 	end DATE NOT NULL,   -- end date
 	comment varchar(500)   -- free field for entering useful information, e.g. special wishes
 	);
