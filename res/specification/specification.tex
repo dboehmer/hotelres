@@ -1,0 +1,362 @@
+\documentclass[a4paper,oneside]{scrreprt}
+
+\usepackage{booktabs}   % for vertical lines in tables
+\usepackage{ucs}
+\usepackage{setspace} 
+\usepackage{amssymb}   % for symbol \checkmark
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc} 
+\usepackage[ngerman]{babel}
+\usepackage{url}
+
+\usepackage{palatino}
+
+
+\date{15. Januar 2010}
+\author{Daniel Böhmer, Patrick Nicolaus; IT2007}
+\title{Pflichtenheft zum Projekt Hotelres}
+
+
+\begin{document}
+
+\maketitle{}
+
+\tableofcontents{}
+
+
+
+\chapter{Zielbestimmungen}
+
+\section{Musskriterien}
+
+Es soll ein webbasiertes Verwaltungssystem für touristische Unterkünfte entwickelt werden. Das System soll skalieren von einer einzelnen Ferienwohnung bis zu einem Hotel.
+
+\begin{enumerate}
+\item Buchungssystem
+    \begin{itemize}
+    \item Der Benutzer erfasst die notwendigen Kundendaten (Name, Adresse, Kontaktinformationen) und Buchungsdaten (Datum, Zimmernummer, Anzahl Personen)
+    \item Jede Buchung bekommt eine eindeutige Identifikationsnummer
+    \end{itemize}
+
+\item Belegungsplan erstellen
+    \begin{itemize}
+    \item Erzeugung eines Belegungsplans in einem bestimmten Zeitraum oder zu einem bestimmten Tag 
+    \end{itemize}
+
+\item Login-System mit Rechte- und Benutzerverwaltung
+    \begin{itemize}
+    \item Benutzer anlegen
+    \item Passwort ändern
+    \item Recht ändern
+    \item Benutzer entfernen
+    \end{itemize}
+
+\item Internationalisierung
+    \begin{itemize}
+    \item Sprache frei wählbar
+    \item deutsche Übersetzung wird mitgeliefert
+    \end{itemize}
+
+\item Daten der Unterkunft verwalten
+    \begin{itemize}
+    \item Der Administrator kann Daten zur Unterkunft (Zimmernummer, Zimmeranzahl) aktualisieren
+    \end{itemize}
+\end{enumerate}
+
+
+\section{Wunschkriterien}
+
+\begin{enumerate}
+\item Rechnung erstellen
+\item Hotelgast kann sich registrieren und kann Rechnungsdaten abrufen
+\item Zusatzleistungen buchen
+\item Erweiterung der unterstützten Sprachen
+\end{enumerate}
+
+\section{Abgrenzungskriterien}
+\begin{enumerate}
+\item Ein Nutzerhandbuch und eine Online-Hilfe werden vorerst nicht erstellt
+\end{enumerate}
+
+
+
+
+
+\chapter{Produkteinsatz}
+\section{Anwendungsbereiche}
+
+Dieses System wird für die Vermietung von touristischen Unterkünften verwendet.
+
+
+\section{Zielgruppen}
+
+Diese Anwendung ist für Betreiber von touristischen Unterkünften gedacht.
+
+\section{Betriebsbedingungen}
+Dieses System soll sich bezüglich der Betriebsbedingungen nicht wesentlich von anderen Webanwendungen unterscheiden.
+
+\begin{itemize}
+\item Betriebsdauer: täglich, 24 Stunden
+\item wartungsfrei
+\item Die Sicherung der Datenbank muss manuell vom Administrator durchgeführt werden
+\item Fehlerhafte Daten können vom Administrator entfernt werden
+\end{itemize}
+
+
+
+
+
+
+\chapter{Produktumgebung}
+
+Das Produkt ist weitgehend unabhängig vom Betriebssystem, sofern folgende Produktumgebung vorhanden ist.
+
+\section{Software}
+
+\begin{itemize}
+\item Client-PCs
+    \begin{itemize}
+    \item IP-fähiges Betriebssystem
+    \item aktueller Browser
+        \begin{itemize}
+        \item Microsoft Internet Explorer ab Version 7
+        \item Mozilla Firefox
+        \item Opera
+        \end{itemize}
+    \item optional: aktiviertes JavaScript für mehr Komfort
+    \end{itemize}
+
+\item Server lokal oder mit breitbandiger Verbindung zum Client
+    \begin{itemize}
+    \item HTTP-Server
+    \item für nicht vertrauenswürdige Netzwerke SSL
+    \item PHP (mindestens Version 5)
+    \item MySQL (mindestens Version 4.1)
+    \end{itemize}
+\end{itemize}
+
+\section{Hardware}
+
+\begin{itemize}
+\item Client
+    \begin{itemize}
+    \item Netzwerkschnittstelle
+    \end{itemize}
+\item Server
+    \begin{itemize}
+    \item Netzwerkschnittstelle
+    \item ausreichend Kapazität an Primär- und Sekundärspeicher für die genannte Server-Software und das Ausführen der Script-Datein
+    \end{itemize}
+\end{itemize}
+
+
+\section{Orgware}
+
+\begin{itemize}
+\item Gewährleistung einer permanenten Netzwerkanbindung
+\end{itemize}
+
+\chapter{Produktinformationen}
+
+\section{Benutzerfunktionen}
+
+/F0010/ Benutzer anmelden: 
+Der Benutzer meldet sich mit einem Benutzernamen und Passwort am System an. Die Benutzerverwaltung wird vom Administrator durchgeführt. Bei fehlerhaften Eingaben, wird eine Fehlermeldung ausgegeben.
+
+/F0011/ Benutzer abmelden:
+Der Benutzer kann sich manuell vom System abmelden. Nach Ablauf eines bestimmten Zeitintervalls wird der angemeldete Benutzer automatisch abgemeldet. 
+
+/F0020/ Benutzer anlegen: 
+Der Administrator kann neue Benutzer anlegen und ein Benutzernamen und ein Passwort vergeben.
+
+/F0021/ Benutzer ändern: 
+Der Administrator kann die Daten eines Benutzers ändern. Er kann den Benutzernamen und das Passwort ändern.
+
+/F0022/ Benutzer entfernen: 
+Der Administrator kann einen Benutzer entfernen. Dem Benutzer ist es dannn nicht mehr möglich, sich am System anzumelden.
+ 
+/F0030/ Buchung durchführen: 
+Der Benutzer gibt die Kundendaten und die Buchungsdaten in die Buchungseingabemaske ein und speichert die Daten in einer Datenbank. Jede Buchung wird in der Datenbank gespeichert.
+
+/F0040/ Daten aktualisieren: 
+Der Administrator kann Daten der Unterkunft in die Datenbank speichern, die für die Buchung notwendig sind. Dazu gehören z.B. die Zimmernummern, die Zimmeranzahl, die Anzahl der Personen. Diese Daten können jederzeit geändert werden.
+
+/F0050/ Plan erstellen: 
+Der Benutzer kann jederzeit einen Plan einsehen, um die Belegung der Unterkünfte überschauen zu können.
+
+/F0060/ Sprache ändern: 
+Der Benutzer kann die entsprechende Sprache wählen.
+
+
+\chapter{Produktdaten}
+Es sind folgende Daten persistent gespeichert:
+/D0010/ Buchung (bookings): Die Daten für ein Buchungsvorgang
+\begin{itemize}
+\item ID Buchung (eindeutig)
+\item Anfangsdatum (beginn)
+\item Enddatum (end)
+\item Kommentar (comment)
+\item Anzahl der Personen (persons)
+\item ID Raum (room), Gast (guest)
+\end{itemize}
+
+/D0020/ Gast (guests): Kundendaten
+\begin{itemize}
+\item ID Gast (eindeutig)
+\item Vorname (firstname)
+\item Nachname (lastname)
+\item Straße (street)
+\item Hausnummer (number)
+\item Postleitzahl (zip)
+\item Wohnort (city)
+\item Heimatland (country)
+\item Telefon (phone)
+\item E-Mail (email)
+\end{itemize}
+
+
+/D0030/ Raum (rooms): Die Informationen zu einem Objekt der Unterkunft
+\begin{itemize}
+\item ID Raum (eindeutig)
+\item Name (name)
+\item Kapazität (capacity)
+\end{itemize}
+
+/D0040/ Benutzer (users): Die Daten der Systembenutzer
+\begin{itemize}
+\item ID Benutzer (eindeutig)
+\item Benutzername (username)
+\item Passwort (password)
+\item Zufallsanteil (salt)
+\item Recht (rights)
+\end{itemize}
+
+
+
+\chapter{Produktleistungen}
+/L0100/ Fehlerbehandlung: 
+Bei fehlerhaften Eingaben des Benutzers wird eine Fehlermeldung angezeigt, um den Benutzer zu informieren und Hinweise zu geben.
+
+/L0200/ Daten speichern: 
+Alle Daten werden dauerhaft in einer Datenbank gespeichert. Der Administrator sollte regelmäßig eine Sicherung der kompletten Daten erstellen.
+
+
+\chapter{Benutzeroberfläche}
+
+\section{Grafische Oberfläche}
+
+\subsection*{Startseite}
+
+Die Startseite zeigt den Titel der Web-Anwendung, sowie ein Benutzermenü. 
+
+\subsection*{Anmeldung}
+
+Ist der Benutzer noch nicht angemeldet, wird ihm ein Formular zu Eingabe von Benutzernamen und Passwort angezeigt, egal auf welcher Seite er sich befindet.
+
+\subsection*{Benutzerseite}
+\subsection*{Buchungsseite}
+\subsection*{Plan}
+\subsection*{Dateneingabe}
+
+
+\chapter{Qualitätsbestimmungen}
+
+\begin{tabular}{l|cccc}
+
+\toprule
+                        & Sehr wichtig & Wichtig & Weniger wichtig & Unwichtig \\
+\midrule
+Robustheit              & \checkmark   &         &                 & \\
+Zuverlässigkeit         & \checkmark   &         &                 & \\
+Korrektheit             & \checkmark   &         &                 & \\
+Benutzerfreundlichkeit  &              & \checkmark &              & \\
+Effizienz               & \checkmark   &         &                 & \\
+Portierbarkeit          &              &         & \checkmark      & \\
+Kompatibilität          &              & \checkmark &              & \\
+Vertrauenswürdigkeit    &              & \checkmark &              & \\
+\bottomrule
+\end{tabular}
+
+
+\chapter{Globale Testszenarien und Testfälle}
+
+/T0010/ Benutzer anmelden: 
+Der Benutzer meldet sich mit einem Benutzernamen und Passwort am System an.
+
+/T0011/ Benutzer abmelden:
+Der Benutzer meldet sich manuell vom System ab.
+
+/T0012/ Benutzer automatisch abmelden:
+Der Benutzer wartet Zeitintervall ab und das System meldet den Benutzer automatisch ab.
+
+/T0020/ Benutzer anlegen: 
+Der Administrator legt über die Benutzerseite einen neuen Benutzer an.
+
+/T0021/ Benutzer ändern: 
+Der Administrator ändert den Benutzernamen und das Passwort eines Benutzers.
+
+/T0022/ Benutzer entfernen: 
+Der Administrator entfernt einen bestehenden Benutzer aus der Datenbank.
+
+
+
+/T0030/ Buchung durchführen: 
+Der Benutzer führt eine Buchung durch. Er gibt alle notwendigen Daten in die Eingabemaske auf der Buchungsseite ein und führt die Buchung aus.
+
+/T0050/ Plan erstellen: 
+Der Benutzer erstellt einen Plan.
+
+
+
+\chapter{Entwicklungsumgebung}
+
+\section{Software}
+
+Es wird darauf geachtet, dass alle Entwicklungswerkzeuge auch für den gewerblichen Einsatz lizenzkostenfrei oder ohnehin vorhanden sind.
+
+\begin{itemize}
+\item Plattform
+    \begin{itemize}
+    \item GNU/Linux oder Windows XP, Windows Vista, Windows 7
+    \item GitHub Social Coding\footnote{\url{http://www.github.com}}
+    \end{itemize}
+
+\item Tools
+    \begin{itemize}
+    \item beliebiger Texteditor
+    \item PHPmyAdmin für SQL-Einrichtung
+    \item Git und Tortoise Git für Versionsverwaltung
+    \end{itemize}
+
+\item alle genannten Browser
+\end{itemize}
+
+\section{Hardware}
+
+\begin{itemize}
+\item IP-fähiger Rechner
+\item Lokaler Webserver (mit PHP 5 und MySQL 5)
+\item XAMP für Windows oder lokaler Apache oder Lighttpd
+\end{itemize}
+
+\section{Orgware}
+
+\begin{itemize}
+\item Netzwerkverbindung
+\end{itemize}
+
+\chapter{Ergänzungen}
+
+Folgende Abbildungen können sich im Laufe der Entwicklung ändern.
+
+
+\chapter{Glossar}
+
+Administrator bezeichnet einen Benutzer mit dem Recht eines Administrators.
+
+Startseite ist die Seite die angezeigt wird, wenn die Anwendung aufgerufen wird.
+
+Orgware sind Rahmenbedingungen in der IT-Projekt-Abwicklung, die weder zu Hardware noch zu Software gehören, jedoch nötig sind, um die Projektziele zu erreichen.
+
+
+\end{document}
