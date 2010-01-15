@@ -248,20 +248,40 @@ Alle Daten werden dauerhaft in einer Datenbank gespeichert. Der Administrator so
 
 \chapter{Benutzeroberfläche}
 
-\section{Grafische Oberfläche}
+Zur besseren Wiedererkennbarkeit beginnt jede Unterseite mit dem gleichen Kopfteil. Dieser beinhaltet den Titel des Projekts, ein Menü zur Navigation zu den verschiedenen Unterseiten und Schalter zum Wechseln der Sprache.
+
+Das eingebaute Login-System greift auf jeder Unterseite. Ist der Benutzer nicht eingeloggt, erhällt er statt der aufgerufenen Unterseite ein Formular zur Eingabe von Benutzernamen und Passwort.
+
+\section{Allgemeine Seiten}
 
 \subsection*{Startseite}
 
-Die Startseite zeigt den Titel der Web-Anwendung, sowie ein Benutzermenü. 
+Die Startseite zeigt den Titel der Web-Anwendung, sowie eine Liste von häufig auftretenden Tätigkeiten. Mit Hilfe dieser Linkliste kann der Benutzer schnell wiederkehrende Aufgaben abarbeiten.
 
-\subsection*{Anmeldung}
+\subsection*{Buchungen anlegen}
 
-Ist der Benutzer noch nicht angemeldet, wird ihm ein Formular zu Eingabe von Benutzernamen und Passwort angezeigt, egal auf welcher Seite er sich befindet.
+Diese Seite besteht zur Hauptsache aus einem Formular, dass alle notwendigen Daten aufnimmt, um einen Gast für eine bestimmte Zeit in der Unterkunft einzumieten. Beim Abschicken erzeugt dieses Formular alle notwendigen Datenbankeinträge.
 
-\subsection*{Benutzerseite}
-\subsection*{Buchungsseite}
-\subsection*{Plan}
-\subsection*{Dateneingabe}
+\subsection*{Belegungspläne einsehen}
+
+Mit diesem Werkzeug kann der Benutzer die Gesamtauslastung über einem Zeitraum oder die Belegung eines einzelnen Raums einsehen.
+
+\subsection*{Buchungsdetails ändern}
+
+Die Seite, die die Details einer einzelnen Buchung anzeigt, dient gleichzeitig dazu, diese zu verändern.
+
+
+\section{Administrative Seiten}
+
+Die folgenden Seiten sind nur benutzbar, wenn der angemeldete Benutzer die Rechte \texttt{admin} trägt.
+
+\subsection*{Benutzerverwaltung}
+
+Hier können weitere Benutzer angelegt oder vorhandene manipuliert werden. Niemand kann die Rechte seines eigenen Kontos ändern oder das Konto löschen. Dies verhindert eine unerlaubte Rechte-Ausweitung sowie ein ungewolltes Aussperren aus dem System.
+
+\subsection*{Räume anlegen}
+
+Für die Verknüpfung von Buchungen mit einem Raum und der Anzeige der Gesamtauslastung müssen dem Hotelres-System die vorhandenen Räume bekannt sein. Auf dieser Seite werden diese Basisinformationen eingepflegt.
 
 
 \chapter{Qualitätsbestimmungen}
