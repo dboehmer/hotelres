@@ -102,7 +102,6 @@ Dieses System soll sich bezüglich der Betriebsbedingungen nicht wesentlich von 
 
 \begin{itemize}
 \item Betriebsdauer: täglich, 24 Stunden
-\item wartungsfrei
 \item Die Sicherung der Datenbank muss manuell vom örtlichen Administrator, dem Händler oder einem externen Dienstleister durchgeführt werden
 \item Fehlerhafte Daten können vom Administrator entfernt werden
 \end{itemize}
@@ -202,7 +201,7 @@ Es sind folgende Daten persistent gespeichert:
     \begin{itemize}
     \item Anfangsdatum (\texttt{begin})
     \item Enddatum (\texttt{end})
-    \item Kommentar des Benutzers, zum Beispiel Sonderwünsche (\texttt{comment})
+    \item Kommentar des Benutzers, zum Beispiel Sonderwünsche des Gastes (\texttt{comment})
     \item Anzahl der Personen (\texttt{persons})
     \end{itemize}
 
@@ -222,15 +221,15 @@ Es sind folgende Daten persistent gespeichert:
 \item \textbf{/D0030/} Räume (\texttt{rooms}): Die Informationen zu einem Objekt der Unterkunft
     \begin{itemize}
     \item Name (\texttt{name})
-    \item Kapazität (\texttt{capacity})
+    \item Maximal unterzubringende Anzahl an Gästen (\texttt{capacity})
     \end{itemize}
 
 \item \textbf{/D0040/} Benutzer (\texttt{users}): Die Daten der Systembenutzer
     \begin{itemize}
     \item Benutzername (\texttt{username})
     \item Passwort (\texttt{password})
-    \item Zufallsanteil (\texttt{salt})
-    \item Recht (\texttt{rights})
+    \item Zufallsanteil zur Absicherung des Passworts (\texttt{salt})
+    \item Rechte (\texttt{rights})
     \end{itemize}
 \end{itemize}
 
@@ -243,6 +242,9 @@ Bei fehlerhaften Eingaben des Benutzers wird eine Fehlermeldung angezeigt, um de
 
 \item \textbf{/L0200/} Daten speichern: \\
 Alle Daten werden dauerhaft in einer Datenbank gespeichert. Der Administrator sollte regelmäßig eine Sicherung der kompletten Daten erstellen.
+
+\item \textbf{/L0300} Daten akkumulieren: \\
+Gespeicherte Daten werden gesammelt und ausgewertet, so dass Zusammenhänge erkennbar und Informationen visuell erfassbar werden.
 \end{itemize}
 
 
