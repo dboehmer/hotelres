@@ -9,7 +9,7 @@
 \usepackage[ngerman]{babel}
 \usepackage{url}
 
-\usepackage{palatino}
+\usepackage{palatino}   % more beautiful font
 
 
 \date{15. Januar 2010}
@@ -98,7 +98,7 @@ Dieses System soll sich bezüglich der Betriebsbedingungen nicht wesentlich von 
 \begin{itemize}
 \item Betriebsdauer: täglich, 24 Stunden
 \item wartungsfrei
-\item Die Sicherung der Datenbank muss manuell vom Administrator durchgeführt werden
+\item Die Sicherung der Datenbank muss manuell vom örtlichen Administrator, dem Händler oder einem externen Dienstleister durchgeführt werden
 \item Fehlerhafte Daten können vom Administrator entfernt werden
 \end{itemize}
 
@@ -160,85 +160,90 @@ Das Produkt ist weitgehend unabhängig vom Betriebssystem, sofern folgende Produ
 
 \section{Benutzerfunktionen}
 
-/F0010/ Benutzer anmelden: 
+\begin{itemize}
+\item \textbf{/F0010/} Benutzer anmelden:  \\
 Der Benutzer meldet sich mit einem Benutzernamen und Passwort am System an. Die Benutzerverwaltung wird vom Administrator durchgeführt. Bei fehlerhaften Eingaben, wird eine Fehlermeldung ausgegeben.
 
-/F0011/ Benutzer abmelden:
+\item \textbf{/F0011/} Benutzer abmelden: \\
 Der Benutzer kann sich manuell vom System abmelden. Nach Ablauf eines bestimmten Zeitintervalls wird der angemeldete Benutzer automatisch abgemeldet. 
 
-/F0020/ Benutzer anlegen: 
+\item \textbf{/F0020/} Benutzer anlegen:  \\
 Der Administrator kann neue Benutzer anlegen und ein Benutzernamen und ein Passwort vergeben.
 
-/F0021/ Benutzer ändern: 
+\item \textbf{/F0021/} Benutzer ändern: \\
 Der Administrator kann die Daten eines Benutzers ändern. Er kann den Benutzernamen und das Passwort ändern.
 
-/F0022/ Benutzer entfernen: 
+\item \textbf{/F0022/} Benutzer entfernen: \\
 Der Administrator kann einen Benutzer entfernen. Dem Benutzer ist es dannn nicht mehr möglich, sich am System anzumelden.
  
-/F0030/ Buchung durchführen: 
+\item \textbf{/F0030/} Buchung durchführen: \\
 Der Benutzer gibt die Kundendaten und die Buchungsdaten in die Buchungseingabemaske ein und speichert die Daten in einer Datenbank. Jede Buchung wird in der Datenbank gespeichert.
 
-/F0040/ Daten aktualisieren: 
+\item \textbf{/F0040/} Daten aktualisieren:  \\
 Der Administrator kann Daten der Unterkunft in die Datenbank speichern, die für die Buchung notwendig sind. Dazu gehören z.B. die Zimmernummern, die Zimmeranzahl, die Anzahl der Personen. Diese Daten können jederzeit geändert werden.
 
-/F0050/ Plan erstellen: 
+\item \textbf{/F0050/} Plan erstellen:  \\
 Der Benutzer kann jederzeit einen Plan einsehen, um die Belegung der Unterkünfte überschauen zu können.
 
-/F0060/ Sprache ändern: 
+\item \textbf{/F0060/} Sprache ändern:  \\
 Der Benutzer kann die entsprechende Sprache wählen.
-
+\end{itemize}
 
 \chapter{Produktdaten}
 Es sind folgende Daten persistent gespeichert:
-/D0010/ Buchung (bookings): Die Daten für ein Buchungsvorgang
+
 \begin{itemize}
-\item ID Buchung (eindeutig)
-\item Anfangsdatum (beginn)
-\item Enddatum (end)
-\item Kommentar (comment)
-\item Anzahl der Personen (persons)
-\item ID Raum (room), Gast (guest)
+\item \textbf{/D0010/} Buchungen (bookings): Die Daten für ein Buchungsvorgang
+    \begin{itemize}
+    %\item ID Buchung (eindeutig)
+    \item Anfangsdatum (begin)
+    \item Enddatum (end)
+    \item Kommentar des Benutzers, zum Beispiel Sonderwünsche (comment)
+    \item Anzahl der Personen (persons)
+    %\item ID Raum (room), Gast (guest)
+    \end{itemize}
+
+\item \textbf{/D0020/} Gäste (guests): Kundendaten
+    \begin{itemize}
+    %\item ID Gast (eindeutig)
+    \item Vorname (firstname)
+    \item Nachname (lastname)
+    \item Straße (street)
+    \item Hausnummer (number)
+    \item Postleitzahl (zip)
+    \item Wohnort (city)
+    \item Heimatland (country)
+    \item Telefon (phone)
+    \item E-Mail (email)
+    \end{itemize}
+
+\item \textbf{/D0030/} Räume (rooms): Die Informationen zu einem Objekt der Unterkunft
+    \begin{itemize}
+    %\item ID Raum (eindeutig)
+    \item Name (name)
+    \item Kapazität (capacity)
+    \end{itemize}
+
+\item \textbf{/D0040/} Benutzer (users): Die Daten der Systembenutzer
+    \begin{itemize}
+    %\item ID Benutzer (eindeutig)
+    \item Benutzername (username)
+    \item Passwort (password)
+    \item Zufallsanteil (salt)
+    \item Recht (rights)
+    \end{itemize}
 \end{itemize}
-
-/D0020/ Gast (guests): Kundendaten
-\begin{itemize}
-\item ID Gast (eindeutig)
-\item Vorname (firstname)
-\item Nachname (lastname)
-\item Straße (street)
-\item Hausnummer (number)
-\item Postleitzahl (zip)
-\item Wohnort (city)
-\item Heimatland (country)
-\item Telefon (phone)
-\item E-Mail (email)
-\end{itemize}
-
-
-/D0030/ Raum (rooms): Die Informationen zu einem Objekt der Unterkunft
-\begin{itemize}
-\item ID Raum (eindeutig)
-\item Name (name)
-\item Kapazität (capacity)
-\end{itemize}
-
-/D0040/ Benutzer (users): Die Daten der Systembenutzer
-\begin{itemize}
-\item ID Benutzer (eindeutig)
-\item Benutzername (username)
-\item Passwort (password)
-\item Zufallsanteil (salt)
-\item Recht (rights)
-\end{itemize}
-
 
 
 \chapter{Produktleistungen}
-/L0100/ Fehlerbehandlung: 
+
+\begin{itemize}
+\item \textbf{/L0100/} Fehlerbehandlung: \\
 Bei fehlerhaften Eingaben des Benutzers wird eine Fehlermeldung angezeigt, um den Benutzer zu informieren und Hinweise zu geben.
 
-/L0200/ Daten speichern: 
+\item \textbf{/L0200/} Daten speichern: \\
 Alle Daten werden dauerhaft in einer Datenbank gespeichert. Der Administrator sollte regelmäßig eine Sicherung der kompletten Daten erstellen.
+\end{itemize}
 
 
 \chapter{Benutzeroberfläche}
@@ -280,69 +285,70 @@ Vertrauenswürdigkeit    &              & \checkmark &              & \\
 
 \chapter{Globale Testszenarien und Testfälle}
 
-/T0010/ Benutzer anmelden: 
+\begin{itemize}
+\item \textbf{/T0010/} Benutzer anmelden: \\
 Der Benutzer meldet sich mit einem Benutzernamen und Passwort am System an.
 
-/T0011/ Benutzer abmelden:
+\item \textbf{/T0011/} Benutzer abmelden: \\
 Der Benutzer meldet sich manuell vom System ab.
 
-/T0012/ Benutzer automatisch abmelden:
+\item \textbf{/T0012/} Benutzer automatisch abmelden: \\
 Der Benutzer wartet Zeitintervall ab und das System meldet den Benutzer automatisch ab.
 
-/T0020/ Benutzer anlegen: 
+\item \textbf{/T0020/} Benutzer anlegen: \\
 Der Administrator legt über die Benutzerseite einen neuen Benutzer an.
 
-/T0021/ Benutzer ändern: 
+\item \textbf{/T0021/} Benutzer ändern: \\
 Der Administrator ändert den Benutzernamen und das Passwort eines Benutzers.
 
-/T0022/ Benutzer entfernen: 
+\item \textbf{/T0022/} Benutzer entfernen: \\
 Der Administrator entfernt einen bestehenden Benutzer aus der Datenbank.
 
-
-
-/T0030/ Buchung durchführen: 
+\item \textbf{/T0030/} Buchung durchführen: \\
 Der Benutzer führt eine Buchung durch. Er gibt alle notwendigen Daten in die Eingabemaske auf der Buchungsseite ein und führt die Buchung aus.
 
-/T0050/ Plan erstellen: 
+\item \textbf{/T0050/} Plan erstellen: \\
 Der Benutzer erstellt einen Plan.
-
+\end{itemize}
 
 
 \chapter{Entwicklungsumgebung}
 
 \section{Software}
 
-Es wird darauf geachtet, dass alle Entwicklungswerkzeuge auch für den gewerblichen Einsatz lizenzkostenfrei oder ohnehin vorhanden sind.
+Es wird darauf geachtet, dass alle Entwicklungswerkzeuge auch für den gewerblichen Einsatz lizenzkostenfrei oder von vornherein vorhanden sind.
 
 \begin{itemize}
 \item Plattform
     \begin{itemize}
     \item GNU/Linux oder Windows XP, Windows Vista, Windows 7
-    \item GitHub Social Coding\footnote{\url{http://www.github.com}}
     \end{itemize}
 
-\item Tools
+\item Lokaler Webserver (XAMP nur für Windows oder generell lokaler Apache / Lighttpd)
+\item PHP-Version ab Version 5
+\item Lokaler MySQL-Server ab Version 5
+\item Entwicklungswerkzeuge
     \begin{itemize}
-    \item beliebiger Texteditor
     \item PHPmyAdmin für SQL-Einrichtung
+    \item beliebiger Texteditor
     \item Git und Tortoise Git für Versionsverwaltung
     \end{itemize}
 
-\item alle genannten Browser
+\item alle genannten in der Produktumgebung genannten Browser
+\item The GIMP für Grafikbearbeitung
 \end{itemize}
 
 \section{Hardware}
 
 \begin{itemize}
-\item IP-fähiger Rechner
-\item Lokaler Webserver (mit PHP 5 und MySQL 5)
-\item XAMP für Windows oder lokaler Apache oder Lighttpd
+\item Rechner mit Netzwerkschnittstelle
 \end{itemize}
 
 \section{Orgware}
 
 \begin{itemize}
 \item Netzwerkverbindung
+\item GitHub Social Coding\footnote{\url{http://www.github.com}}
 \end{itemize}
 
 \chapter{Ergänzungen}
@@ -350,13 +356,19 @@ Es wird darauf geachtet, dass alle Entwicklungswerkzeuge auch für den gewerblic
 Folgende Abbildungen können sich im Laufe der Entwicklung ändern.
 
 
+% TODO include ER diagram
+
+% TODO include database layout diagram
+
 \chapter{Glossar}
 
-Administrator bezeichnet einen Benutzer mit dem Recht eines Administrators.
+\begin{itemize}
+\item \emph{Administrator} bezeichnet einen Benutzer mit dem Recht eines Administrators.
 
-Startseite ist die Seite die angezeigt wird, wenn die Anwendung aufgerufen wird.
+\item \emph{Startseite} ist die erste Seite die angezeigt wird, wenn die Anwendung aufgerufen wird. Dazu zählt jedoch nicht der vorgeschaltete Login-Vorgang.
 
-Orgware sind Rahmenbedingungen in der IT-Projekt-Abwicklung, die weder zu Hardware noch zu Software gehören, jedoch nötig sind, um die Projektziele zu erreichen.
+\item \emph{Orgware} sind Rahmenbedingungen in der IT-Projekt-Abwicklung, die weder zu Hardware noch zu Software gehören, jedoch nötig sind, um die Projektziele zu erreichen.
+\end{itemize}
 
 
 \end{document}
