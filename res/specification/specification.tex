@@ -1,25 +1,31 @@
 \documentclass[a4paper,oneside]{scrreprt}
 
-\usepackage{booktabs}   % for vertical lines in tables
-\usepackage{ucs}
-\usepackage{setspace} 
-\usepackage{amssymb}   % for symbol \checkmark
+% encoding and locales settings
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc} 
 \usepackage[ngerman]{babel}
+
+% package includes for certain purposes
+\usepackage{amssymb}   % for symbol \checkmark
+\usepackage{booktabs}   % for vertical lines in tables
+\usepackage{graphicx}
 \usepackage{url}
 
+% style
 \usepackage{palatino}   % more beautiful font
 
 
 \date{15. Januar 2010}
 \author{Daniel Böhmer, Patrick Nicolaus; IT2007}
-\title{Pflichtenheft zum Projekt Hotelres}
+\title{Pflichtenheft zum Projekt Hotelres \\ \vspace{2 cm} \includegraphics[width=0.5\textwidth]{logo.png}}
 
 
 \begin{document}
 
 \maketitle{}
+%\begin{titlepage}
+%\maketitle{}
+%\end{titlepage}
 
 \tableofcontents{}
 
@@ -376,10 +382,23 @@ Es wird darauf geachtet, dass alle Entwicklungswerkzeuge auch für den gewerblic
 
 Folgende Abbildungen können sich im Laufe der Entwicklung ändern.
 
+\hspace{2.5 cm} % horizontal space between text and graphics
 
-% TODO include ER diagram
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{er-chart.png}
+\caption{ER-Diagram der zu erstellenden Datenbank}
+\label{entity-relationship}
+\end{figure}
 
-% TODO include database layout diagram
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{use-cases.png}
+\caption{Use Cases für Hotelres}
+\label{use-cases}
+\end{figure}
+
+
 
 \chapter{Glossar}
 
