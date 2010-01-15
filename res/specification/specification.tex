@@ -15,17 +15,16 @@
 \usepackage{palatino}   % more beautiful font
 
 
-\date{15. Januar 2010}
+% meta information mostly for titlepage
 \author{Daniel Böhmer, Patrick Nicolaus; IT2007}
-\title{Pflichtenheft zum Projekt Hotelres \\ \vspace{2 cm} \includegraphics[width=0.5\textwidth]{logo.png}}
+\date{15. Januar 2010}
+\title{Projekt-Management:\\Pflichtenheft zum Projekt Hotelres \\
+    \vspace{2 cm} \includegraphics[width=0.5\textwidth]{logo.png}}
 
 
 \begin{document}
 
 \maketitle{}
-%\begin{titlepage}
-%\maketitle{}
-%\end{titlepage}
 
 \tableofcontents{}
 
@@ -151,7 +150,7 @@ Das Produkt ist weitgehend unabhängig vom Betriebssystem, sofern folgende Produ
 \item Server
     \begin{itemize}
     \item Netzwerkschnittstelle
-    \item ausreichend Kapazität an Primär- und Sekundärspeicher für die genannte Server-Software und das Ausführen der Script-Datein
+    \item ausreichend Kapazität an Primär- und Sekundärspeicher für die genannte Server-Software und das Ausführen der Script-Dateien
     \end{itemize}
 \end{itemize}
 
@@ -199,44 +198,39 @@ Der Benutzer kann die entsprechende Sprache wählen.
 Es sind folgende Daten persistent gespeichert:
 
 \begin{itemize}
-\item \textbf{/D0010/} Buchungen (bookings): Die Daten für ein Buchungsvorgang
+\item \textbf{/D0010/} Buchungen (\texttt{bookings}): Die Daten für ein Buchungsvorgang
     \begin{itemize}
-    %\item ID Buchung (eindeutig)
-    \item Anfangsdatum (begin)
-    \item Enddatum (end)
-    \item Kommentar des Benutzers, zum Beispiel Sonderwünsche (comment)
-    \item Anzahl der Personen (persons)
-    %\item ID Raum (room), Gast (guest)
+    \item Anfangsdatum (\texttt{begin})
+    \item Enddatum (\texttt{end})
+    \item Kommentar des Benutzers, zum Beispiel Sonderwünsche (\texttt{comment})
+    \item Anzahl der Personen (\texttt{persons})
     \end{itemize}
 
-\item \textbf{/D0020/} Gäste (guests): Kundendaten
+\item \textbf{/D0020/} Gäste (\texttt{guests}): Kundendaten
     \begin{itemize}
-    %\item ID Gast (eindeutig)
-    \item Vorname (firstname)
-    \item Nachname (lastname)
-    \item Straße (street)
-    \item Hausnummer (number)
-    \item Postleitzahl (zip)
-    \item Wohnort (city)
-    \item Heimatland (country)
-    \item Telefon (phone)
-    \item E-Mail (email)
+    \item Vorname (\texttt{firstname})
+    \item Nachname (\texttt{lastname})
+    \item Straße (\texttt{street})
+    \item Hausnummer (\texttt{number})
+    \item Postleitzahl (\texttt{zip})
+    \item Wohnort (\texttt{city})
+    \item Heimatland (\texttt{country})
+    \item Telefon (\texttt{phone})
+    \item E-Mail (\texttt{email})
     \end{itemize}
 
-\item \textbf{/D0030/} Räume (rooms): Die Informationen zu einem Objekt der Unterkunft
+\item \textbf{/D0030/} Räume (\texttt{rooms}): Die Informationen zu einem Objekt der Unterkunft
     \begin{itemize}
-    %\item ID Raum (eindeutig)
-    \item Name (name)
-    \item Kapazität (capacity)
+    \item Name (\texttt{name})
+    \item Kapazität (\texttt{capacity})
     \end{itemize}
 
-\item \textbf{/D0040/} Benutzer (users): Die Daten der Systembenutzer
+\item \textbf{/D0040/} Benutzer (\texttt{users}): Die Daten der Systembenutzer
     \begin{itemize}
-    %\item ID Benutzer (eindeutig)
-    \item Benutzername (username)
-    \item Passwort (password)
-    \item Zufallsanteil (salt)
-    \item Recht (rights)
+    \item Benutzername (\texttt{username})
+    \item Passwort (\texttt{password})
+    \item Zufallsanteil (\texttt{salt})
+    \item Recht (\texttt{rights})
     \end{itemize}
 \end{itemize}
 
@@ -295,17 +289,15 @@ Für die Verknüpfung von Buchungen mit einem Raum und der Anzeige der Gesamtaus
 \begin{tabular}{lcccc}
 
 \toprule
-                        & Sehr wichtig & Wichtig & Weniger wichtig & Unwichtig \\
+                        & Sehr wichtig & Wichtig    & Weniger wichtig & Unwichtig \\
 \midrule
-Robustheit              & \checkmark   &         &                 & \\
-Zuverlässigkeit         & \checkmark   &         &                 & \\
-Korrektheit             & \checkmark   &         &                 & \\
-Benutzerfreundlichkeit  &              & \checkmark &              & \\
-Effizienz               & \checkmark   &         &                 & \\
-%Portierbarkeit          &              &         & \checkmark      & \\
-%Portierbarkeit spielt bei Web-Projekten keine Rolle! =>Kompatibilität mit Web-Standards
-Kompatibilität          & \checkmark   &         &                 & \\
-Vertrauenswürdigkeit    &              & \checkmark &              & \\
+Robustheit              & \checkmark   &            &                 & \\
+Zuverlässigkeit         & \checkmark   &            &                 & \\
+Korrektheit             & \checkmark   &            &                 & \\
+Benutzerfreundlichkeit  &              & \checkmark &                 & \\
+Effizienz               & \checkmark   &            &                 & \\
+Kompatibilität          & \checkmark   &            &                 & \\
+Vertrauenswürdigkeit    &              & \checkmark &                 & \\
 \bottomrule
 \end{tabular}
 
@@ -384,14 +376,14 @@ Folgende Abbildungen können sich im Laufe der Entwicklung ändern.
 
 \hspace{2.5 cm} % horizontal space between text and graphics
 
-\begin{figure}[h]
+\begin{figure}[hf]
 \centering
 \includegraphics[width=\textwidth]{er-chart.png}
 \caption{ER-Diagram der zu erstellenden Datenbank}
 \label{entity-relationship}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[hf]
 \centering
 \includegraphics[width=\textwidth]{use-cases.png}
 \caption{Use Cases für Hotelres}
