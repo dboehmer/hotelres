@@ -23,22 +23,74 @@
  */
 
 
-body {font-family:'georgia';font-size:12pt;margin-left:10%;margin-right:10%;}
 
-h1,h2,h3 {font-family:'trebuchet ms';color:#000044;}
+/* global layout */
+body {
+    font-family:'georgia';
+    font-size:12pt;
+    margin-left:10%;
+    margin-right:10%;
+}
 
-a img {border-style:none;}
+div#language {
+    float:right;
+    text-align:right;
+}
+
+div#footer {
+    color:#888;
+    font-size:10pt;
+    text-align:center;
+}
 
 
-div#language {float:right;text-align:right;}
+/* particular HTML elements with certain formatting */
+h1,h2,h3 {
+    font-family:'trebuchet ms';
+    color:#000044;
+}
 
-div#footer {color:#888;font-size:10pt; text-align:center;}
+a img {
+    border-style:none;  /* images shall not have a border, even inside links */
+}
 
-div.info, form {border-style:solid;border-width:1px;border-color:#000;padding:1em;}
-div.warn {}
-div.error {color:#800;font-weight:bold;}
+td form {
+    padding:0.5em;
+}
 
-td form {padding:0.5em;}
+th {
+    background-color:#ccf;
+    color:#004;
+}
 
-th {background-color:#ccf; color:#004;}
-td {background-color:#eef;}
+td {
+    background-color:#eef;
+}
+
+
+/* pattern for particular objects */
+
+div.info, div.warn, div.error, form {
+    border-style:solid;
+    padding:1em;
+}
+
+div.info, form {
+    border-color:#000;
+    border-width:1px;
+}
+
+div.warn {
+    border-color:#800;
+    border-width:1px;
+    color:#800;
+}
+
+div.error {
+    border-color:#800;
+    border-width:2px;
+    color:#800;
+    /*font-weight:bold;*/
+}
+
+

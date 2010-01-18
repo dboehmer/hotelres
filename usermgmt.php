@@ -30,10 +30,6 @@ $PAGE_HEADLINE='Benutzer hinzufügen, ändern und entfernen';
 include('include/header.inc');
 
 
-
-// do actions if according $_POST value is given
-unset($msg); // delete any old messages from past actions
-
 $id=$_POST['id'];
 if (is_numeric($id))
     {
@@ -44,12 +40,12 @@ switch ($_POST['action'])
     {
         case "delete":
             good_query("DELETE FROM users WHERE id=".$_POST['id']);
-            $msg.="<p>".t("Benutzer $user erfolgreich gelöscht.",false,$_POST['id'])."</p>";
+            messages_add("<p>".t("Benutzer $user erfolgreich gelöscht.",false,$_POST['id'])."</p>");
             break;
         case "adduser":
-            $salt=mktime();
+            $salt=createSalt();
             good_query("INSERT INTO users (username,password,salt,rights) VALUES('".$_POST['username']."',SHA1('".$_POST['password'].$salt."'),'".$salt."','".$_POST['rights']."')");
-            $msg.="<p>".t("Neuer Benutzer angelegt!")."</p>";
+            messages_add("<p>".t("Neuer Benutzer angelegt!")."</p>");
             break;
         case "passwd":
             if ($id=="myown")
@@ -64,39 +60,36 @@ switch ($_POST['action'])
                     if (sha1($password[0].$password_salt) != $password_hash)
                         {
                             // user entered wrong old password
-                            $msg .= t("Sie haben Ihr altes Passwort falsch eingegeben!");
+                            messages_add("<p>".t("Sie haben Ihr altes Passwort falsch eingegeben!")."</p>", "error");
                         }
                     elseif ($password[1] != $password[2])
                         {
                             // user misspelled either password 1 oder 2 of the new pw
-                            $msg .= t("Sie haben Sich beim neuen Passwort vertippt!");
+                            messages_add("<p>".t("Sie haben Sich beim neuen Passwort vertippt!")."</p>", "error");
                         }
                     else
                         {
                             $salt=mktime();
                             good_query("UPDATE users SET password=SHA1('".$password[2].$salt."'), salt='".$salt."' WHERE id=".$id);
-                            $msg.="<p>".t("Passwort geändert!")."</p>";
+                            messages_add("<p>".t("Passwort geändert!")."</p>", "error");
                         }
                 }
             else
                 {
-                    $salt=mktime();
+                    $salt=createSalt();
                     good_query("UPDATE users SET password=SHA1('".$_POST['password'].$salt."'), salt='".$salt."' WHERE id=".$id);
-                    $msg.="<p>".t("Passwort geändert!")."</p>";
+                    messages_add("<p>".t("Passwort geändert!")."</p>");
                 }
             break;
         case "changerights":
             $rights=$_POST['rights'];
             good_query("UPDATE users SET rights='".$rights."' WHERE id=".$id);
-            $msg.="<p>".t("Rechte geändert!")."</p>";
+            messages_add("<p>".t("Rechte geändert!")."</p>");
     }
 
 
 // post any messages from the code above
-if ($msg)
-    {
-        echo '<div class="info">'.$msg.'</div>';
-    }
+messages_show();
 
 
 // intro paragraph

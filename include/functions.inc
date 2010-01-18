@@ -42,5 +42,10 @@ function url_add_parameter($url, $parameter, $value)
 		return($newUrl);
 	}
 
+function createSalt()
+    {
+        // create random string as combination of current timestamp and RNG value
+        return sha1(mktime() . mt_rand());
+    }
 
 ?>

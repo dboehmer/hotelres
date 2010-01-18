@@ -44,6 +44,7 @@ elseif (!$_SESSION['language'] && $LANGUAGE)
 include_once("include/db.inc");
 include_once("include/functions.inc");
 include_once("include/i18n.inc");
+include_once("include/statusmsgs.inc");
 
 
 // establish database connection
@@ -59,7 +60,7 @@ function logout()
 if ($_GET['logout'])
 	{
 		logout();
-		$msg .= "<p>".t("Sie wurden erfolgreich ausgeloggt!")."</p>";
+		messages_add("<p>".t("Sie wurden erfolgreich ausgeloggt!")."</p>");
 	}
 
 if (($_POST['action']=="login") && ($username=$_POST['username']) && ($password=$_POST['password']))
@@ -76,14 +77,14 @@ if (($_POST['action']=="login") && ($username=$_POST['username']) && ($password=
 		else
 			{
 				logout();
-				$msg .= t("Einloggen fehlgeschlagen! Falscher Benutzername oder falsches Passwort!");
+				messages_add(t("Einloggen fehlgeschlagen! Falscher Benutzername oder falsches Passwort!"), "error");
 			}
 	}
 // throw out user if idle for too long ($MAX_IDLE_TIME==0 -> ignore)
 elseif ($_SESSION['login'] and $_SESSION['time_last_request'] and ((mktime()-$_SESSION['time_last_request'])>$MAX_IDLE_TIME)  and ($MAX_IDLE_TIME>0))
 	{
 		logout();
-		$msg .= t("Sie haben die maximale Idle-Zeit von $MAX_IDLE_TIME Sekunden überschritten und wurden automatisch ausgeloggt!");
+		messages_add(t("Sie haben die maximale Idle-Zeit von $MAX_IDLE_TIME Sekunden überschritten und wurden automatisch ausgeloggt!"), "warn");
 	}
 
 
@@ -140,16 +141,16 @@ echo '<div style="clear:both"><a href="index.php">Start</a>
 echo "<h2>" . t($PAGE_HEADLINE) . "</h2></div>";
 
 
+// show any information posted from code above
+messages_show();
+
+
 // user login form if not logged in yet
 if (!$_SESSION['login'])
 	{
+		// show login form
 		echo "<h1>".t("Bitte einloggen")."</h1>";
 		
-		// show message provided from login/logout scripts above
-		if ($msg)
-			echo "<div class='info'>$msg</div>";
-		
-		// show login form
 		echo "<p>".t("Sie sind nicht eingeloggt. Um auf die Daten zugreifen zu können
 		oder Änderungen vorzunehmen, müssen Sie Benutzernamen und Passwort eingeben.")."</p>";
 		echo '<form action="'.$_SESSION['REQUEST_URI'].'" method="post">
