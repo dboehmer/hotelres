@@ -29,34 +29,67 @@ $PAGE_HEADLINE='Ein Zimmer buchen';
 
 include('include/header.inc');
 
-?>
+// do actions if according $_POST value is given
+unset($msg); // delete any old messages from past actions
 
+if (empty($_POST))
+    {
+       	echo $msg;
+	}
+else
+    {
+		good_query("INSERT INTO guests (firstname,lastname,street,number,zip,city,country,phone,email) VALUES 
+('".$_POST['firstname']."','".$_POST['lastname']."','".$_POST['street']."','".$_POST['number']."','".$_POST['zip']."','".$_POST['city']."','".$_POST['country']."','".$_POST['phone']."','".$_POST['email']."')",2);
+		
+	        $msg.="<p>".t("Zimmer gebucht.")."</p>";
+			echo $msg;
+	}
+?>
 
 <form action="booking.php" method="post">
 
 <table>
-<tr><th><? echo t("Name");?>:</th>
-<td><input type="text" name="name"></td></tr>
+<th><table border="0">
+<tr><th><?php echo t("Vorname");?>:</th>
+<td><input type="text" name="firstname"></td></tr>
 
-<tr><th><? echo t("Anschrift");?>:</th>
-<td><textarea name="address"></textarea></td></tr>
+<tr><th><?php echo t("Nachname");?>:</th>
+<td><input type="text" name="lastname"></td></tr>
 
-<tr><th><? echo t("Telefon");?>:</th>
+<tr><th><?php echo t("Strasse");?>:</th>
+<td><input type="text" name="street"></td></tr>
+
+<tr><th><?php echo t("Hausnummer");?>:</th>
+<td><input type="text" name="number"></td></tr>
+
+<tr><th><?php echo t("PLZ");?>:</th>
+<td><input type="text" name="zip"></td></tr>
+
+<tr><th><?php echo t("Wohnort");?>:</th>
+<td><input type="text" name="city"></td></tr>
+
+<tr><th><?php echo t("Land");?>:</th>
+<td><input type="text" name="country"></td></tr>
+
+<tr><th><?php echo t("Telefon");?>:</th>
 <td><input type="text" name="phone"></td></tr>
 
-<tr><th><? echo t("E-Mail");?>:</th>
+<tr><th><?php echo t("E-Mail");?>:</th>
 <td><input type="text" name="email"></td></tr>
 
+</table></th>
+<th><table border="0">
+<tr><th><?php echo t("Datum Einchecken");?>:</th>
+<td><input type="text" name="begin"></td></tr>
 
-<tr><th><? echo t("Datum Einchecken");?>:</th>
-<td><input type="text" name="startdate"></td></tr>
+<tr><th><?php echo t("Datum Auschecken");?>:</th>
+<td><input type="text" name="end"></td></tr>
 
-<tr><th><? echo t("Datum Auschecken");?>:</th>
-<td><input type="text" name="enddate"></td></tr>
+<tr><th><?php echo t("Kommentar");?>:</th>
+<td><textarea name="comment" rows="5" cols="40"></textarea></td></tr>
 
-
-<tr><th><? echo t("Raum");?>:</th>
-<td><select name="room" size="1">
+<tr><th><?php echo t("Raum");?>:</th>
+<td><select name="room" size="1"> 
 
 <?php
 $rooms = good_query_table("SELECT id, name  FROM rooms",2);
@@ -68,10 +101,12 @@ foreach($rooms as $room)
 ?>
 
 </select></td></tr>
+</table></th>
 
 </table>
 
-<input type="submit" value="<? echo t("Buchen");?>">
+<input type="submit" value="<?php echo t("Buchen");?>">
+
 </form>
 
 

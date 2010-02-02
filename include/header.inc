@@ -23,11 +23,10 @@
  *      MA 02110-1301, USA.
  */
 
-
-include_once("include/config.inc");
-
 // start session to set user specific settings in $_SESSION
 session_start();
+
+include_once("include/config.inc");
 
 // change to another language if user clicked on language link
 // if no language selected yet, try to get language from config.inc
