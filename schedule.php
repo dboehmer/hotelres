@@ -75,26 +75,104 @@ if ($_GET['room'] == 1)
 
 else
 	{
-
+	
 	echo '<p><a href="schedule.php?show=1">Show single booking edit form</a></p>';
 
-	echo '<h2>Sample</h2>';
+?>
+	<form action="schedule.php" method="post">
+	
+    <table>
+		<tr><th><?php echo t("Monat");?>:</th>
+		  <td><select name="month" size="1"> 
+          	<option value="1"><?php echo t("Januar");?></option>
+			<option value="2"><?php echo t("Februar");?></option>
+			<option value="3"><?php echo t("März");?></option>
+			<option value="4"><?php echo t("April");?></option>
+			<option value="5"><?php echo t("Mai");?></option>
+			<option value="6"><?php echo t("Juni");?></option>
+			<option value="7"><?php echo t("Juli");?></option>
+			<option value="8"><?php echo t("August");?></option>
+			<option value="9"><?php echo t("September");?></option>
+			<option value="10"><?php echo t("Oktober");?></option>
+            <option value="11"><?php echo t("November");?></option>
+			<option value="12"><?php echo t("Dezember");?></option>        
+        </select></td>
+        
+        <th><?php echo t("Jahr");?>:</th>
+		  <td><select name="year" size="1"> 
+          	<option value="2010">2010</option>
+			<option value="2011">2011</option>
+			<option value="2012">2012</option>
+			<option value="2013">2013</option>
+        </select></td></tr>
+    </table>
+        
+    <input type="submit" value="<?php echo t("Anzeigen");?>">
 
-	echo '<table><tr><th>Tag</th>';
-	for ($i=1; $i<=7; $i++)
+	</form>
+    <br />
+<?php
+	if (!empty($_POST))
+    {
+
+	echo '<table><tr><th>'.t("Montag").'</th>
+					 <th>'.t("Dienstag").'</th>
+					 <th>'.t("Mittwoch").'</th>
+					 <th>'.t("Donnerstag").'</th>
+					 <th>'.t("Freitag").'</th>
+					 <th>'.t("Samstag").'</th>
+					 <th>'.t("Sonntag").'</th></tr><tr>';
+					 
+	setlocale(LC_TIME,"de_DE");
+	$number_day = strftime("%w",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
+	$count_days = date("t",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
+		
+	switch ($number_day)
+    {
+        case 1:
+			$j = 1;
+           	break;
+		case 2:
+           	echo '<td></td>';
+			$j = 2;
+            break;
+		case 3:
+            echo '<td></td><td></td>';
+			$j = 3;
+            break;
+		case 4:
+            echo '<td></td><td></td><td></td>';
+			$j = 4;
+            break;
+		case 5:
+            echo '<td></td><td></td><td></td><td></td>';
+            $j = 5;
+			break;
+		case 6:
+            echo '<td></td><td></td><td></td><td></td><td></td>';
+            $j = 6;
+			break;
+		case 0:
+            echo '<td></td><td></td><td></td><td></td><td></td><td></td>';
+            $j = 7;
+			break;
+	}
+			
+	for ($i=1; $i<=$count_days; $i++)
+	{
+		echo '<td>'.$i.'</td>';
+				
+		if ($j % 7 == 0)
 		{
-		echo "<th>$i.12.2009</th>";
+			echo '</tr><tr>';
 		}
-
-
-	echo '</tr><tr><th>Belegung</th>';
-	for ($i=1; $i<=7; $i++)
-		{
-		echo "<td>" . ($i*3) . "%</td>";
-		}
+		
+		$j++;
+	}
 
 	echo '</tr></table>';
 	
+	}
 	}
 
 include('include/footer.inc');
