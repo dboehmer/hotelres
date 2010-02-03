@@ -45,7 +45,7 @@ else
 		 
 		$rooms_room = good_query_table("SELECT id, capacity FROM rooms WHERE id='".$_POST['room']."'");		
 		good_query("INSERT INTO bookings (room,guest,persons,begin,end,comment) VALUES 
-('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".$_POST['begin']."','".$_POST['end']."','".$_POST['comment']."')",2);
+('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".db_date_format($_POST['begin'])."','".db_date_format($_POST['end'])."','".$_POST['comment']."')",2);
 
 	    $msg.="<p>".t("Zimmer gebucht.")."</p>";
 		echo $msg;

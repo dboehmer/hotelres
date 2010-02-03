@@ -41,6 +41,11 @@ function url_add_parameter($url, $parameter, $value)
 		
 		return($newUrl);
 	}
+	
+function db_date_format($value)
+	{
+		return strftime("%Y-%m-%d",strtotime($value));
+	}
 
 
 ?>
