@@ -29,42 +29,6 @@ $PAGE_TITLE='Belegungsplan';
 $PAGE_HEADLINE='Belegungsplan';
 
 include('include/header.inc');
-
-
-if ($_GET['show'] == 1)
-	{
-	
-	echo '<form><table>';
-	
-	echo '<tr><th>'.t("Name").':</th><td><input type="text" name="name" value="Christian Heller"></td></tr>';
-	echo '<tr><th>'.t("Anschrift").':</th><td><textarea name="address">Schönauer Straße 113a
-	Leipzig</textarea></td></tr>';
-	echo '<tr><th>'.t("E-Mail").':</th><td><input type="text" name="email" value="christian.heller@ba-leipzig.de"></td></tr>';
-	echo '<tr><th>'.t("Telefon").':</th><td><input type="text" name="phone" value="0341-1234567"></td></tr>';
-    echo '<tr><th>'.t("Datum Einchecken").':</th>
-            <td><input type="text" name="startdate"></td></tr>
-
-            <tr><th>'. t("Datum Auschecken").':</th>
-            <td><input type="text" name="enddate"></td></tr>
-
-            <tr><th>'.t("Raum").':</th>
-            <td><select name="room" size="1">';
-
-    $rooms = good_query_table("SELECT id, name  FROM rooms",2);
-    echo $rooms;
-    foreach($rooms as $room)
-        {
-            echo '<option value="' . $room['id'] . '">' . $room['name'] . '</option>';
-        }
-    echo '</select></td></tr>';
-    
-	echo '</table>';
-	
-	echo '<input type="submit" value="'.t("Änderungen speichern").'">';
-	
-	echo '</form>';
-	
-	}
 	
 if ($_GET['room'] == 1)
 	{
@@ -76,8 +40,6 @@ if ($_GET['room'] == 1)
 else
 	{
 	
-	echo '<p><a href="schedule.php?show=1">Show single booking edit form</a></p>';
-
 ?>
 	<form action="schedule.php" method="post">
 	
@@ -112,9 +74,15 @@ else
 	</form>
     <br />
 <?php
+		
 	if (!empty($_POST))
     {
-
+	
+	$number_day = strftime("%w",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
+	$count_days = date("t",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
+	
+	echo strftime("%B %Y",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
+	
 	echo '<table><tr><th>'.t("Montag").'</th>
 					 <th>'.t("Dienstag").'</th>
 					 <th>'.t("Mittwoch").'</th>
@@ -122,10 +90,6 @@ else
 					 <th>'.t("Freitag").'</th>
 					 <th>'.t("Samstag").'</th>
 					 <th>'.t("Sonntag").'</th></tr><tr>';
-					 
-	setlocale(LC_TIME,"de_DE");
-	$number_day = strftime("%w",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
-	$count_days = date("t",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
 		
 	switch ($number_day)
     {
@@ -158,9 +122,15 @@ else
 			break;
 	}
 			
+			$count_all_rooms = db_count_all_rooms();	
+				
 	for ($i=1; $i<=$count_days; $i++)
 	{
-		echo '<td>'.$i.'</td>';
+		$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$_POST['month'].".".$_POST['year']));
+		
+		$utilization = number_format((($count_engaged_rooms * 100) / $count_all_rooms),2);
+			
+		echo '<td><a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$_POST['month'].".".$_POST['year'])).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
 				
 		if ($j % 7 == 0)
 		{
@@ -174,6 +144,23 @@ else
 	
 	}
 	}
+	
+	if (! empty($_GET['show']))
+	{
+		$bookings = good_query_table('SELECT room FROM bookings WHERE begin<="'.$_GET['show'].'" AND end>="'.$_GET['show'].'"');
+				
+		echo '<form><table>';
+		echo '<tr><th>'.t("Raum").'</th></tr>';
+		
+		foreach ($bookings as $booking)
+            {
+				echo '<tr><td>'.$booking['room'].'</td></tr>';
+			}
+			
+	echo '</table>';	
+	echo '</form>';
+	
+}
 
 include('include/footer.inc');
 

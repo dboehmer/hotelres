@@ -44,7 +44,6 @@ include_once("include/db.inc");
 include_once("include/functions.inc");
 include_once("include/i18n.inc");
 
-
 // establish database connection
 good_connect($MYSQL_SERVER, $MYSQL_USERNAME, $MYSQL_PASSWORD, $MYSQL_DATABASE);
 
@@ -112,14 +111,19 @@ if ($_SESSION['login'])
 // add div area with language links
 echo '<div id="language">'.t("Sprache wählen").":";
 $langs=array(
-		"de" => "Deutsch",
-		"en" => "English");
+		"de_DE" => "Deutsch",
+		"en_GB" => "English");
 foreach ($langs as $lang => $language)
 	{
 		if ($lang == $_SESSION['language'])
+		{
 			echo " $language";
+		}
 		else
+		{
+			setlocale(LC_TIME,$lang);
 			echo ' <a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"language",$lang).'">'.$language.'</a>';
+		}
 	}
 echo '</div>';
 

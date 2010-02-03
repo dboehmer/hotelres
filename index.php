@@ -29,7 +29,6 @@ $PAGE_HEADLINE='Willkommen bei Hotelsres';
 
 include('include/header.inc');
 
-
 echo "<p>".t("Willkommen bei Hotelres, dem Reservierungssystem für Ihr Hotel oder Ihre Herberge!")."</p>";
 
 echo "<p>".t("Mit diesem System können Reservierungen erstellt, angesehen und verändert werden.")."</p>";

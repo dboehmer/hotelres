@@ -29,8 +29,6 @@ $PAGE_HEADLINE='Benutzer hinzufügen, ändern und entfernen';
 
 include('include/header.inc');
 
-
-
 // do actions if according $_POST value is given
 unset($msg); // delete any old messages from past actions
 
@@ -136,7 +134,6 @@ if ($_SESSION['rights'] != "admin")
 else
     {
         echo "<h3>".t("Vorhandene Benutzer")."</h3>";
-
 
         $users = good_query_table("SELECT id, username, rights FROM users");
 
