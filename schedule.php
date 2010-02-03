@@ -126,7 +126,7 @@ else
 				
 	for ($i=1; $i<=$count_days; $i++)
 	{
-		$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$_POST['month'].".".$_POST['year']));
+		$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$_POST['month'].".".$_POST['year']),db_date_format($i.".".$_POST['month'].".".$_POST['year']));
 		
 		$utilization = number_format((($count_engaged_rooms * 100) / $count_all_rooms),2);
 			
@@ -147,14 +147,26 @@ else
 	
 	if (! empty($_GET['show']))
 	{
-		$bookings = good_query_table('SELECT room FROM bookings WHERE begin<="'.$_GET['show'].'" AND end>="'.$_GET['show'].'"');
-				
+		$bookings = good_query_table('SELECT a.room, a.guest, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname as roomid, b.name FROM bookings as a inner join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$_GET['show'].'" AND end>="'.$_GET['show'].'"');
+		
 		echo '<form><table>';
-		echo '<tr><th>'.t("Raum").'</th></tr>';
+		echo '<tr><th>'.t("Raum").'</th>
+				  <th>'.t("Vorname").'</th>
+				  <th>'.t("Nachname").'</th>
+				  <th>'.t("Personen").'</th>
+				  <th>'.t("Beginn").'</th>
+				  <th>'.t("Ende").'</th>
+				  <th>'.t("Kommentar").'</th></tr>';
 		
 		foreach ($bookings as $booking)
             {
-				echo '<tr><td>'.$booking['room'].'</td></tr>';
+				echo '<tr><td>'.$booking['name'].'</td>';
+				echo '<td>'.$booking['firstname'].'</td>';
+				echo '<td>'.$booking['lastname'].'</td>';
+				echo '<td>'.$booking['persons'].'</td>';
+				echo '<td>'.$booking['begin'].'</td>';
+				echo '<td>'.$booking['end'].'</td>';
+				echo '<td>'.$booking['comment'].'</td></tr>';
 			}
 			
 	echo '</table>';	

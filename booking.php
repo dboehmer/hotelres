@@ -34,10 +34,31 @@ unset($msg); // delete any old messages from past actions
 
 if (empty($_POST))
     {
-       	echo $msg;
+       	// do nothing
 	}
 else
     {
+		$bookings_rooms = good_query_table('SELECT a.room, b.id as roomid, b.name FROM bookings as a inner join rooms as b on a.room = b.id WHERE begin<="'.db_date_format($_POST['begin']).'" AND end>="'.db_date_format($_POST['end']).'" GROUP BY b.name');
+		
+		$insert_flag = 1;
+		
+		foreach($bookings_rooms as $rooms)
+        {
+			if ($rooms['roomid'] == $_POST['room'])
+			{
+				$insert_flag = 0;
+			}
+			 	
+		}
+		
+		if ((empty($_POST['begin'])) or (empty($_POST['end'])))
+		{
+			$insert_flag = 0;
+		}
+		
+		if ($insert_flag)
+		{
+		
 		good_query("INSERT INTO guests (firstname,lastname,street,number,zip,city,country,phone,email) VALUES 
 ('".$_POST['firstname']."','".$_POST['lastname']."','".$_POST['street']."','".$_POST['number']."','".$_POST['zip']."','".$_POST['city']."','".$_POST['country']."','".$_POST['phone']."','".$_POST['email']."')",2);
 		
@@ -48,8 +69,14 @@ else
 ('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".db_date_format($_POST['begin'])."','".db_date_format($_POST['end'])."','".$_POST['comment']."')",2);
 
 	    $msg.="<p>".t("Zimmer gebucht.")."</p>";
-		echo $msg;
+		}
+	else
+	    {
+		$msg.="<p>".t("Zimmer in dieser Zeit belegt.")."</p>";
+		}
 	}
+	
+echo $msg;
 ?>
 
 <form action="booking.php" method="post">
