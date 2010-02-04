@@ -30,54 +30,52 @@ $PAGE_HEADLINE='Belegungsplan';
 
 include('include/header.inc');
 	
-if ($_GET['room'] == 1)
-	{
-	echo '<h2>Raumbelegung Raum 1</h2>';
-	
-	
-	}
-
-else
-	{
-	
 ?>
-	<form action="schedule.php" method="post">
-	
-    <table>
-		<tr><th><?php echo t("Monat");?>:</th>
-		  <td><select name="month" size="1"> 
-          	<option value="1"><?php echo t("Januar");?></option>
-			<option value="2"><?php echo t("Februar");?></option>
-			<option value="3"><?php echo t("März");?></option>
-			<option value="4"><?php echo t("April");?></option>
-			<option value="5"><?php echo t("Mai");?></option>
-			<option value="6"><?php echo t("Juni");?></option>
-			<option value="7"><?php echo t("Juli");?></option>
-			<option value="8"><?php echo t("August");?></option>
-			<option value="9"><?php echo t("September");?></option>
-			<option value="10"><?php echo t("Oktober");?></option>
+<form action="schedule.php" method="post">
+	<table>
+        <tr><th><?php echo t("Monat");?>:</th>
+          <td><select name="month" size="1"> 
+            <option value="1"><?php echo t("Januar");?></option>
+            <option value="2"><?php echo t("Februar");?></option>
+            <option value="3"><?php echo t("März");?></option>
+            <option value="4"><?php echo t("April");?></option>
+            <option value="5"><?php echo t("Mai");?></option>
+            <option value="6"><?php echo t("Juni");?></option>
+            <option value="7"><?php echo t("Juli");?></option>
+            <option value="8"><?php echo t("August");?></option>
+            <option value="9"><?php echo t("September");?></option>
+            <option value="10"><?php echo t("Oktober");?></option>
             <option value="11"><?php echo t("November");?></option>
-			<option value="12"><?php echo t("Dezember");?></option>        
+            <option value="12"><?php echo t("Dezember");?></option>        
         </select></td>
         
         <th><?php echo t("Jahr");?>:</th>
-		  <td><select name="year" size="1"> 
-          	<option value="2010">2010</option>
-			<option value="2011">2011</option>
-			<option value="2012">2012</option>
-			<option value="2013">2013</option>
+          <td><select name="year" size="1"> 
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
         </select></td></tr>
-    </table>
-        
-    <input type="submit" value="<?php echo t("Anzeigen");?>">
+	</table>
+    
+    <input type="hidden" name="update" value="1">
+            
+	<input type="submit" value="<?php echo t("Anzeigen");?>">
+</form>
+<br />
 
-	</form>
-    <br />
 <?php
+
+if (! empty($_POST))
+{	
+	if ($_POST['update'] == 2)
+	{
+		good_query('UPDATE guests SET firstname="'.$_POST['firstname'].'", lastname="'.$_POST['lastname'].'", street="'.$_POST['street'].'", number="'.$_POST['number'].'", zip="'.$_POST['zip'].'", city="'.$_POST['city'].'", country="'.$_POST['country'].'", phone="'.$_POST['phone'].'", email="'.$_POST['email'].'" WHERE id="'.$_POST['guest'].'"');
 		
-	if (!empty($_POST))
-    {
-	
+		echo "Daten aktualisiert.";
+	}
+	else
+	{
 	$number_day = strftime("%w",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
 	$count_days = date("t",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
 	
@@ -120,7 +118,7 @@ else
             echo '<td></td><td></td><td></td><td></td><td></td><td></td>';
             $j = 7;
 			break;
-	}
+	} //switch
 			
 			$count_all_rooms = db_count_all_rooms();	
 				
@@ -135,44 +133,103 @@ else
 		if ($j % 7 == 0)
 		{
 			echo '</tr><tr>';
-		}
+		}// if
 		
 		$j++;
-	}
+	} //for
 
 	echo '</tr></table>';
+	} // else
+}// if
+
+if (! empty($_GET['show']))
+{
+	$bookings = good_query_table('SELECT a.room, a.guest as guestid, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname, b.name FROM bookings as a right join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$_GET['show'].'" AND end>="'.$_GET['show'].'"');
 	
-	}
-	}
-	
-	if (! empty($_GET['show']))
+	echo '<form><table>';
+	echo '<tr><th>'.t("").'</th>
+			  <th>'.t("Raum").'</th>
+			  <th>'.t("Vorname").'</th>
+			  <th>'.t("Nachname").'</th>
+			  <th>'.t("Personen").'</th>
+			  <th>'.t("Beginn").'</th>
+			  <th>'.t("Ende").'</th>
+			  <th>'.t("Kommentar").'</th></tr>';
+			
+	foreach ($bookings as $booking)
 	{
-		$bookings = good_query_table('SELECT a.room, a.guest, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname as roomid, b.name FROM bookings as a inner join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$_GET['show'].'" AND end>="'.$_GET['show'].'"');
-		
-		echo '<form><table>';
-		echo '<tr><th>'.t("Raum").'</th>
-				  <th>'.t("Vorname").'</th>
-				  <th>'.t("Nachname").'</th>
-				  <th>'.t("Personen").'</th>
-				  <th>'.t("Beginn").'</th>
-				  <th>'.t("Ende").'</th>
-				  <th>'.t("Kommentar").'</th></tr>';
-		
-		foreach ($bookings as $booking)
-            {
-				echo '<tr><td>'.$booking['name'].'</td>';
-				echo '<td>'.$booking['firstname'].'</td>';
-				echo '<td>'.$booking['lastname'].'</td>';
-				echo '<td>'.$booking['persons'].'</td>';
-				echo '<td>'.$booking['begin'].'</td>';
-				echo '<td>'.$booking['end'].'</td>';
-				echo '<td>'.$booking['comment'].'</td></tr>';
-			}
+		echo '<tr><td><a href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'],"edit",$booking['guestid']).'">'.t("Bearbeiten").'</a></td>';
+			
+		echo '<td>'.$booking['name'].'</td>';
+		echo '<td>'.$booking['firstname'].'</td>';
+		echo '<td>'.$booking['lastname'].'</td>';
+		echo '<td>'.$booking['persons'].'</td>';
+		echo '<td>'.$booking['begin'].'</td>';
+		echo '<td>'.$booking['end'].'</td>';
+		echo '<td>'.$booking['comment'].'</td></tr>';
+	}// foreach
 			
 	echo '</table>';	
 	echo '</form>';
-	
-}
+}// if
+
+if (! empty($_GET['edit']))
+{
+
+$guests_guest = good_query_table('SELECT id,firstname, lastname, street, number, zip, city, country, phone, email FROM guests WHERE id="'.$_GET['edit'].'"');
+
+?>
+
+<form action="schedule.php" method="post">
+
+<table>
+	<th><table border="0">
+	<tr><th><?php echo t("Vorname");?>:</th>
+	<td><input type="text" name="firstname" value="<?php echo $guests_guest[0]['firstname']?>"></td></tr>
+
+    <tr><th><?php echo t("Nachname");?>:</th>
+    <td><input type="text" name="lastname" value="<?php echo $guests_guest[0]['lastname']?>"></td></tr>
+    
+    <tr><th><?php echo t("Strasse");?>:</th>
+    <td><input type="text" name="street" value="<?php echo $guests_guest[0]['street']?>"></td></tr>
+
+    <tr><th><?php echo t("Hausnummer");?>:</th>
+    <td><input type="text" name="number"value="<?php echo $guests_guest[0]['number']?>"></td></tr>
+    
+    <tr><th><?php echo t("PLZ");?>:</th>
+    <td><input type="text" name="zip" value="<?php echo $guests_guest[0]['zip']?>"></td></tr>
+    
+    <tr><th><?php echo t("Wohnort");?>:</th>
+    <td><input type="text" name="city" value="<?php echo $guests_guest[0]['city']?>"></td></tr>
+    
+    <tr><th><?php echo t("Land");?>:</th>
+    <td><input type="text" name="country" value="<?php echo $guests_guest[0]['country']?>"></td></tr>
+    
+    <tr><th><?php echo t("Telefon");?>:</th>
+    <td><input type="text" name="phone" value="<?php echo $guests_guest[0]['phone']?>"></td></tr>
+    
+    <tr><th><?php echo t("E-Mail");?>:</th>
+    <td><input type="text" name="email" value="<?php echo $guests_guest[0]['email']?>"></td></tr>
+	</table></th>
+
+	<th><table border="0">
+    	<tr><th><?php echo t("Kommentar");?>:</th>
+        <td><textarea name="comment" rows="5" cols="42" value="<?php echo $guests_guest[0]['comment']?>"></textarea></td></tr>
+        
+        </table></th></tr>
+    </table></th>
+</table>
+
+<input type="hidden" name="update" value="2">
+<input type="hidden" name="guest" value="<?php echo $guests_guest[0]['id']?>">
+    
+<input type="submit" value="<?php echo t("Aktualisieren");?>">
+
+</form>
+
+<?php
+
+}// if edit
 
 include('include/footer.inc');
 
