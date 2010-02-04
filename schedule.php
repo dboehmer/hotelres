@@ -193,7 +193,7 @@ if (! empty($_GET['show']))
 			
 	foreach ($bookings as $booking)
 	{
-		echo '<tr><td><a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"edit",$booking['guestid']).'">'.t("Bearbeiten").'</a></td>';
+		echo '<tr><td><a href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'].'?show='.$_GET['show'].'',"edit",$booking['guestid']).'">'.t("Bearbeiten").'</a></td>';
 			
 		echo '<td>'.$booking['name'].'</td>';
 		echo '<td>'.$booking['firstname'].'</td>';

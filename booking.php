@@ -34,8 +34,7 @@ unset($msg); // delete any old messages from past actions
 
 if ($_POST['insert'] == 1)
     {
-		$bookings_rooms = good_query_table('SELECT a.room, b.id as roomid, b.name FROM bookings as a inner join rooms as b on a.room = b.id WHERE begin<="'.db_date_format($_POST['begin']).'" AND end>="'.db_date_format($_POST['end']).'" GROUP BY b.name');
-		
+		$bookings_rooms = good_query_table('SELECT room as roomid FROM bookings WHERE begin<="'.db_date_format($_POST['end']).'" AND end>="'.db_date_format($_POST['begin']).'" GROUP BY roomid');		
 		$insert_flag = 1;
 		
 		foreach($bookings_rooms as $rooms)
@@ -43,14 +42,15 @@ if ($_POST['insert'] == 1)
 			if ($rooms['roomid'] == $_POST['room'])
 			{
 				$insert_flag = 0;
+				break;
 			}
 			 	
-		}
+		}// foreach
 		
 		if ((empty($_POST['begin'])) or (empty($_POST['end'])))
 		{
 			$insert_flag = 0;
-		}
+		}// if
 		
 		if ($insert_flag)
 		{
