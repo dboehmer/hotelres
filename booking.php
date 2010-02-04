@@ -32,11 +32,7 @@ include('include/header.inc');
 // do actions if according $_POST value is given
 unset($msg); // delete any old messages from past actions
 
-if (empty($_POST))
-    {
-       	// do nothing
-	}
-else
+if ($_POST['insert'] == 1)
     {
 		$bookings_rooms = good_query_table('SELECT a.room, b.id as roomid, b.name FROM bookings as a inner join rooms as b on a.room = b.id WHERE begin<="'.db_date_format($_POST['begin']).'" AND end>="'.db_date_format($_POST['end']).'" GROUP BY b.name');
 		
@@ -74,7 +70,7 @@ else
 	    {
 		$msg.="<p>".t("Zimmer in dieser Zeit belegt.")."</p>";
 		}
-	}
+	}// if
 	
 echo $msg;
 ?>
@@ -144,6 +140,8 @@ echo $msg;
         </table></th></tr>
     </table></th>
 </table>
+
+<input type="hidden" name="insert" value="1">
 
 <input type="submit" value="<?php echo t("Buchen");?>">
 <input type="reset" value="<?php echo t("Reset");?>">

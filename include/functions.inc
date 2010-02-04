@@ -47,6 +47,11 @@ function db_date_format($value)
 		return strftime("%Y-%m-%d",strtotime($value));
 	}
 	
+function default_date_format($value)
+	{
+		return strftime("%d.%m.%Y",strtotime($value));
+	}
+	
 function db_count_engaged_rooms($begin, $end)
 	{
 		$newCountRooms = good_query('SELECT a.room, b.id, b.name FROM bookings as a inner join rooms as b on a.room = b.id WHERE begin<="'.$begin.'" AND end>="'.$end.'" GROUP BY b.name');
