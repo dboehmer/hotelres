@@ -90,7 +90,7 @@ if (! empty($_POST))
 	$number_day = strftime("%w",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
 	$count_days = date("t",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
 	
-	echo strftime("%B %Y",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
+	echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$_POST['month'],1,$_POST['year'])));
 	
 	echo '<table><tr><th>'.t("Montag").'</th>
 					 <th>'.t("Dienstag").'</th>

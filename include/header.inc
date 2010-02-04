@@ -38,6 +38,15 @@ elseif (!$_SESSION['language'] && $LANGUAGE)
 	{
 		$_SESSION['language'] = $LANGUAGE;
 	}
+	
+if ($_SESSION['language'] == "de")
+	{
+		setlocale(LC_TIME,'de_DE','de','deu');
+	}
+elseif ($_SESSION['language'] == "en")
+	{
+		setlocale(LC_TIME,'en_GB','en','eng');
+	}
 
 // include library files with setups and functions, alphabetically sorted
 include_once("include/db.inc");
@@ -111,8 +120,8 @@ if ($_SESSION['login'])
 // add div area with language links
 echo '<div id="language">'.t("Sprache wählen").":";
 $langs=array(
-		"de_DE" => "Deutsch",
-		"en_GB" => "English");
+		"de" => "Deutsch",
+		"en" => "English");
 foreach ($langs as $lang => $language)
 	{
 		if ($lang == $_SESSION['language'])
@@ -121,7 +130,6 @@ foreach ($langs as $lang => $language)
 		}
 		else
 		{
-			setlocale(LC_TIME,$lang);
 			echo ' <a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"language",$lang).'">'.$language.'</a>';
 		}
 	}
