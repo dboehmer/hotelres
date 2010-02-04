@@ -178,7 +178,7 @@ if (! empty($_GET['show']))
 {
 	echo 'Raumbelegung am '.default_date_format($_GET['show']);
 
-	$bookings = good_query_table('SELECT a.id as bookingid, a.room, a.guest as guestid, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname, b.name FROM bookings as a right join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$_GET['show'].'" AND end>="'.$_GET['show'].'"');
+	$bookings = good_query_table('SELECT a.id as bookingid, a.room, a.guest as guestid, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname, b.name FROM bookings as a right join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$_GET['show'].'" AND end>="'.$_GET['show'].'" ORDER BY c.lastname ASC');
 	
 	echo '<form><table>';
 	echo '<tr><th>'.t("").'</th>
