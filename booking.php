@@ -70,11 +70,18 @@ if ($_POST['insert'] == 1)
 	    {
 		$msg.="<p>".t("Zimmer in dieser Zeit belegt.")."</p>";
 		}
+	?>
+    <br />
+    <form action="booking.php">
+    
+    <?php echo $msg;?>
+    
+    </form>
+    <br />	
+    <?php
 	}// if
-	
-echo $msg;
 ?>
-
+    
 <form action="booking.php" method="post">
 
 <table>

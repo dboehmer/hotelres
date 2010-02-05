@@ -143,6 +143,7 @@ echo '<div style="clear:both"><a href="index.php">Start</a>
 	    <a href="booking.php">Reservierung</a>
 	    <a href="schedule.php">Belegungsplan</a>
         <a href="usermgmt.php">Benutzerverwaltung</a>
+		<a href="room.php">Zimmerverwaltung</a>
 	    <a href="imprint.php">Impressum</a>
 	    </div>';
 
