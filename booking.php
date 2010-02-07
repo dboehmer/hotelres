@@ -33,30 +33,42 @@ include('include/header.inc');
 unset($msg); // delete any old messages from past actions
 
 if ($_POST['insert'] == 1)
-    {
-		$bookings_rooms = good_query_table('SELECT room as roomid FROM bookings WHERE begin<="'.db_date_format($_POST['end']).'" AND end>="'.db_date_format($_POST['begin']).'" GROUP BY roomid');		
+    {	
 		$insert_flag = 1;
 		
-		foreach($bookings_rooms as $rooms)
-        {
-			if ($rooms['roomid'] == $_POST['room'])
-			{
-				$insert_flag = 0;
-				break;
-			}
-			 	
-		}// foreach
-		
-		if ((empty($_POST['begin'])) or (empty($_POST['end'])))
+		if ((empty($_POST['begin'])) OR (empty($_POST['end'])))
 		{
+			$msg="<p>".t("Datum überprüfen 1.");
 			$insert_flag = 0;
 		}// if
 		else
 		{
 			if ((check_date($_POST['begin']) == 0) OR (check_date($_POST['end']) == 0))
 			{
+				$msg="<p>".t("Datum überprüfen 2."); 
 				$insert_flag = 0;
 			}// if
+			else
+			{	
+				if (strtotime($_POST['begin']) > strtotime($_POST['end']))
+				{
+					$msg="<p>".t("Datum überprüfen 3."); 
+					$insert_flag = 0;
+				}// if
+				else
+				{				
+					$bookings_rooms = good_query_table('SELECT a.room as roomid, b.name AS roomname, b.id FROM bookings as a RIGHT JOIN rooms AS b ON a.room = b.id WHERE begin<="'.db_date_format($_POST['end']).'" AND end>="'.db_date_format($_POST['begin']).'" GROUP BY roomid');								
+					foreach($bookings_rooms as $rooms)
+					{
+						if ($rooms['roomid'] == $_POST['room'])
+						{
+							$insert_flag = 0;
+							$msg="<p>".t("Zimmer ".$rooms['roomname']." im Zeitraum vom ".$_POST['begin']." bis ".$_POST['end']." nicht verfügbar.");
+							break;
+						}// if
+					}// foreach
+				}// else
+			}// else
 		}// else
 		
 		if ($insert_flag)
@@ -71,11 +83,11 @@ if ($_POST['insert'] == 1)
 		good_query("INSERT INTO bookings (room,guest,persons,begin,end,comment) VALUES 
 ('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".db_date_format($_POST['begin'])."','".db_date_format($_POST['end'])."','".$_POST['comment']."')",2);
 
-	    $msg.="<p>".t("Zimmer gebucht.")."</p>";
+	    $msg="<p>".t("Zimmer gebucht.")."</p>";
 		}
 	else
 	    {
-		$msg.="<p>".t("Zimmer in dieser Zeit belegt.")."</p>";
+		$msg.= t(" Zimmer wurde nicht gebucht.")."</p>";
 		}
 	?>
     <br />

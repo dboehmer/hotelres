@@ -54,7 +54,8 @@ function default_date_format($value)
 	
 function check_date($value)
 	{
-		return checkdate(strftime("%m",strtotime($value)),strftime("%d",strtotime($value)),strftime("%Y",strtotime($value)));
+		$array_date = explode(".",$value);	
+		return checkdate($array_date[1],$array_date[0],$array_date[2]);
 	}
 	
 function db_count_engaged_rooms($begin, $end)
