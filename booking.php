@@ -38,21 +38,21 @@ if ($_POST['insert'] == 1)
 		
 		if ((empty($_POST['begin'])) OR (empty($_POST['end'])))
 		{
-			$msg="<p>".t("Datum überprüfen 1.");
+			$msg="<p>".t("Datum nicht eingegeben.");
 			$insert_flag = 0;
 		}// if
 		else
 		{
 			if ((check_date($_POST['begin']) == 0) OR (check_date($_POST['end']) == 0))
 			{
-				$msg="<p>".t("Datum überprüfen 2."); 
+				$msg="<p>".t("Datum nicht gültig."); 
 				$insert_flag = 0;
 			}// if
 			else
 			{	
 				if (strtotime($_POST['begin']) > strtotime($_POST['end']))
 				{
-					$msg="<p>".t("Datum überprüfen 3."); 
+					$msg="<p>".t("Kein gültiger Zeitraum."); 
 					$insert_flag = 0;
 				}// if
 				else
@@ -170,7 +170,7 @@ if ($_POST['insert'] == 1)
 <input type="hidden" name="insert" value="1">
 
 <input type="submit" value="<?php echo t("Buchen");?>">
-<input type="reset" value="<?php echo t("Reset");?>">
+<input type="reset" value="<?php echo t("Zurücksetzen");?>">
 
 </form>
 

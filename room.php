@@ -125,7 +125,7 @@ else
 	<input type="hidden" name="insert" value="1">
 	
 	<input type="submit" value="<?php echo t("Hinzufügen");?>">
-	<input type="reset" value="<?php echo t("Reset");?>">
+	<input type="reset" value="<?php echo t("Zurücksetzen");?>">
 	
 	</form>
 		

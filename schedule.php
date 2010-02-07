@@ -84,11 +84,13 @@ if ($_GET['delete'] > 0)
         </select></td>
         
         <td><?php echo t("Jahr");?>:</td>
-          <td><select name="year" size="1"> 
-            <option value="2010">2010</option>
-            <option value="2011">2011</option>
-            <option value="2012">2012</option>
-            <option value="2013">2013</option>
+          <td><select name="year" size="1">
+          	<?php
+			for($i=2010; $i <= 2020; $i++)
+			{
+            	echo "<option value=".$i.">".$i."</option>";
+           	}
+			?>
         </select></td></tr>
 	</table>
     
@@ -179,13 +181,13 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 		$bookingdate = $_POST['date'];
 	}	
 	
-	echo t("Raumbelegung am ").default_date_format($bookingdate);
+	echo t("Zimmerbelegung am ").default_date_format($bookingdate);
 
 	$bookings = good_query_table('SELECT a.id as bookingid, a.room, a.guest as guestid, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname, b.name FROM bookings as a right join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$bookingdate.'" AND end>="'.$bookingdate.'" ORDER BY c.lastname ASC');
 	
 	echo '<form><table>';
 	echo '<tr><th>'.t("").'</th>
-			  <th>'.t("Raum").'</th>
+			  <th>'.t("Zimmer").'</th>
 			  <th>'.t("Vorname").'</th>
 			  <th>'.t("Nachname").'</th>
 			  <th>'.t("Personen").'</th>
