@@ -67,7 +67,7 @@ if ($_GET['delete'] > 0)
 
 <form action="schedule.php" method="post">
 	<table>
-        <tr><th><?php echo t("Monat");?>:</th>
+        <tr><td><?php echo t("Monat");?>:</td>
           <td><select name="month" size="1"> 
             <option value="1"><?php echo t("Januar");?></option>
             <option value="2"><?php echo t("Februar");?></option>
@@ -83,7 +83,7 @@ if ($_GET['delete'] > 0)
             <option value="12"><?php echo t("Dezember");?></option>        
         </select></td>
         
-        <th><?php echo t("Jahr");?>:</th>
+        <td><?php echo t("Jahr");?>:</td>
           <td><select name="year" size="1"> 
             <option value="2010">2010</option>
             <option value="2011">2011</option>
@@ -226,41 +226,41 @@ echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]
 <form action="schedule.php" method="post">
 
 <table>
-	<th><table border="0">
-	<tr><th><?php echo t("Vorname");?>:</th>
+	<td><table border="0">
+	<tr><td><?php echo t("Vorname");?>:</td>
 	<td><input type="text" name="firstname" value="<?php echo $guests_guest[0]['firstname']?>"></td></tr>
 
-    <tr><th><?php echo t("Nachname");?>:</th>
+    <tr><td><?php echo t("Nachname");?>:</td>
     <td><input type="text" name="lastname" value="<?php echo $guests_guest[0]['lastname']?>"></td></tr>
     
-    <tr><th><?php echo t("Strasse");?>:</th>
+    <tr><td><?php echo t("Strasse");?>:</td>
     <td><input type="text" name="street" value="<?php echo $guests_guest[0]['street']?>"></td></tr>
 
-    <tr><th><?php echo t("Hausnummer");?>:</th>
+    <tr><td><?php echo t("Hausnummer");?>:</td>
     <td><input type="text" name="number"value="<?php echo $guests_guest[0]['number']?>"></td></tr>
     
-    <tr><th><?php echo t("PLZ");?>:</th>
+    <tr><td><?php echo t("PLZ");?>:</td>
     <td><input type="text" name="zip" value="<?php echo $guests_guest[0]['zip']?>"></td></tr>
     
-    <tr><th><?php echo t("Wohnort");?>:</th>
+    <tr><td><?php echo t("Wohnort");?>:</td>
     <td><input type="text" name="city" value="<?php echo $guests_guest[0]['city']?>"></td></tr>
     
-    <tr><th><?php echo t("Land");?>:</th>
+    <tr><td><?php echo t("Land");?>:</td>
     <td><input type="text" name="country" value="<?php echo $guests_guest[0]['country']?>"></td></tr>
     
-    <tr><th><?php echo t("Telefon");?>:</th>
+    <tr><td><?php echo t("Telefon");?>:</td>
     <td><input type="text" name="phone" value="<?php echo $guests_guest[0]['phone']?>"></td></tr>
     
-    <tr><th><?php echo t("E-Mail");?>:</th>
+    <tr><td><?php echo t("E-Mail");?>:</td>
     <td><input type="text" name="email" value="<?php echo $guests_guest[0]['email']?>"></td></tr>
-	</table></th>
+	</table></td>
 
-	<th><table border="0">
-    	<tr><th><?php echo t("Kommentar");?>:</th>
+	<td><table border="0">
+    	<tr><td><?php echo t("Kommentar");?>:</td>
         <td><textarea name="comment" rows="5" cols="42" value="<?php echo $guests_guest[0]['comment']?>"></textarea></td></tr>
         
-        </table></th></tr>
-    </table></th>
+        </table></td></tr>
+    </table></td>
 </table>
 
 <input type="hidden" name="update" value="1">

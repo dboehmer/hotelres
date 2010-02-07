@@ -51,6 +51,13 @@ if ($_POST['insert'] == 1)
 		{
 			$insert_flag = 0;
 		}// if
+		else
+		{
+			if ((check_date($_POST['begin']) == 0) OR (check_date($_POST['end']) == 0))
+			{
+				$insert_flag = 0;
+			}// if
+		}// else
 		
 		if ($insert_flag)
 		{
@@ -85,46 +92,46 @@ if ($_POST['insert'] == 1)
 <form action="booking.php" method="post">
 
 <table>
-	<th><table border="0">
-	<tr><th><?php echo t("Vorname");?>:</th>
+	<td><table border="0">
+	<tr><td><?php echo t("Vorname");?>:</td>
 	<td><input type="text" name="firstname"></td></tr>
 
-    <tr><th><?php echo t("Nachname");?>:</th>
+    <tr><td><?php echo t("Nachname");?>:</td>
     <td><input type="text" name="lastname"></td></tr>
     
-    <tr><th><?php echo t("Strasse");?>:</th>
+    <tr><td><?php echo t("Strasse");?>:</td>
     <td><input type="text" name="street"></td></tr>
 
-    <tr><th><?php echo t("Hausnummer");?>:</th>
+    <tr><td><?php echo t("Hausnummer");?>:</td>
     <td><input type="text" name="number"></td></tr>
     
-    <tr><th><?php echo t("PLZ");?>:</th>
+    <tr><td><?php echo t("PLZ");?>:</td>
     <td><input type="text" name="zip"></td></tr>
     
-    <tr><th><?php echo t("Wohnort");?>:</th>
+    <tr><td><?php echo t("Wohnort");?>:</td>
     <td><input type="text" name="city"></td></tr>
     
-    <tr><th><?php echo t("Land");?>:</th>
+    <tr><td><?php echo t("Land");?>:</td>
     <td><input type="text" name="country"></td></tr>
     
-    <tr><th><?php echo t("Telefon");?>:</th>
+    <tr><td><?php echo t("Telefon");?>:</td>
     <td><input type="text" name="phone"></td></tr>
     
-    <tr><th><?php echo t("E-Mail");?>:</th>
+    <tr><td><?php echo t("E-Mail");?>:</td>
     <td><input type="text" name="email"></td></tr>
-	</table></th>
+	</table></td>
 
-	<th><table border="0">
-    	<tr><th><table border="0">
-    	<tr><th><?php echo t("Datum Einchecken");?>:</th>
+	<td><table border="0">
+    	<tr><td><table border="0">
+    	<tr><td><?php echo t("Datum Einchecken");?>:</td>
         <td><input type="text" name="begin"></td></tr>
         
-        <tr><th><?php echo t("Datum Auschecken");?>:</th>
+        <tr><td><?php echo t("Datum Auschecken");?>:</td>
         <td><input type="text" name="end"></td></tr>
-		</table></th></tr>
+		</table></td></tr>
         
-        <tr><th><table border="0">
-		<tr><th><?php echo t("Raum");?>:</th>
+        <tr><td><table border="0">
+		<tr><td><?php echo t("Raum");?>:</td>
 		<td><select name="room" size="1"> 
         
 		<?php
@@ -137,15 +144,15 @@ if ($_POST['insert'] == 1)
         
         </select></td></tr>
         
-        </table></th></tr>
+        </table></td></tr>
         
-        <tr><th><table border="0">
+        <tr><td><table border="0">
 
-        <tr><th><?php echo t("Kommentar");?>:</th>
+        <tr><td><?php echo t("Kommentar");?>:</td>
         <td><textarea name="comment" rows="5" cols="42"></textarea></td></tr>
         
-        </table></th></tr>
-    </table></th>
+        </table></td></tr>
+    </table></td>
 </table>
 
 <input type="hidden" name="insert" value="1">

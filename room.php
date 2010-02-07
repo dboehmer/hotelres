@@ -36,7 +36,7 @@ unset($msg); // delete any old messages from past actions
 
 if ($_SESSION['rights'] != "admin")
     {
-        echo "<strong>".t("Sie haben keine Administratorrechte und können keine Zmmer verwalten!")."</strong>";
+        echo "<strong>".t("Sie haben keine Administratorrechte und können keine Zimmer verwalten!")."</strong>";
     }
 else
 {
@@ -71,7 +71,7 @@ else
 	
 	if ($_POST['insert'] == 1)
 	{
-		good_query('INSERT INTO rooms (name,capacity) VALUES ("'.$_GET['name'].'", "'.$_GET['capacity'].'")',2);
+		good_query('INSERT INTO rooms (name,capacity) VALUES ("'.$_POST['name'].'", "'.$_POST['capacity'].'")',2);
 				
 		?>
 		
@@ -114,14 +114,12 @@ else
 		
 	<form action="room.php" method="post">
 	
-	<table>
-		<th><table border="0">
-		<tr><th><?php echo t("Name");?>:</th>
+	<table border="0">
+		<td><?php echo t("Name");?>:</td>
 		<td><input type="text" name="name"></td>
 	
-		<th><?php echo t("Personen");?>:</th>
-		<td><input type="text" name="capacity"></td></tr>
-		</table></th>
+		<td><?php echo t("Personen");?>:</td>
+		<td><input type="text" name="capacity"></td>
 	</table>
 	
 	<input type="hidden" name="insert" value="1">

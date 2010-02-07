@@ -44,7 +44,21 @@ echo '<p>'.t_replace("aus der Seminargruppe %s.", false, "IT2007").'</p>';
 ?>
 
 <h3>Anschrift</h3>
-<p>Staatliche Berufsakademie Leipzig<br/>Schönauer Straße 113a<br/>04207 Leipzig</p>
+<p class="vcard">
+ <span class="fn">Staatliche Berufsakademie Leipzig</span>
+ <div class="adr">
+  <div class="street-address">Schönauer Straße 113a</div>
+  <span class="postal-code">04207</span>
+  <span class="locality">Leipzig</span>
+  <br />
+  <span class="region">Sachsen</span>,
+  <span class="country-name">Deutschland</span>
+ </div>
+ <div class="tel">
+  <div class="home">0341 / 42743-330</div>
+ </div>
+ <div><a class="email" href="mailto:info@ba-leipzig.de">info@ba-leipzig.de</a></div>
+</p>
 
 <?php
 
