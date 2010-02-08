@@ -42,9 +42,9 @@ function url_add_parameter($url, $parameter, $value)
 		return($newUrl);
 	}
 	
-function db_date_format($value)
+function db_date_format($value, $add)
 	{
-		return strftime("%Y-%m-%d",strtotime($value));
+		return strftime("%Y-%m-%d",strtotime($value)+$add);
 	}
 	
 function default_date_format($value)

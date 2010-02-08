@@ -44,8 +44,8 @@ echo '<p>'.t_replace("aus der Seminargruppe %s.", false, "IT2007").'</p>';
 ?>
 
 <h3>Anschrift</h3>
-<p class="vcard">
- <span class="fn">Staatliche Berufsakademie Leipzig</span>
+<div class="vcard">
+ <p class="fn">Staatliche Berufsakademie Leipzig</p>
  <div class="adr">
   <div class="street-address">Schönauer Straße 113a</div>
   <span class="postal-code">04207</span>
@@ -58,7 +58,7 @@ echo '<p>'.t_replace("aus der Seminargruppe %s.", false, "IT2007").'</p>';
   <div class="home">0341 / 42743-330</div>
  </div>
  <div><a class="email" href="mailto:info@ba-leipzig.de">info@ba-leipzig.de</a></div>
-</p>
+</div>
 
 <?php
 

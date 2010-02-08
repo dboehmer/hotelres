@@ -153,11 +153,11 @@ switch ($number_day)
 			
 for ($i=1; $i<=$count_days; $i++)
 {
-	$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$_POST['month'].".".$_POST['year']),db_date_format($i.".".$_POST['month'].".".$_POST['year']));
+	$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$_POST['month'].".".$_POST['year'],0),db_date_format($i.".".$_POST['month'].".".$_POST['year'],0));
 	
 	$utilization = number_format((($count_engaged_rooms * 100) / $count_all_rooms),2);
 		
-	echo '<td><a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$_POST['month'].".".$_POST['year'])).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
+	echo '<td><a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$_POST['month'].".".$_POST['year'],0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
 			
 	if ($j % 7 == 0)
 	{
@@ -181,7 +181,7 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 		$bookingdate = $_POST['date'];
 	}	
 	
-	echo t("Zimmerbelegung am ").default_date_format($bookingdate);
+	echo t("Zimmerbelegung am ").default_date_format($bookingdate)."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=".url_add_parameter($_SERVER["ORIG_PATH_INFO"],"show",db_date_format($bookingdate,(60*60*24*-1))).">".t("vorheriger")."</a>"."&nbsp;&nbsp;&nbsp;<a href=".url_add_parameter($_SERVER["ORIG_PATH_INFO"],"show",db_date_format($bookingdate,(60*60*24))).">".t("nächster")."</a>";
 
 	$bookings = good_query_table('SELECT a.id as bookingid, a.room, a.guest as guestid, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname, b.name FROM bookings as a right join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$bookingdate.'" AND end>="'.$bookingdate.'" ORDER BY c.lastname ASC');
 	

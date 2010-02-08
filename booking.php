@@ -57,7 +57,7 @@ if ($_POST['insert'] == 1)
 				}// if
 				else
 				{				
-					$bookings_rooms = good_query_table('SELECT a.room as roomid, b.name AS roomname, b.id FROM bookings as a RIGHT JOIN rooms AS b ON a.room = b.id WHERE begin<="'.db_date_format($_POST['end']).'" AND end>="'.db_date_format($_POST['begin']).'" GROUP BY roomid');								
+					$bookings_rooms = good_query_table('SELECT a.room as roomid, b.name AS roomname, b.id FROM bookings as a RIGHT JOIN rooms AS b ON a.room = b.id WHERE begin<="'.db_date_format($_POST['end'],0).'" AND end>="'.db_date_format($_POST['begin'],0).'" GROUP BY roomid');								
 					foreach($bookings_rooms as $rooms)
 					{
 						if ($rooms['roomid'] == $_POST['room'])
@@ -81,7 +81,7 @@ if ($_POST['insert'] == 1)
 		 
 		$rooms_room = good_query_table("SELECT id, capacity FROM rooms WHERE id='".$_POST['room']."'");		
 		good_query("INSERT INTO bookings (room,guest,persons,begin,end,comment) VALUES 
-('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".db_date_format($_POST['begin'])."','".db_date_format($_POST['end'])."','".$_POST['comment']."')",2);
+('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".db_date_format($_POST['begin'],0)."','".db_date_format($_POST['end'],0)."','".$_POST['comment']."')",2);
 
 	    $msg="<p>".t("Zimmer gebucht.")."</p>";
 		}
@@ -143,7 +143,7 @@ if ($_POST['insert'] == 1)
 		</table></td></tr>
         
         <tr><td><table border="0">
-		<tr><td><?php echo t("Raum");?>:</td>
+		<tr><td><?php echo t("Zimmer");?>:</td>
 		<td><select name="room" size="1"> 
         
 		<?php
