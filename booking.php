@@ -153,14 +153,15 @@ if ($_POST['insert'] == 1)
 		<td><select name="room" size="1"> 
         
 		<?php
-        $rooms = good_query_table("SELECT id, name, capacity  FROM rooms",2);
 		
-		if (good_num(&$rooms) > 0)
+		$rooms = good_query_table("SELECT id, name, capacity FROM rooms",2);
+		
+		if (count($rooms) > 0)
 		{
 			foreach($rooms as $room)
-				{
-					echo '<option value="' . $room['id'] . '">' . $room['name'] . "\n(\n" . $room['capacity'] . "\n" . t("Person(en)") . "\n)" . '</option>';
-				}
+			{
+				echo '<option value="' . $room['id'] . '">' . $room['name'] . "\n(\n" . $room['capacity'] . "\n" . t("Person(en)") . "\n)" . '</option>';
+			}
         }
         else
         {
@@ -187,7 +188,6 @@ if ($_POST['insert'] == 1)
 <input type="reset" value="<?php echo t("Zurücksetzen");?>">
 
 </form>
-
 
 <?php
 
