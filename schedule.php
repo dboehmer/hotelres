@@ -157,8 +157,15 @@ for ($i=1; $i<=$count_days; $i++)
 {
 	$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$_POST['month'].".".$_POST['year'],0),db_date_format($i.".".$_POST['month'].".".$_POST['year'],0));
 	
-	$utilization = number_format((($count_engaged_rooms * 100) / $count_all_rooms),2);
-		
+	if ($count_all_rooms == 0)
+	{
+		$utilization = "-.--";
+	}
+	else
+	{
+		$utilization = number_format((($count_engaged_rooms * 100) / $count_all_rooms),2);
+	}
+	
 	echo '<td><a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$_POST['month'].".".$_POST['year'],0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
 			
 	if ($j % 7 == 0)

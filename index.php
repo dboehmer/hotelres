@@ -36,8 +36,8 @@ echo "<p>".t("Mit diesem System können Reservierungen erstellt, angesehen und v
 ?>
 <h3><?php echo t("Typische Aufgaben");?></h3>
 <ul>
-	<li><a href="schedule.php"><? echo t("Überprüfen Sie bestehende Buchungen im Belegungsplan");?></a></li>
-	<li><a href="booking.php"><? echo t("Einen neuen Gast einbuchen");?></a></li>
+	<li><a href="schedule.php"><?php echo t("Überprüfen Sie bestehende Buchungen im Belegungsplan");?></a></li>
+	<li><a href="booking.php"><?php echo t("Einen neuen Gast einbuchen");?></a></li>
 </ul>
 
 <?php

@@ -71,6 +71,12 @@ if ($_POST['insert'] == 1)
 			}// else
 		}// else
 		
+		if ($_POST['room'] == 0)
+		{
+			$insert_flag = 0;
+			$msg="<p>".t("Kein Zimmer ausgewählt."); 
+		}
+		
 		if ($insert_flag)
 		{
 		
@@ -148,10 +154,18 @@ if ($_POST['insert'] == 1)
         
 		<?php
         $rooms = good_query_table("SELECT id, name, capacity  FROM rooms",2);
-        foreach($rooms as $room)
-            {
-                echo '<option value="' . $room['id'] . '">' . $room['name'] . "\n(\n" . $room['capacity'] . "\n" . t("Person(en)") . "\n)" . '</option>';
-            }
+		
+		if (good_num(&$rooms) > 0)
+		{
+			foreach($rooms as $room)
+				{
+					echo '<option value="' . $room['id'] . '">' . $room['name'] . "\n(\n" . $room['capacity'] . "\n" . t("Person(en)") . "\n)" . '</option>';
+				}
+        }
+        else
+        {
+        	echo '<option value="0">-</option>';
+        }
         ?>
         
         </select></td></tr>
