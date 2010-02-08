@@ -34,6 +34,8 @@ if ($_POST['update'] == 1)
 {
 		good_query('UPDATE guests SET firstname="'.$_POST['firstname'].'", lastname="'.$_POST['lastname'].'", street="'.$_POST['street'].'", number="'.$_POST['number'].'", zip="'.$_POST['zip'].'", city="'.$_POST['city'].'", country="'.$_POST['country'].'", phone="'.$_POST['phone'].'", email="'.$_POST['email'].'" WHERE id="'.$_POST['guest'].'"');
 		
+		good_query('UPDATE bookings SET comment="'.$_POST['comment'].'" WHERE guest="'.$_POST['guest'].'"');
+		
 		?>
 		<br />
 		<form action="schedule.php">
@@ -219,7 +221,7 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 if ($_GET['edit'] > 0)
 {
 
-$guests_guest = good_query_table('SELECT id,firstname, lastname, street, number, zip, city, country, phone, email FROM guests WHERE id="'.$_GET['edit'].'"');
+$guests_guest = good_query_table('SELECT a.id,a.firstname, a.lastname, a.street, a.number, a.zip, a.city, a.country, a.phone, a.email, b.id, b.comment, b.guest FROM guests AS a RIGHT JOIN bookings AS b ON a.id = b.guest WHERE a.id="'.$_GET['edit'].'"');
 
 echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]['lastname'].'';
 ?>
@@ -259,7 +261,7 @@ echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]
 
 	<td><table border="0">
     	<tr><td><?php echo t("Kommentar");?>:</td>
-        <td><textarea name="comment" rows="5" cols="42" value="<?php echo $guests_guest[0]['comment']?>"></textarea></td></tr>
+        <td><textarea name="comment" rows="5" cols="42"><?php echo $guests_guest[0]['comment']?></textarea></td></tr>
         
         </table></td></tr>
     </table></td>
