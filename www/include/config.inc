@@ -25,16 +25,10 @@
 
 
 // credentials for MySQL access
-/*
-$MYSQL_SERVER="daniel-boehmer.de";
-$MYSQL_USERNAME="d00cbbb6";
-$MYSQL_PASSWORD="qompdqtS92dw2FMn";
-$MYSQL_DATABASE="d00cbbb6";
-*/
 
 $MYSQL_SERVER="localhost";
-$MYSQL_USERNAME="panic";
-$MYSQL_PASSWORD="u767958MYSQL";
+$MYSQL_USERNAME="hotelres";
+$MYSQL_PASSWORD="hotelres";
 $MYSQL_DATABASE="hotelres";
 
 $HOTEL_NAME="Burj Al Arab";
