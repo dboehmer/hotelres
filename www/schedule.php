@@ -48,7 +48,9 @@ if ($_GET['delete'] > 0)
 	
 	messages_add("<p>".t("Buchung erfolgreich storniert.")."</p>");
 }
-	
+
+messages_show();
+
 ?>
 
 <form action="schedule.php" method="post">
@@ -103,37 +105,13 @@ echo '<table><tr><th>'.t("Montag").'</th>
 				 <th>'.t("Freitag").'</th>
 				 <th>'.t("Samstag").'</th>
 				 <th>'.t("Sonntag").'</th></tr><tr>';
-	
-switch ($number_day)
-{
-	case 1:
-		$j = 1;
-		break;
-	case 2:
-		echo '<td></td>';
-		$j = 2;
-		break;
-	case 3:
-		echo '<td></td><td></td>';
-		$j = 3;
-		break;
-	case 4:
-		echo '<td></td><td></td><td></td>';
-		$j = 4;
-		break;
-	case 5:
-		echo '<td></td><td></td><td></td><td></td>';
-		$j = 5;
-		break;
-	case 6:
-		echo '<td></td><td></td><td></td><td></td><td></td>';
-		$j = 6;
-		break;
-	case 0:
-		echo '<td></td><td></td><td></td><td></td><td></td><td></td>';
-		$j = 7;
-		break;
-} //switch
+
+for ($i=1; $i<$number_day; $i++)
+    {
+        echo '<td>&nbsp;</td>';
+    }
+
+$j=$i;
 		
 		$count_all_rooms = db_count_all_rooms();	
 			
