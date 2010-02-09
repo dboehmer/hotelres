@@ -36,15 +36,7 @@ if ($_POST['update'] == 1)
 		
 		good_query('UPDATE bookings SET comment="'.$_POST['comment'].'" WHERE guest="'.$_POST['guest'].'"');
 		
-		?>
-		<br />
-		<form action="schedule.php">
-		
-        <?php echo t("Daten erfolgreich aktualisiert.");?>
-        
-		</form>
-        <br />
-		<?php
+		messages_add("<p>".t("Daten erfolgreich aktualisiert.")."</p>");
 }// if
 
 if ($_GET['delete'] > 0)
@@ -54,15 +46,7 @@ if ($_GET['delete'] > 0)
 	good_query('DELETE FROM bookings WHERE id="'.$del_bookings[0]['bookingid'].'"');
 	good_query('DELETE FROM guests WHERE id="'.$del_bookings[0]['guestid'].'"');
 	
-	?>
-		<br />
-		<form action="schedule.php">
-		
-        <?php echo t("Buchung erfolgreich storniert.");?>
-        
-		</form>
-        <br />
-	<?php
+	messages_add("<p>".t("Buchung erfolgreich storniert.")."</p>");
 }
 	
 ?>
