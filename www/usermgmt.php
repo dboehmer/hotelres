@@ -29,10 +29,6 @@ $PAGE_HEADLINE='Benutzer hinzufügen, ändern und entfernen';
 
 include('include/header.inc');
 
-// FIXME: this was apparently deleted, maybe you want to delete it again?
-// do actions if according $_POST value is given
-unset($msg); // delete any old messages from past actions
-
 $id=$_POST['id'];
 if (is_numeric($id))
     {

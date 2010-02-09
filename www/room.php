@@ -32,8 +32,6 @@ include('include/header.inc');
 // intro paragraph
 echo "<p>".t("Auf dieser Seite können Sie die Zimmer verwalten.")."</p>";
 
-unset($msg); // delete any old messages from past actions
-
 if ($_SESSION['rights'] != "admin")
     {
         echo "<strong>".t("Sie haben keine Administratorrechte und können keine Zimmer verwalten!")."</strong>";
@@ -46,25 +44,18 @@ else
 		
 		if ($bookings_roomcount[0]['roomcount'] > 0)
 		{
-			$msg = t("Zimmer konnte nicht entfernt werden. Es existieren noch Buchungen.");
+			messages_add("<p>".t("Zimmer konnte nicht entfernt werden. Es existieren noch Buchungen.")."</p>", "error");
 		}
 		else
 		{
 			good_query('DELETE FROM rooms WHERE id="'.$_GET['room'].'"');
 			
-			$msg = t("Zimmer erfolgreich entfernt.");
+			messages_add("<p>".t("Zimmer erfolgreich entfernt.")."</p>");
 		}// else
 			
-		?>
-        <br />
-        <form action="room.php">
+		messages_show();
         
-        <?php echo $msg;?>
         
-        </form>
-        <br />
-        
-		<?php
 		$_POST['insert'] = 0;
 	}// if
 	

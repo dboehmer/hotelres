@@ -75,6 +75,10 @@ div.info, div.warn, div.error, form {
     padding:1em;
 }
 
+div.info, div.warn, div.error {
+    margin-bottom:1em;
+}
+
 div.info, form {
     border-color:#000;
     border-width:1px;

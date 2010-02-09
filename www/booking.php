@@ -30,7 +30,6 @@ $PAGE_HEADLINE='Ein Zimmer buchen';
 include('include/header.inc');
 
 // do actions if according $_POST value is given
-unset($msg); // delete any old messages from past actions
 
 if ($_POST['insert'] == 1)
     {	
@@ -38,21 +37,21 @@ if ($_POST['insert'] == 1)
 		
 		if ((empty($_POST['begin'])) OR (empty($_POST['end'])))
 		{
-			$msg="<p>".t("Datum nicht eingegeben.");
+			messages_add("<p>".t("Datum nicht eingegeben.")."</p>", "error");
 			$insert_flag = 0;
 		}// if
 		else
 		{
 			if ((check_date($_POST['begin']) == 0) OR (check_date($_POST['end']) == 0))
 			{
-				$msg="<p>".t("Datum nicht gültig."); 
+				messages_add("<p>".t("Datum nicht gültig.")."</p>", "error"); 
 				$insert_flag = 0;
 			}// if
 			else
 			{	
 				if (strtotime($_POST['begin']) > strtotime($_POST['end']))
 				{
-					$msg="<p>".t("Kein gültiger Zeitraum."); 
+					messages_add("<p>".t("Kein gültiger Zeitraum.")."</p>", "error"); 
 					$insert_flag = 0;
 				}// if
 				else
@@ -63,7 +62,7 @@ if ($_POST['insert'] == 1)
 						if ($rooms['roomid'] == $_POST['room'])
 						{
 							$insert_flag = 0;
-							$msg="<p>".t("Zimmer ".$rooms['roomname']." im Zeitraum vom ".$_POST['begin']." bis ".$_POST['end']." nicht verfügbar.");
+							messages_add("<p>".t("Zimmer ".$rooms['roomname']." im Zeitraum vom ".$_POST['begin']." bis ".$_POST['end']." nicht verfügbar.")."</p>", "error");
 							break;
 						}// if
 					}// foreach
@@ -74,7 +73,7 @@ if ($_POST['insert'] == 1)
 		if ($_POST['room'] == 0)
 		{
 			$insert_flag = 0;
-			$msg="<p>".t("Kein Zimmer ausgewählt."); 
+			messages_add("<p>".t("Kein Zimmer ausgewählt.")."</p>", "error"); 
 		}
 		
 		if ($insert_flag)
@@ -89,22 +88,16 @@ if ($_POST['insert'] == 1)
 		good_query("INSERT INTO bookings (room,guest,persons,begin,end,comment) VALUES 
 ('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".db_date_format($_POST['begin'],0)."','".db_date_format($_POST['end'],0)."','".$_POST['comment']."')",2);
 
-	    $msg="<p>".t("Zimmer gebucht.")."</p>";
+	    messages_add("<p>".t("Zimmer gebucht.")."</p>");
 		}
 	else
 	    {
-		$msg.= t(" Zimmer wurde nicht gebucht.")."</p>";
+		messages_add("<p>".t(" Zimmer wurde nicht gebucht.")."</p>", "error");
 		}
-	?>
-    <br />
-    <form action="booking.php">
     
-    <?php echo $msg;?>
-    
-    </form>
-    <br />	
-    <?php
-	}// if
+	}
+
+messages_show();
 ?>
     
 <form action="booking.php" method="post">
