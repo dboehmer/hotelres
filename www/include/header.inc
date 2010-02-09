@@ -84,14 +84,14 @@ if (($_POST['action']=="login") && ($username=$_POST['username']) && ($password=
 		else
 			{
 				logout();
-				messages_add(t("Einloggen fehlgeschlagen! Falscher Benutzername oder falsches Passwort!"), "error");
+				messages_add("<p>".t("Einloggen fehlgeschlagen! Falscher Benutzername oder falsches Passwort!")."</p>", "error");
 			}
 	}
 // throw out user if idle for too long ($MAX_IDLE_TIME==0 -> ignore)
 elseif ($_SESSION['login'] and $_SESSION['time_last_request'] and ((mktime()-$_SESSION['time_last_request'])>$MAX_IDLE_TIME)  and ($MAX_IDLE_TIME>0))
 	{
 		logout();
-		messages_add(t("Sie haben die maximale Idle-Zeit von $MAX_IDLE_TIME Sekunden überschritten und wurden automatisch ausgeloggt!"), "warn");
+		messages_add("<p>".t("Sie haben die maximale Idle-Zeit von $MAX_IDLE_TIME Sekunden überschritten und wurden automatisch ausgeloggt!")."</p>", "warn");
 	}
 
 
