@@ -23,11 +23,10 @@
  *      MA 02110-1301, USA.
  */
 
-
-include_once("include/config.inc");
-
 // start session to set user specific settings in $_SESSION
 session_start();
+
+include_once("include/config.inc");
 
 // change to another language if user clicked on language link
 // if no language selected yet, try to get language from config.inc
@@ -39,13 +38,21 @@ elseif (!$_SESSION['language'] && $LANGUAGE)
 	{
 		$_SESSION['language'] = $LANGUAGE;
 	}
+	
+if ($_SESSION['language'] == "de")
+	{
+		setlocale(LC_TIME,'de_DE','de','deu');
+	}
+elseif ($_SESSION['language'] == "en")
+	{
+		setlocale(LC_TIME,'en_GB','en','eng');
+	}
 
 // include library files with setups and functions, alphabetically sorted
 include_once("include/db.inc");
 include_once("include/functions.inc");
 include_once("include/i18n.inc");
 include_once("include/statusmsgs.inc");
-
 
 // establish database connection
 good_connect($MYSQL_SERVER, $MYSQL_USERNAME, $MYSQL_PASSWORD, $MYSQL_DATABASE);
@@ -119,9 +126,13 @@ $langs=array(
 foreach ($langs as $lang => $language)
 	{
 		if ($lang == $_SESSION['language'])
+		{
 			echo " $language";
+		}
 		else
+		{
 			echo ' <a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"language",$lang).'">'.$language.'</a>';
+		}
 	}
 echo '</div>';
 
@@ -133,6 +144,7 @@ echo '<div style="clear:both"><a href="index.php">Start</a>
 	    <a href="booking.php">Reservierung</a>
 	    <a href="schedule.php">Belegungsplan</a>
         <a href="usermgmt.php">Benutzerverwaltung</a>
+		<a href="room.php">Zimmerverwaltung</a>
 	    <a href="imprint.php">Impressum</a>
 	    </div>';
 

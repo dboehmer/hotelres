@@ -47,5 +47,34 @@ function createSalt()
         // create random string as combination of current timestamp and RNG value
         return sha1(mktime() . mt_rand());
     }
-
+	
+function db_date_format($value, $add)
+	{
+		return strftime("%Y-%m-%d",strtotime($value)+$add);
+	}
+	
+function default_date_format($value)
+	{
+		return strftime("%d.%m.%Y",strtotime($value));
+	}
+	
+function check_date($value)
+	{
+		$array_date = explode(".",$value);	
+		return checkdate($array_date[1],$array_date[0],$array_date[2]);
+	}
+	
+function db_count_engaged_rooms($begin, $end)
+	{
+		$newCountRooms = good_query('SELECT a.room, b.id, b.name FROM bookings as a inner join rooms as b on a.room = b.id WHERE begin<="'.$begin.'" AND end>="'.$end.'" GROUP BY b.name');
+			
+		return good_num(&$newCountRooms);
+	}
+	
+function db_count_all_rooms()
+	{
+		$newCountAll = good_query('SELECT name FROM rooms');
+		
+		return good_num(&$newCountAll);
+	}
 ?>

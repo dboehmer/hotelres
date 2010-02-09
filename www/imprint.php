@@ -1,6 +1,6 @@
 <?php
 /*
- *      index.php
+ *      imprint.php
  *      
  *      Copyright 2010 Daniel Böhmer <daniel.boehmer@it2007.ba-leipzig.de> and
  *                     Patrick Nicolaus <patrick.nicolaus@it2007.ba-leipzig.de>
@@ -24,24 +24,44 @@
  */
 
 
-$PAGE_TITLE='Hauptseite';
-$PAGE_HEADLINE='Willkommen bei Hotelsres';
+$PAGE_TITLE='Impressum';
+$PAGE_HEADLINE='Impressum';
 
 include('include/header.inc');
 
 
-echo "<p>".t("Willkommen bei Hotelres, dem Reservierungssystem für Ihr Hotel oder Ihre Herberge!")."</p>";
 
-echo "<p>".t("Mit diesem System können Reservierungen erstellt, angesehen und verändert werden.")."</p>";
 
+echo "<p>".t("Dieses Projekt wurde im Rahmen eines BA-Studiums erstellt von")."</p>";
 ?>
-<h3><?php echo t("Typische Aufgaben");?></h3>
 <ul>
-	<li><a href="schedule.php"><? echo t("Überprüfen Sie bestehende Buchungen im Belegungsplan");?></a></li>
-	<li><a href="booking.php"><? echo t("Einen neuen Gast einbuchen");?></a></li>
+<li>Daniel Böhmer</li>
+<li>Patrick Nicolaus</li>
 </ul>
 
 <?php
+echo '<p>'.t_replace("aus der Seminargruppe %s.", false, "IT2007").'</p>'; 
+?>
+
+<h3>Anschrift</h3>
+<div class="vcard">
+ <p class="fn">Staatliche Berufsakademie Leipzig</p>
+ <div class="adr">
+  <div class="street-address">Schönauer Straße 113a</div>
+  <span class="postal-code">04207</span>
+  <span class="locality">Leipzig</span>
+  <br />
+  <span class="region">Sachsen</span>,
+  <span class="country-name">Deutschland</span>
+ </div>
+ <div class="tel">
+  <div class="home">0341 / 42743-330</div>
+ </div>
+ <div><a class="email" href="mailto:info@ba-leipzig.de">info@ba-leipzig.de</a></div>
+</div>
+
+<?php
+
 
 include('include/footer.inc');
 ?>
