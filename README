@@ -1,8 +1,8 @@
 Short overview over document structure of hotelres:
 
-/css/		CSS stylesheet files
-/images/	image files referred by HTML
-/include/	script files included by main scripts, mostly *.inc (php)
-/res/		resource files which might be useful but are not relevant for software
-/		holding the main PHP files offering the interface
-
+/              holding text files with most important information
+/res/          resource files which might be useful but are not necessary for software
+/www/          directory for www access -- copy or link this to your www root
+/www/css/      CSS stylesheet files
+/www/images/   image files refered by HTML
+/www/include/  PHP include files -- Don't serve them via WWW!
