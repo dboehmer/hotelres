@@ -54,6 +54,10 @@ a img {
     border-style:none;  /* images shall not have a border, even inside links */
 }
 
+h1 a, h2 a, h3 a {
+    text-decoration:none;  /* links in headlines should not be underlined */
+}
+
 td form {
     padding:0.5em;
 }

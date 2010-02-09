@@ -115,8 +115,8 @@ foreach ($AVAILBLE_LANGUAGES as $language => $locales)
 	}
 echo '</div>';
 
-echo '<div style="clear:both"><a href="index.php"><img src="images/logo_small.png" style="float:left;margin:8pt;" /></a>';
-echo '<h1>Hotelres '.$HOTEL_NAME.'</h1></div>';
+echo '<div style="clear:both;"><a href="http://www.github.com/dboehmer/hotelres/"><img src="images/logo_small.png" style="margin:8pt;float:left;" /></a>';
+echo '<h1><a href="index.php">Hotelres '.$HOTEL_NAME.'</a></h1></div>';
 
 // main navigation bar
 echo '<div style="clear:both"><a href="index.php">Start</a>
