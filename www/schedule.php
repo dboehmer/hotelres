@@ -53,11 +53,34 @@ messages_show();
 
 ?>
 
-<form action="schedule.php" method="post">
+<form action="schedule.php" method="get">
 	<table>
         <tr><td><?php echo t("Monat");?>:</td>
           <td><select name="month" size="1"> 
-            <option value="1"><?php echo t("Januar");?></option>
+     <?php
+            $months=array("Januar",
+                          "Februar",
+                          "März",
+                          "April",
+                          "Mai",
+                          "Juni",
+                          "Juli",
+                          "August",
+                          "September",
+                          "Oktober",
+                          "November",
+                          "Dezember");
+     
+            for ($i=1; $i<=12; $i++)
+                {
+                    echo '<option value="'.$i.'"';
+                    
+                    if ($_GET['month']==$i)
+                        echo ' selected="selected"';
+                    
+                    echo '>'.t($months[$i-1]).'</option>';
+                }
+         /*   <option value="1"><?php echo t("Januar");?></option>
             <option value="2"><?php echo t("Februar");?></option>
             <option value="3"><?php echo t("März");?></option>
             <option value="4"><?php echo t("April");?></option>
@@ -68,7 +91,7 @@ messages_show();
             <option value="9"><?php echo t("September");?></option>
             <option value="10"><?php echo t("Oktober");?></option>
             <option value="11"><?php echo t("November");?></option>
-            <option value="12"><?php echo t("Dezember");?></option>        
+            <option value="12"><?php echo t("Dezember");?></option>       */ ?>
         </select></td>
         
         <td><?php echo t("Jahr");?>:</td>
@@ -76,7 +99,12 @@ messages_show();
           	<?php
 			for($i=2010; $i <= 2020; $i++)
 			{
-            	echo "<option value=".$i.">".$i."</option>";
+            	echo "<option value=\"".$i."\"";
+                
+                if ($_GET['year']==$i)
+                    echo ' selected="selected"';
+                
+                echo ">".$i."</option>";
            	}
 			?>
         </select></td></tr>
@@ -91,12 +119,13 @@ messages_show();
 
 <?php
 
-if ($_POST['schedule'] == 1)
+if ($_GET['schedule'] == 1)
 {
-$number_day = strftime("%w",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
-$count_days = date("t",mktime(0,0,0,$_POST['month'],1,$_POST['year']));
+$number_day = strftime("%w",mktime(0,0,0,$_GET['month'],1,$_GET['year']));
+$count_days = date("t",mktime(0,0,0,$_GET['month'],1,$_GET['year']));
 
-echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$_POST['month'],1,$_POST['year'])));
+// only for debugging:
+//echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$_GET['month'],1,$_GET['year'])));
 
 echo '<table><tr><th>'.t("Montag").'</th>
 				 <th>'.t("Dienstag").'</th>
