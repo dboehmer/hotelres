@@ -26,27 +26,9 @@
 // start session to set user specific settings in $_SESSION
 session_start();
 
+// include files with important variables, alphabetically sorted
 include_once("include/config.inc");
-
-// change to another language if user clicked on language link
-// if no language selected yet, try to get language from config.inc
-if ($_GET['language'])
-	{
-		$_SESSION['language'] = $_GET['language'];
-	}
-elseif (!$_SESSION['language'] && $LANGUAGE)
-	{
-		$_SESSION['language'] = $LANGUAGE;
-	}
-	
-if ($_SESSION['language'] == "de")
-	{
-		setlocale(LC_TIME,'de_DE','de','deu');
-	}
-elseif ($_SESSION['language'] == "en")
-	{
-		setlocale(LC_TIME,'en_GB','en','eng');
-	}
+include_once("include/consts.inc");
 
 // include library files with setups and functions, alphabetically sorted
 include_once("include/db.inc");
@@ -120,18 +102,15 @@ if ($_SESSION['login'])
 
 // add div area with language links
 echo '<div id="language">'.t("Sprache wählen").":";
-$langs=array(
-		"de" => "Deutsch",
-		"en" => "English");
-foreach ($langs as $lang => $language)
+foreach ($AVAILBLE_LANGUAGES as $language => $locales)
 	{
-		if ($lang == $_SESSION['language'])
+		if ($language == $_SESSION['language'])
 		{
 			echo " $language";
 		}
 		else
 		{
-			echo ' <a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"language",$lang).'">'.$language.'</a>';
+			echo ' <a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"language",$language).'">'.$language.'</a>';
 		}
 	}
 echo '</div>';

@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 /*
- *      include/config.inc
+ *      include/consts.inc
  *      
  *      Copyright 2010 Daniel Böhmer <daniel.boehmer@it2007.ba-leipzig.de> and
  *                     Patrick Nicolaus <patrick.nicolaus@it2007.ba-leipzig.de>
@@ -25,25 +25,19 @@
 
 
 /*
- * this file contains ONLY configuration variables which indeed
- * ARE INDIVIDUAL FOR ANY SINGLE CUSTOMER
+ * this file contains ONLY constant information which is
+ * NOT INDIVIDUAL FOR DIFFERENT CUSTOMERS
  */
 
+// language used for text pattern in the code
+// (goal: port all of them to English one day)
+$BUILTIN_LANGUAGE="de";
 
-// credentials for MySQL access
-$MYSQL_SERVER="localhost";
-$MYSQL_USERNAME="hotelres";
-$MYSQL_PASSWORD="hotelres";
-$MYSQL_DATABASE="hotelres";
 
-// name of the accomodation and 1st-level headline
-$HOTEL_NAME="Burj Al Arab";
-
-// default language for visitors
-$LANGUAGE="de";
-
-// maximum time between two requests for keep being
-// logged in (in secs); zero indicates no timeout
-$MAX_IDLE_TIME=3600;
+// list of languages we support with "name"=>array("locale1",...)
+$AVAILBLE_LANGUAGES=array(
+		"Deutsch" => array("de","de_DE","deu"),
+		"English" => array("en","en_US","eng")
+    );
 
 ?>

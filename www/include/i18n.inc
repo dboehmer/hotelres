@@ -38,6 +38,25 @@
 
 
 
+// INITIALIZATION CODE RUN A STARTUP
+
+// change to another language if user clicked on language link
+// if no language selected yet, try to get language from config
+if ($_GET['language'])
+    {
+        $_SESSION['language'] = $_GET['language'];
+    }
+elseif (!$_SESSION['language'] && $DEFAULT_LANGUAGE)
+    {
+        $_SESSION['language'] = $LANGUAGE;
+    }
+
+setlocale(LC_ALL, $AVAILABLE_LANGUAGES[$LANGUAGE]);
+
+
+
+// USEFUL FUNCTIONS
+
 // translate text to default language or specify language
 function t($text, $language=false)
 	{
