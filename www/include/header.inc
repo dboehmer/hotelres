@@ -89,6 +89,7 @@ echo "<title>" . t($PAGE_TITLE) . "</title>
 </head>";
 
 // include stylesheet for layout being nice & shiny
+echo '<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">';
 echo '<link rel="stylesheet" media="screen" type="text/css" href="css/screen.css">';
 
 echo '<body>';
