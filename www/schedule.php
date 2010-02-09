@@ -51,6 +51,23 @@ if ($_GET['delete'] > 0)
 
 messages_show();
 
+if ($_GET['schedule']==1)
+    {
+        // user requested calendar
+        $show_schedule=1;
+        
+        $year=$_GET['year'];
+        $month=$_GET['month'];
+    }
+elseif (!$_POST['update'] && !$_POST['delete'])
+    {
+        // no action selected -> show today's calendar
+        $show_schedule=1;
+        
+        $year=date("Y");
+        $month=date("n");
+    }
+
 ?>
 
 <form action="schedule.php" method="get">
@@ -75,7 +92,7 @@ messages_show();
                 {
                     echo '<option value="'.$i.'"';
                     
-                    if ($_GET['month']==$i)
+                    if ($month==$i)
                         echo ' selected="selected"';
                     
                     echo '>'.t($months[$i-1]).'</option>';
@@ -101,7 +118,7 @@ messages_show();
 			{
             	echo "<option value=\"".$i."\"";
                 
-                if ($_GET['year']==$i)
+                if ($year==$i)
                     echo ' selected="selected"';
                 
                 echo ">".$i."</option>";
@@ -119,13 +136,15 @@ messages_show();
 
 <?php
 
-if ($_GET['schedule'] == 1)
+if ($show_schedule == 1)
 {
-$number_day = strftime("%w",mktime(0,0,0,$_GET['month'],1,$_GET['year']));
-$count_days = date("t",mktime(0,0,0,$_GET['month'],1,$_GET['year']));
+$number_day = strftime("%w",mktime(0,0,0,$month,1,$year));
+$count_days = date("t",mktime(0,0,0,$month,1,$year));
 
+/*  <= just add/remove a 2nd dash "/" on the left side to toggle
 // only for debugging:
-//echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$_GET['month'],1,$_GET['year'])));
+echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$month,1,$year)));
+//*/
 
 echo '<table><tr><th>'.t("Montag").'</th>
 				 <th>'.t("Dienstag").'</th>
@@ -146,7 +165,7 @@ $j=$i;
 			
 for ($i=1; $i<=$count_days; $i++)
 {
-	$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$_POST['month'].".".$_POST['year'],0),db_date_format($i.".".$_POST['month'].".".$_POST['year'],0));
+	$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$month.".".$year,0),db_date_format($i.".".$month.".".$year,0));
 	
 	if ($count_all_rooms == 0)
 	{
