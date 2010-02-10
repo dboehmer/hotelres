@@ -59,7 +59,7 @@ if ($_GET['schedule']==1)
         $year=$_GET['year'];
         $month=$_GET['month'];
     }
-elseif ((!$_GET['show']) && (!$_POST['update']) && (!$_POST['delete']))
+elseif ((!$_GET['show']) && (!$_GET['edit']) && (!$_POST['update']) && (!$_POST['delete']))
     {
         // no action selected -> show today's calendar
         $show_schedule=1;
