@@ -104,41 +104,31 @@ messages_show();
 
 <table>
 	<td><table border="0">
-	<tr><td><?php echo t("Vorname");?>:</td>
-	<td><input type="text" name="firstname"></td></tr>
+<?php
+function add_input_field($desc, $name)
+    {
+        echo '<tr><td>'.t($desc).':</td><td><input type="text" name="'.$name.'" value="'.htmlspecialchars($_POST[$name]).'"></td></tr>';
+    }
 
-    <tr><td><?php echo t("Nachname");?>:</td>
-    <td><input type="text" name="lastname"></td></tr>
-    
-    <tr><td><?php echo t("Strasse");?>:</td>
-    <td><input type="text" name="street"></td></tr>
+add_input_field("Vorname", "firstname");
+add_input_field("Nachname", "lastname");
+add_input_field("Hausnummer", "number");
+add_input_field("PLZ", "zip");
+add_input_field("Wohnort", "city");
+add_input_field("Land", "country");
+add_input_field("Telefon", "phone");
+add_input_field("E-Mail", "email");
 
-    <tr><td><?php echo t("Hausnummer");?>:</td>
-    <td><input type="text" name="number"></td></tr>
-    
-    <tr><td><?php echo t("PLZ");?>:</td>
-    <td><input type="text" name="zip"></td></tr>
-    
-    <tr><td><?php echo t("Wohnort");?>:</td>
-    <td><input type="text" name="city"></td></tr>
-    
-    <tr><td><?php echo t("Land");?>:</td>
-    <td><input type="text" name="country"></td></tr>
-    
-    <tr><td><?php echo t("Telefon");?>:</td>
-    <td><input type="text" name="phone"></td></tr>
-    
-    <tr><td><?php echo t("E-Mail");?>:</td>
-    <td><input type="text" name="email"></td></tr>
+?>
+
 	</table></td>
 
 	<td><table border="0">
     	<tr><td><table border="0">
-    	<tr><td><?php echo t("Datum Einchecken");?>:</td>
-        <td><input type="text" name="begin"></td></tr>
-        
-        <tr><td><?php echo t("Datum Auschecken");?>:</td>
-        <td><input type="text" name="end"></td></tr>
+<?php
+add_input_field("Datum Einchecken", "begin");
+add_input_field("Datum Auschecken", "end");
+?>
 		</table></td></tr>
         
         <tr><td><table border="0">
@@ -153,7 +143,12 @@ messages_show();
 		{
 			foreach($rooms as $room)
 			{
-				echo '<option value="' . $room['id'] . '">' . $room['name'] . "\n(\n" . $room['capacity'] . "\n" . t("Person(en)") . "\n)" . '</option>';
+				echo '<option value="' . $room['id'] . '"';
+                
+                if ($_POST['room'] == $room['id'])
+                    echo ' selected="selected"';
+                
+                echo '>' . $room['name'] . "\n(\n" . $room['capacity'] . "\n" . t("Person(en)") . "\n)" . '</option>';
 			}
         }
         else
@@ -169,7 +164,7 @@ messages_show();
         <tr><td><table border="0">
 
         <tr><td><?php echo t("Kommentar");?>:</td>
-        <td><textarea name="comment" rows="5" cols="42"></textarea></td></tr>
+        <td><textarea name="comment" rows="5" cols="42"><?php echo htmlentities($_POST['comment']); ?></textarea></td></tr>
         
         </table></td></tr>
     </table></td>
