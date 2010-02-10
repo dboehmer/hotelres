@@ -42,6 +42,35 @@ function url_add_parameter($url, $parameter, $value)
 		return($newUrl);
 	}
 
+function array2htmlColor(array $rgb)
+    {
+        for ($i=0; $i<3; $i++)
+            {
+                $hex=dechex($rgb[$i]);
+                
+                if (strlen($hex)==1)
+                    $hex = "0".$hex;
+                
+                $code .= $hex;
+            }
+        
+        return "#".$code;
+    }
+
+function ints2htmlColor($r, $g, $b)
+    {
+        return array2htmlColor(array($r, $g, $b));
+    }
+
+function avgColor(array $rgb1, array $rgb2)
+    {
+        for ($i=0; $i<3; $i++)
+            {
+                $avg[$i] = round(($rgb1[$i] + $rgb2[$i]) / 2);
+            }
+        return $avg;
+    }
+
 function createSalt()
     {
         // create random string as combination of current timestamp and RNG value
