@@ -59,7 +59,7 @@ if ($_GET['schedule']==1)
         $year=$_GET['year'];
         $month=$_GET['month'];
     }
-elseif (!$_POST['update'] && !$_POST['delete'])
+elseif ((!$_GET['show']) && (!$_POST['update']) && (!$_POST['delete']))
     {
         // no action selected -> show today's calendar
         $show_schedule=1;
@@ -176,7 +176,7 @@ for ($i=1; $i<=$count_days; $i++)
 		$utilization = number_format((($count_engaged_rooms * 100) / $count_all_rooms),2);
 	}
 	
-	echo '<td><a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$_POST['month'].".".$_POST['year'],0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
+	echo '<td><a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$month.".".$year,0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
 			
 	if ($j % 7 == 0)
 	{
