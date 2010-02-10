@@ -167,11 +167,10 @@ $count_all_rooms = db_count_all_rooms();
 // colors for visualization:
 //                     R    G    B
 $color_empty = array( 255, 127, 127);
-$color_okay = array(  191, 255, 191);
+$color_okay = array(  127, 255, 127);
 $color_full = array(  255, 191, 191);
-
 // aimed utilization rate
-$percentage_aimed = 90; // in %
+$percentage_aimed = 80; // in %
 
 			
 for ($i=1; $i<=$count_days; $i++)
@@ -205,24 +204,24 @@ for ($i=1; $i<=$count_days; $i++)
             if ($util < $percentage_aimed)
                 {
                     $color2=$color_empty;
-                    $opacity=100-$util/$percentage_aimed;
+                    $opacity=$util/$percentage_aimed-1;
                 }
-            else // util > percent
+            else // util > percentage_aimed
                 {
                     $color2=$color_full;
-                    $opacity=(100-$util)/$percentage_aimed;
+                    $opacity=-($util-$percentage_aimed)/(100-$percentage_aimed);
                 }
             
             // interpolate for all three RGB values
             for ($n=0; $n<3; $n++)
-                $color[$n] = $color_okay[$n] + round($color2[$n]*$opacity/100);
+                $color[$n]=$color_okay[$n]+round($opacity*($color_okay[$n]-$color2[$n]));
         }
     
     //generate HTML code
     $colorcode = array2htmlColor($color);
     
 	echo '<td style="background-color:'.$colorcode.';">';
-    echo '<a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$_POST['month'].".".$_POST['year'],0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
+    echo '<a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$month.".".$year,0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
 			
 	if ($j % 7 == 0)
 	{
