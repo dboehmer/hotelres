@@ -59,7 +59,7 @@ if ($_GET['schedule']==1)
         $year=$_GET['year'];
         $month=$_GET['month'];
     }
-elseif ((!$_GET['show']) && (!$_POST['update']) && (!$_POST['delete']))
+elseif ((!$_GET['show']) && (!$_GET['edit']) && (!$_POST['update']) && (!$_POST['delete']))
     {
         // no action selected -> show today's calendar
         $show_schedule=1;
@@ -67,6 +67,13 @@ elseif ((!$_GET['show']) && (!$_POST['update']) && (!$_POST['delete']))
         $year=date("Y");
         $month=date("n");
     }
+elseif ($_GET['schedule']==0)
+	{
+		$show_schedule=0;
+		
+		$year=$_GET['year'];
+        $month=$_GET['month'];
+	}
 
 ?>
 
@@ -175,7 +182,7 @@ $percentage_aimed = 80; // in %
 			
 for ($i=1; $i<=$count_days; $i++)
 {
-	$count_engaged_rooms = db_count_engaged_rooms(db_date_format($i.".".$month.".".$year,0),db_date_format($i.".".$month.".".$year,0));
+	$count_engaged_rooms = db_count_engaged_rooms(own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0),own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0));
 	
 	if ($count_all_rooms == 0)
     {
@@ -222,7 +229,7 @@ for ($i=1; $i<=$count_days; $i++)
     $colorcode = array2htmlColor($color);
     
 	echo '<td style="background-color:'.$colorcode.';">';
-    echo '<a href="'.url_add_parameter($_SERVER['REQUEST_URI'],"show",db_date_format($i.".".$month.".".$year,0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
+    echo '<a href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO']."?month=".$month."&year=".$year."&update=0&schedule=0","show",own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0)).'">'.$i.'</a><br /><pre> '.'('.$utilization.'%)'.'</pre> </td>';
 			
 	if ($j % 7 == 0)
 	{
@@ -246,7 +253,7 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 		$bookingdate = $_POST['date'];
 	}	
 	
-	echo t("Zimmerbelegung am ").default_date_format($bookingdate)."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=".url_add_parameter($_SERVER["ORIG_PATH_INFO"],"show",db_date_format($bookingdate,(60*60*24*-1))).">".t("vorheriger")."</a>"."&nbsp;&nbsp;&nbsp;<a href=".url_add_parameter($_SERVER["ORIG_PATH_INFO"],"show",db_date_format($bookingdate,(60*60*24))).">".t("nächster")."</a>";
+	echo t("Zimmerbelegung am ").own_date_format("%d.%m.%Y",$bookingdate,0)."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=".url_add_parameter($_SERVER['ORIG_PATH_INFO']."?month=".own_date_format("%m",$bookingdate,(60*60*24*-1))."&year=".own_date_format("%Y",$bookingdate,(60*60*24*-1))."&update=0&schedule=0","show",own_date_format("%Y-%m-%d",$bookingdate,(60*60*24*-1))).">".t("vorheriger")."</a>"."&nbsp;&nbsp;&nbsp;<a href=".url_add_parameter($_SERVER['ORIG_PATH_INFO']."?month=".own_date_format("%m",$bookingdate,(60*60*24))."&year=".own_date_format("%Y",$bookingdate,(60*60*24))."&update=0&schedule=0","show",own_date_format("%Y-%m-%d",$bookingdate,(60*60*24))).">".t("nächster")."</a>";
 
 	$bookings = good_query_table('SELECT a.id as bookingid, a.room, a.guest as guestid, a.begin, a.end, a.comment, a.persons, b.id, b.name as name, c.id, c.firstname, c.lastname, b.name FROM bookings as a right join rooms as b on a.room = b.id left join guests as c on a.guest = c.id WHERE begin<="'.$bookingdate.'" AND end>="'.$bookingdate.'" ORDER BY c.lastname ASC');
 	
@@ -269,8 +276,8 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 		echo '<td>'.$booking['firstname'].'</td>';
 		echo '<td>'.$booking['lastname'].'</td>';
 		echo '<td>'.$booking['persons'].'</td>';
-		echo '<td>'.default_date_format($booking['begin']).'</td>';
-		echo '<td>'.default_date_format($booking['end']).'</td>';
+		echo '<td>'.own_date_format("%d.%m.%Y",$booking['begin'],0).'</td>';
+		echo '<td>'.own_date_format("%d.%m.%Y",$booking['end'],0).'</td>';
 		echo '<td>'.$booking['comment'].'</td>';
 		
 		echo '<td><a href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'].'?show='.$bookingdate.'',"delete",$booking['bookingid']).'">'.t("Stornieren").'</a></td></tr>';

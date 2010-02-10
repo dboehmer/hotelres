@@ -25,7 +25,7 @@
 
 
 $PAGE_TITLE='Hauptseite';
-$PAGE_HEADLINE='Willkommen bei Hotelsres';
+$PAGE_HEADLINE='Willkommen bei Hotelres';
 
 include('include/header.inc');
 
@@ -43,16 +43,16 @@ echo "<p>".t("Mit diesem System können Reservierungen erstellt, angesehen und v
 <?php
 echo '<h3>'.t("Heutige Gäste").'</h3>';
 
-$guests=good_query_table("SELECT CONCAT(firstname,' ',lastname) AS name, end FROM guests,bookings WHERE begin=CURRENT_DATE() AND guests.id=bookings.guest");
+$guests=good_query_table("SELECT CONCAT(firstname,' ',lastname) AS name, persons, end, bookings.id AS booking FROM guests,bookings WHERE begin<=CURRENT_DATE() AND end>=CURRENT_DATE() AND guests.id=bookings.guest");
 
 if (count($guests)==0)
     echo "<p>".t("Keine.")."</p>";
 else
     {
-        echo '<table><tr><th>'.t("Name").'</th><th>'.t("Reist ab").'</th></tr>';
+        echo '<table><tr><th>'.t("Name").'</th><th>'.t("Personenzahl").'</th><th>'.t("Reist ab").'</th><th>'.t("Details").'</th></tr>';
         foreach ($guests as $guest)
             {
-                echo '<tr><td>'.$guest['name'].'</td><td>'.$guest['end'].'</td></tr>';
+                echo '<tr><td>'.$guest['name'].'</td><td style="text-align:center;">'.$guest['persons'].'</td><td>'.$guest['end'].'</td><td><a href="schedule.php?edit='.$guest['booking'].'">Details</a></td></tr>';
             }
         echo '</table>';
     }

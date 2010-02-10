@@ -77,14 +77,9 @@ function createSalt()
         return sha1(mktime() . mt_rand());
     }
 	
-function db_date_format($value, $add)
+function own_date_format($format, $value, $add)
 	{
-		return strftime("%Y-%m-%d",strtotime($value)+$add);
-	}
-	
-function default_date_format($value)
-	{
-		return strftime("%d.%m.%Y",strtotime($value));
+		return strftime($format ,strtotime($value)+$add);
 	}
 	
 function check_date($value)
