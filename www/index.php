@@ -41,6 +41,21 @@ echo "<p>".t("Mit diesem System können Reservierungen erstellt, angesehen und v
 </ul>
 
 <?php
+echo '<h3>'.t("Heutige Gäste").'</h3>';
+
+$guests=good_query_table("SELECT CONCAT(firstname,' ',lastname) AS name, end FROM guests,bookings WHERE begin=CURRENT_DATE() AND guests.id=bookings.guest");
+
+if (count($guests)==0)
+    echo "<p>".t("Keine.")."</p>";
+else
+    {
+        echo '<table><tr><th>'.t("Name").'</th><th>'.t("Reist ab").'</th></tr>';
+        foreach ($guests as $guest)
+            {
+                echo '<tr><td>'.$guest['name'].'</td><td>'.$guest['end'].'</td></tr>';
+            }
+        echo '</table>';
+    }
 
 include('include/footer.inc');
 ?>
