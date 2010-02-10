@@ -120,10 +120,22 @@ function list_rights($preselected=false)
     }
 
 
+echo "<h3>".t("Eigenes Passwort ändern")."</h3>";
+
+echo '<form action="usermgmt.php" method="post">
+    <input type="hidden" name="action" value="passwd">
+    <input type="hidden" name="id" value="myown">
+    <table>
+    <tr><td>'.t("Altes Passwort").':</td><td><input type="password" name="password0"></td></tr>
+    <tr><td>'.t("Neues Passwort").':</td><td><input type="password" name="password1"></td></tr>
+    <tr><td>'.t("Neues Passwort bestätigen").':</td><td><input type="password" name="password2"></td></tr>
+    </table>
+    <p><input type="submit" value="'.t("Passwort ändern").'"></p></form>';
+
 
 if ($_SESSION['rights'] != "admin")
     {
-        echo "<strong>".t("Sie haben keine Administratorrechte und können keine Benutzer verwalten!")."</strong>";
+        echo "<p style=\"font-weight:bold;\">".t("Sie haben keine Administratorrechte und können keine Benutzer verwalten!")."</p>";
     }
 else
     {
@@ -166,18 +178,6 @@ else
                 }
             }
         echo "</table>";
-
-        echo "<h3>".t("Eigenes Passwort ändern")."</h3>";
-
-        echo '<form action="usermgmt.php" method="post">
-            <input type="hidden" name="action" value="passwd">
-            <input type="hidden" name="id" value="myown">
-            <table>
-            <tr><td>'.t("Altes Passwort").':</td><td><input type="password" name="password0"></td></tr>
-            <tr><td>'.t("Neues Passwort").':</td><td><input type="password" name="password1"></td></tr>
-            <tr><td>'.t("Neues Passwort bestätigen").':</td><td><input type="password" name="password2"></td></tr>
-            </table>
-            <p><input type="submit" value="'.t("Passwort ändern").'"></p></form>';
 
         echo "<h3>".t("Neuen Benutzer anlegen")."</h3>";
 
