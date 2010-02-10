@@ -35,56 +35,64 @@ if (is_numeric($id))
         $user=good_query_value("SELECT username FROM users WHERE id=".$id);
     }
 
-switch ($_POST['action'])
+if ($_POST['action'])
     {
-        case "delete":
-            good_query("DELETE FROM users WHERE id=".$_POST['id']);
-            messages_add("<p>".t("Benutzer $user erfolgreich gelöscht.",false,$_POST['id'])."</p>");
-            break;
-        case "adduser":
-            $salt=createSalt();
-            good_query("INSERT INTO users (username,password,salt,rights) VALUES('".$_POST['username']."',SHA1('".$_POST['password'].$salt."'),'".$salt."','".$_POST['rights']."')");
-            messages_add("<p>".t("Neuer Benutzer angelegt!")."</p>");
-            break;
-        case "passwd":
-            if ($id=="myown")
-                {
-                    $id=$_SESSION['id'];
-                    for ($i=0; $i<=2; $i++)
-                        $password[$i]=$_POST["password$i"];
-                    
-                    $password_hash=good_query_value("SELECT password FROM users WHERE id=".$id);
-                    $password_salt=good_query_value("SELECT salt FROM users WHERE id=".$id);
-                    
-                    if (sha1($password[0].$password_salt) != $password_hash)
-                        {
-                            // user entered wrong old password
-                            messages_add("<p>".t("Sie haben Ihr altes Passwort falsch eingegeben!")."</p>", "error");
-                        }
-                    elseif ($password[1] != $password[2])
-                        {
-                            // user misspelled either password 1 oder 2 of the new pw
-                            messages_add("<p>".t("Sie haben Sich beim neuen Passwort vertippt!")."</p>", "error");
-                        }
-                    else
-                        {
-                            $salt=mktime();
-                            good_query("UPDATE users SET password=SHA1('".$password[2].$salt."'), salt='".$salt."' WHERE id=".$id);
-                            messages_add("<p>".t("Passwort geändert!")."</p>", "error");
-                        }
-                }
-            else
-                {
+        $action=$_POST['action'];
+        
+        if ($action=="passwd" && $id="myown")
+            {
+                $id=$_SESSION['id'];
+                for ($i=0; $i<=2; $i++)
+                    $password[$i]=$_POST["password$i"];
+                
+                $password_hash=good_query_value("SELECT password FROM users WHERE id=".$id);
+                $password_salt=good_query_value("SELECT salt FROM users WHERE id=".$id);
+                
+                if (sha1($password[0].$password_salt) != $password_hash)
+                    {
+                        // user entered wrong old password
+                        messages_add("<p>".t("Sie haben Ihr altes Passwort falsch eingegeben!")."</p>", "error");
+                    }
+                elseif ($password[1] != $password[2])
+                    {
+                        // user misspelled either password 1 oder 2 of the new pw
+                        messages_add("<p>".t("Sie haben Sich beim neuen Passwort vertippt!")."</p>", "error");
+                    }
+                else
+                    {
+                        $salt=createSalt();
+                        good_query("UPDATE users SET password=SHA1('".$password[2].$salt."'), salt='".$salt."' WHERE id=".$id);
+                        messages_add("<p>".t("Passwort geändert!")."</p>", "error");
+                    }
+            }
+        
+        else // administrative options only:
+        if ($_SESSION['rights'] != "admin")
+            {
+                messages_add("<p>".t("Sie haben keine Administratorrechte und können keine Benutzer verwalten!")."</p>");
+            }
+        else switch ($action)
+            {
+                case "delete":
+                    good_query("DELETE FROM users WHERE id=".$_POST['id']);
+                    messages_add("<p>".t("Benutzer $user erfolgreich gelöscht.",false,$_POST['id'])."</p>");
+                    break;
+                case "adduser":
+                    $salt=createSalt();
+                    good_query("INSERT INTO users (username,password,salt,rights) VALUES('".$_POST['username']."',SHA1('".$_POST['password'].$salt."'),'".$salt."','".$_POST['rights']."')");
+                    messages_add("<p>".t("Neuer Benutzer angelegt!")."</p>");
+                    break;
+                case "passwd":
                     $salt=createSalt();
                     good_query("UPDATE users SET password=SHA1('".$_POST['password'].$salt."'), salt='".$salt."' WHERE id=".$id);
                     messages_add("<p>".t("Passwort geändert!")."</p>");
-                }
-            break;
-        case "changerights":
-            $rights=$_POST['rights'];
-            good_query("UPDATE users SET rights='".$rights."' WHERE id=".$id);
-            messages_add("<p>".t("Rechte geändert!")."</p>");
-    }
+                    break;
+                case "changerights":
+                    $rights=$_POST['rights'];
+                    good_query("UPDATE users SET rights='".$rights."' WHERE id=".$id);
+                    messages_add("<p>".t("Rechte geändert!")."</p>");
+            } // switch
+    } // if $_POST[action]
 
 
 // post any messages from the code above
@@ -97,9 +105,9 @@ echo "<p>".t("Auf dieser Seite können Sie die Benutzer verwalten, die auf das H
 
 // save rights, used in following tables
 $rights=array(
-            "guest"=>t("Gast"),
-            "manager"=>t("Verwalter"),
-            "admin"=>t("Administrator"));
+            "guest"   => t("Gast"),
+            "manager" => t("Verwalter"),
+            "admin"   => t("Administrator"));
 
 
 
