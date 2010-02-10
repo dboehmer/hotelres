@@ -38,7 +38,7 @@
 
 
 
-// INITIALIZATION CODE RUN A STARTUP
+// INITIALIZATION CODE RUN A STARTUP (PHASE 1 OF 2)
 
 // change to another language if user clicked on language link
 // if no language selected yet, try to get language from config
@@ -108,5 +108,35 @@ function t_replace($text, $language) // following args for printf() not listed h
             }
     }
 
+
+// INITIALIZATION CODE RUN AT STARTUP (PHASE 2 OF 2)
+
+
+// store month names
+$MONTH_NAMES=array("Januar",
+              "Februar",
+              "März",
+              "April",
+              "Mai",
+              "Juni",
+              "Juli",
+              "August",
+              "September",
+              "Oktober",
+              "November",
+              "Dezember");
+
+// translate month names with t function (callback used)
+$MONTH_NAMES=array_map('t', $MONTH_NAMES);
+
+// same for weekdays
+$WEEKDAY_NAMES=array("Montag",
+                     "Dienstag",
+                     "Mittwoch",
+                     "Donnerstag",
+                     "Freitag",
+                     "Samstag",
+                     "Sonntag");
+$WEEKDAY_NAMES=array_map('t', $WEEKDAY_NAMES);
 
 ?>
