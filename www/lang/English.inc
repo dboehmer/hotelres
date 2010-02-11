@@ -1,6 +1,6 @@
 <?php
 /*
- *      imprint.php
+ *      lang/English.inc
  *      
  *      Copyright 2010 Daniel Böhmer <daniel.boehmer@it2007.ba-leipzig.de> and
  *                     Patrick Nicolaus <patrick.nicolaus@it2007.ba-leipzig.de>
@@ -23,46 +23,28 @@
  *      MA 02110-1301, USA.
  */
 
+// LANGUAGE FILE FOR ENGLISH
 
-$PAGE_TITLE='Impressum';
-$PAGE_HEADLINE='Impressum';
+// system: $translation["some built-in text"]="translated text";
 
-include('include/header.inc');
+// header
+$translation["Eingeloggt als %s"]="Logged in as %s";
+$translation["Ausloggen"]="Log out";
+$translation["Sprache wählen"]="Select language";
 
+// navigation bar
+$translation["Start"]="Start";
+$translation["Reservierung"]="Booking";
+$translation["Belegungsplan"]="Schedule";
+$translation["Benutzerverwaltung"]="User management";
+$translation["Zimmerverwaltung"]="Room management";
+$translation["Impressum"]="Imprint";
 
+// imprint
+$translation["Dieses Projekt wurde im Rahmen eines Software-Projekt für ein BA-Studium erstellt von"]=
+        "This project was realized as a software project for a study at Berufsakademie Leipzig by";
+$translation["aus der Seminargruppe %s."]=
+        "from the seminar group %s.";
+$translation["Anschrift"]="Mail address";
 
-
-echo "<p>".t("Dieses Projekt wurde im Rahmen eines Software-Projekt für ein BA-Studium erstellt von")."</p>";
-?>
-<ul>
-<li>Daniel Böhmer</li>
-<li>Patrick Nicolaus</li>
-</ul>
-
-<?php
-echo '<p>'.t_replace("aus der Seminargruppe %s.", false, "IT2007").'</p>'; 
-
-echo '<h3>'.t("Anschrift").'</h3>';
-?>
-
-<div class="vcard">
- <p class="fn">Staatliche Berufsakademie Leipzig</p>
- <div class="adr">
-  <div class="street-address">Schönauer Straße 113a</div>
-  <span class="postal-code">04207</span>
-  <span class="locality">Leipzig</span>
-  <br />
-  <span class="region">Sachsen</span>,
-  <span class="country-name">Deutschland</span>
- </div>
- <div class="tel">
-  <div class="home">0341 / 42743-330</div>
- </div>
- <div><a class="email" href="mailto:info@ba-leipzig.de">info@ba-leipzig.de</a></div>
-</div>
-
-<?php
-
-
-include('include/footer.inc');
 ?>

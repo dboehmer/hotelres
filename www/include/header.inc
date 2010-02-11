@@ -129,7 +129,6 @@ function add_nav_link($url, $text)
 
 add_nav_link("index.php",  "Start");
 add_nav_link("booking.php",  "Reservierung");
-add_nav_link(".php",  "Reservierung");
 add_nav_link("schedule.php",  "Belegungsplan");
 add_nav_link("usermgmt.php",  "Benutzerverwaltung");
 add_nav_link("room.php",  "Zimmerverwaltung");
