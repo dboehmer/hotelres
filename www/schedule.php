@@ -82,18 +82,6 @@ elseif ($_GET['schedule']==0)
         <tr><td><?php echo t("Monat");?>:</td>
           <td><select name="month" size="1"> 
      <?php
-            $months=array("Januar",
-                          "Februar",
-                          "März",
-                          "April",
-                          "Mai",
-                          "Juni",
-                          "Juli",
-                          "August",
-                          "September",
-                          "Oktober",
-                          "November",
-                          "Dezember");
      
             for ($i=1; $i<=12; $i++)
                 {
@@ -102,7 +90,7 @@ elseif ($_GET['schedule']==0)
                     if ($month==$i)
                         echo ' selected="selected"';
                     
-                    echo '>'.t($months[$i-1]).'</option>';
+                    echo '>'.$MONTH_NAMES[$i-1].'</option>';
                 }
          /*   <option value="1"><?php echo t("Januar");?></option>
             <option value="2"><?php echo t("Februar");?></option>
@@ -153,13 +141,12 @@ $count_days = date("t",mktime(0,0,0,$month,1,$year));
 echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$month,1,$year)));
 //*/
 
-echo '<table><tr><th>'.t("Montag").'</th>
-				 <th>'.t("Dienstag").'</th>
-				 <th>'.t("Mittwoch").'</th>
-				 <th>'.t("Donnerstag").'</th>
-				 <th>'.t("Freitag").'</th>
-				 <th>'.t("Samstag").'</th>
-				 <th>'.t("Sonntag").'</th></tr><tr>';
+echo '<table><tr>';
+
+foreach ($WEEKDAY_NAMES as $day)
+    echo '<th>'.$day.'</th>';
+
+echo '</tr><tr>';
 
 for ($i=1; $i<$number_day; $i++)
     {

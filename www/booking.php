@@ -100,14 +100,14 @@ if ($_POST['insert'] == 1)
 messages_show();
 ?>
     
-<form action="booking.php" method="post">
+<form name="booking" action="booking.php" method="post">
 
 <table>
 	<td><table border="0">
 <?php
-function add_input_field($desc, $name)
+function add_input_field($desc, $name, $extra="")
     {
-        echo '<tr><td>'.t($desc).':</td><td><input type="text" name="'.$name.'" value="'.htmlspecialchars($_POST[$name]).'"></td></tr>';
+        echo '<tr><td>'.t($desc).':</td><td><input type="text" name="'.$name.'" value="'.htmlspecialchars($_POST[$name]).'">'.$extra.'</td></tr>';
     }
 
 add_input_field("Vorname", "firstname");
@@ -125,9 +125,12 @@ add_input_field("E-Mail", "email");
 
 	<td><table border="0">
     	<tr><td><table border="0">
+
 <?php
-add_input_field("Datum Einchecken", "begin");
-add_input_field("Datum Auschecken", "end");
+add_input_field("Datum Einchecken", "begin", "<script language=\"javascript\">document.write(' <input type=\"button\" value=\"".t("Kalender")."\" onclick=\"displayDatePicker(\'begin\', this)\">');</script>");
+add_input_field("Datum Auschecken", "end", "<script language=\"javascript\">document.write(' <input type=\"button\" value=\"".t("Kalender")."\" onclick=\"displayDatePicker(\'end\', this)\">');</script>");
+
+
 ?>
 		</table></td></tr>
         
