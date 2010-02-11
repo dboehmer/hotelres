@@ -148,7 +148,7 @@ add_input_field("Datum Auschecken", "end");
                 if ($_POST['room'] == $room['id'])
                     echo ' selected="selected"';
                 
-                echo '>' . $room['name'] . "\n(\n" . $room['capacity'] . "\n" . t("Person(en)") . "\n)" . '</option>';
+                echo '>' . $room['name'] . " (" . $room['capacity']. " " . t($room['capacity']==1 ? "Person" : "Personen") . ')</option>';
 			}
         }
         else
