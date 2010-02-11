@@ -30,7 +30,7 @@
  */
 
 // set $DEBUG=true for debugging mode:
-$DEBUG=true;
+$DEBUG=false;
 
 // credentials for MySQL access
 $MYSQL_SERVER="localhost";

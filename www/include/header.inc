@@ -43,7 +43,7 @@ good_connect($MYSQL_SERVER, $MYSQL_USERNAME, $MYSQL_PASSWORD, $MYSQL_DATABASE);
 // user management
 function logout()
 	{
-		unset($_SESSION['login'], $_SESSION['username']);
+		unset($_SESSION['login'], $_SESSION['username'], $_SESSION['rights']);
 	}
 
 if ($_GET['logout'])
@@ -75,6 +75,12 @@ elseif ($_SESSION['login'] and $_SESSION['time_last_request'] and ((mktime()-$_S
 		logout();
 		messages_add("<p>".t("Sie haben die maximale Idle-Zeit von $MAX_IDLE_TIME Sekunden überschritten und wurden automatisch ausgeloggt!")."</p>", "warn");
 	}
+
+
+
+// enable debug mode if requested via URL (only if user has admin rights)
+if ($_GET['debug'] && $_SESSION['rights']=="admin") $DEBUG=true;
+
 
 
 // XHTML header
