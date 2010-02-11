@@ -29,6 +29,8 @@
  * ARE INDIVIDUAL FOR ANY SINGLE CUSTOMER
  */
 
+// set $DEBUG=true for debugging mode:
+$DEBUG=false;
 
 // credentials for MySQL access
 $MYSQL_SERVER="localhost";

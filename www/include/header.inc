@@ -43,7 +43,7 @@ good_connect($MYSQL_SERVER, $MYSQL_USERNAME, $MYSQL_PASSWORD, $MYSQL_DATABASE);
 // user management
 function logout()
 	{
-		unset($_SESSION['login'], $_SESSION['username']);
+		unset($_SESSION['login'], $_SESSION['username'], $_SESSION['rights']);
 	}
 
 if ($_GET['logout'])
@@ -77,6 +77,12 @@ elseif ($_SESSION['login'] and $_SESSION['time_last_request'] and ((mktime()-$_S
 	}
 
 
+
+// enable debug mode if requested via URL (only if user has admin rights)
+if ($_GET['debug'] && $_SESSION['rights']=="admin") $DEBUG=true;
+
+
+
 // XHTML header
 echo '<?xml version="1.0" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -96,7 +102,7 @@ echo '<body>';
 
 if ($_SESSION['login'])
 	{
-		echo '<div style="float:left;">'.t("Eingeloggt als ").$_SESSION['username'].' &middot; ';
+		echo '<div style="float:left;">'.t_replace("Eingeloggt als %s", false, $_SESSION['username']).' &middot; ';
 		echo '<a href="'.url_add_parameter($_SESSION['REQUEST_URI'],"logout","true").'">'.t("Ausloggen").'</a></div>';
 		
 	}
@@ -120,18 +126,30 @@ echo '<div style="clear:both;"><a href="http://www.github.com/dboehmer/hotelres/
 echo '<h1><a href="index.php">Hotelres '.$HOTEL_NAME.'</a></h1></div>';
 
 // main navigation bar
-echo '<div style="clear:both"><a href="index.php">Start</a>
-	    <a href="booking.php">Reservierung</a>
-	    <a href="schedule.php">Belegungsplan</a>
-        <a href="usermgmt.php">Benutzerverwaltung</a>
-		<a href="room.php">Zimmerverwaltung</a>
-	    <a href="imprint.php">Impressum</a>
-	    </div>';
+echo '<div style="clear:both">';
+
+function add_nav_link($url, $text)
+    {
+        echo "<a href=$url>".t($text)."</a>\n";
+    }
+
+add_nav_link("index.php",  "Start");
+add_nav_link("booking.php",  "Reservierung");
+add_nav_link("schedule.php",  "Belegungsplan");
+add_nav_link("usermgmt.php",  "Benutzerverwaltung");
+add_nav_link("room.php",  "Zimmerverwaltung");
+add_nav_link("imprint.php",  "Impressum");
+echo '</div>';
 
 
 // main headline on the website -- $PAGE_HEADLINE *must* be defined in the .php file!
 echo "<h2>" . t($PAGE_HEADLINE) . "</h2></div>";
 
+// show warning if debugging mode is turned on
+if ($DEBUG)
+    {
+        messages_add("<p>".t("Debugging-Modus eingeschaltet: Für Wartungszwecke etc. werden interne Variablen etc. angezeigt. Setzen Sie \$DEBUG in der Datei include/config.inc auf false, wenn Sie das nicht mehr benötigen. Der eingeschaltete Debugging-Mode ist ein Sicherheitsrisiko!")."</p>", "warn");
+    }
 
 // show any information posted from code above
 messages_show();

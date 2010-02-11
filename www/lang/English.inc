@@ -1,6 +1,6 @@
 <?php
 /*
- *      include/consts.inc
+ *      lang/English.inc
  *      
  *      Copyright 2010 Daniel Böhmer <daniel.boehmer@it2007.ba-leipzig.de> and
  *                     Patrick Nicolaus <patrick.nicolaus@it2007.ba-leipzig.de>
@@ -23,21 +23,28 @@
  *      MA 02110-1301, USA.
  */
 
+// LANGUAGE FILE FOR ENGLISH
 
-/*
- * this file contains ONLY constant information which is
- * NOT INDIVIDUAL FOR DIFFERENT CUSTOMERS
- */
+// system: $translation["some built-in text"]="translated text";
 
-// language used for text pattern in the code
-// (goal: port all of them to English one day)
-$BUILTIN_LANGUAGE="Deutsch";
+// header
+$translation["Eingeloggt als %s"]="Logged in as %s";
+$translation["Ausloggen"]="Log out";
+$translation["Sprache wählen"]="Select language";
 
+// navigation bar
+$translation["Start"]="Start";
+$translation["Reservierung"]="Booking";
+$translation["Belegungsplan"]="Schedule";
+$translation["Benutzerverwaltung"]="User management";
+$translation["Zimmerverwaltung"]="Room management";
+$translation["Impressum"]="Imprint";
 
-// list of languages we support with "name"=>array("locale1",...)
-$AVAILBLE_LANGUAGES=array(
-		"Deutsch" => array("de","de_DE","deu"),
-		"English" => array("en","en_US","eng")
-    );
+// imprint
+$translation["Dieses Projekt wurde im Rahmen eines Software-Projekt für ein BA-Studium erstellt von"]=
+        "This project was realized as a software project for a study at Berufsakademie Leipzig by";
+$translation["aus der Seminargruppe %s."]=
+        "from the seminar group %s.";
+$translation["Anschrift"]="Mail address";
 
 ?>

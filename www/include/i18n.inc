@@ -51,8 +51,8 @@ elseif (!$_SESSION['language'] && $DEFAULT_LANGUAGE)
         $_SESSION['language'] = $LANGUAGE;
     }
 
-setlocale(LC_ALL, $AVAILABLE_LANGUAGES[$LANGUAGE]);
-
+// set locales according to the language used
+setlocale(LC_ALL, $AVAILABLE_LANGUAGES[$_SESSION['language']]);
 
 
 // USEFUL FUNCTIONS
@@ -60,30 +60,58 @@ setlocale(LC_ALL, $AVAILABLE_LANGUAGES[$LANGUAGE]);
 // translate text to default language or specify language
 function t($text, $language=false)
 	{
+        global $BUILTIN_LANGUAGE, $DEBUG;
+        
 		if (!$language)
 			{
 				if ($_SESSION['language'])
-					// lang globally set -> use this on
+					// lang globally set -> use this one
 					$language=$_SESSION['language'];
 				else
 					// lang set nowhere -> use built-in
-					$language="built-in";
+					$language=$BUILTIN_LANGUAGE;
 			}
-		
-		if ($language == "built-in" or $language == "de")
+        
+		if ($language == $BUILTIN_LANGUAGE)
 			{
-				return "$text";
+				if ($DEBUG)
+                    return "built-in:$text";
+                else
+                    return $text;
 			}
 		else
 			{
-				// TODO find some translation system here
-				if (false)
+                // this stores all loaded languages for all runtime
+                static $translations;
+                
+                // check if language is already loaded
+                if (!$translations[$language])
+                    {
+                        // delete former translations
+                        unset($translation);
+                        
+                        // include translation file -- it sets $translation
+                        include_once("lang/$language.inc");
+                        
+                        // included just loaded language to the set of all translations
+                        $translations[$language]=$translation;
+                    }
+                
+                // check if translations include wanted sentence
+                // and display the best fitting version
+				if ($translations[$language][$text])
 					{
-						return "$language:SOMETHING";
+                        if ($DEBUG)
+                            return "$language:".$translations[$language][$text];
+                        else
+                            return $translations[$language][$text];
 					}
-				else
+                else
 					{
-						return "$text";
+                        if ($DEBUG)
+                            return "fallback:$text";
+                        else
+                            return $text;
 					}
 			}
 	}
