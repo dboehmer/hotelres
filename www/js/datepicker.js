@@ -70,8 +70,8 @@ var monthArrayLong = new Array('January', 'February', 'March', 'April', 'May', '
 // these variables define the date formatting we're expecting and outputting.
 // If you want to use a different format by default, change the defaultDateSeparator
 // and defaultDateFormat variables either here or on your HTML page.
-var defaultDateSeparator = "/";        // common values would be "/" or "."
-var defaultDateFormat = "mdy"    // valid values are "mdy", "dmy", and "ymd"
+var defaultDateSeparator = ".";        // common values would be "/" or "."
+var defaultDateFormat = "dmy"    // valid values are "mdy", "dmy", and "ymd"
 var dateSeparator = defaultDateSeparator;
 var dateFormat = defaultDateFormat;
 
