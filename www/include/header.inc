@@ -96,7 +96,7 @@ echo '<body>';
 
 if ($_SESSION['login'])
 	{
-		echo '<div style="float:left;">'.t("Eingeloggt als %s", false, $_SESSION['username']).' &middot; ';
+		echo '<div style="float:left;">'.t_replace("Eingeloggt als %s", false, $_SESSION['username']).' &middot; ';
 		echo '<a href="'.url_add_parameter($_SESSION['REQUEST_URI'],"logout","true").'">'.t("Ausloggen").'</a></div>';
 		
 	}
@@ -120,13 +120,21 @@ echo '<div style="clear:both;"><a href="http://www.github.com/dboehmer/hotelres/
 echo '<h1><a href="index.php">Hotelres '.$HOTEL_NAME.'</a></h1></div>';
 
 // main navigation bar
-echo '<div style="clear:both"><a href="index.php">Start</a>
-	    <a href="booking.php">Reservierung</a>
-	    <a href="schedule.php">Belegungsplan</a>
-        <a href="usermgmt.php">Benutzerverwaltung</a>
-		<a href="room.php">Zimmerverwaltung</a>
-	    <a href="imprint.php">Impressum</a>
-	    </div>';
+echo '<div style="clear:both">';
+
+function add_nav_link($url, $text)
+    {
+        echo "<a href=$url>".t($text)."</a>\n";
+    }
+
+add_nav_link("index.php",  "Start");
+add_nav_link("booking.php",  "Reservierung");
+add_nav_link(".php",  "Reservierung");
+add_nav_link("schedule.php",  "Belegungsplan");
+add_nav_link("usermgmt.php",  "Benutzerverwaltung");
+add_nav_link("room.php",  "Zimmerverwaltung");
+add_nav_link("imprint.php",  "Impressum");
+echo '</div>';
 
 
 // main headline on the website -- $PAGE_HEADLINE *must* be defined in the .php file!
