@@ -31,7 +31,7 @@
 
 // language used for text pattern in the code
 // (goal: port all of them to English one day)
-$BUILTIN_LANGUAGE="de";
+$BUILTIN_LANGUAGE="Deutsch";
 
 
 // list of languages we support with "name"=>array("locale1",...)
