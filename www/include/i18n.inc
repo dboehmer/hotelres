@@ -51,8 +51,8 @@ elseif (!$_SESSION['language'] && $DEFAULT_LANGUAGE)
         $_SESSION['language'] = $LANGUAGE;
     }
 
-setlocale(LC_ALL, $AVAILABLE_LANGUAGES[$LANGUAGE]);
-
+// set locales according to the language used
+setlocale(LC_ALL, $AVAILABLE_LANGUAGES[$_SESSION['language']]);
 
 
 // USEFUL FUNCTIONS
@@ -81,13 +81,30 @@ function t($text, $language=false)
 			}
 		else
 			{
-				// TODO find some translation system here
-				if ($translation[$language][$text])
+                // this stores all loaded languages for all runtime
+                static $translations;
+                
+                // check if language is already loaded
+                if (!$translations[$language])
+                    {
+                        // delete former translations
+                        unset($translation);
+                        
+                        // include translation file -- it sets $translation
+                        include_once("lang/$language.inc");
+                        
+                        // included just loaded language to the set of all translations
+                        $translations[$language]=$translation;
+                    }
+                
+                // check if translations include wanted sentence
+                // and display the best fitting version
+				if ($translations[$language][$text])
 					{
                         if ($DEBUG)
-                            return "$language:".$translation[$language][$text];
+                            return "$language:".$translations[$language][$text];
                         else
-                            return $translation[$language][$text];
+                            return $translations[$language][$text];
 					}
                 else
 					{
