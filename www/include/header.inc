@@ -163,8 +163,18 @@ if (!$_SESSION['login'])
 		
 		echo "<p>".t("Sie sind nicht eingeloggt. Um auf die Daten zugreifen zu können
 		oder Änderungen vorzunehmen, müssen Sie Benutzernamen und Passwort eingeben.")."</p>";
-		echo '<form action="'.$_SESSION['REQUEST_URI'].'" method="post">
+        
+        /*
+         * TODO: find solution to link to current page but split out logout paramter
+         * 
+         * problem: user logs out and instantly logs in again -> logout param is reused
+         * 
+         * workaround: always lead to index.php (no fix!)
+         */
+		//echo '<form action="'.$_SESSION['REQUEST_URI'].'" method="post">
+        echo '<form action="index.php" method="post">
             <input type="hidden" name="action" value="login"><table>';
+        
 		echo '<tr><th>'.t("Benutzername").':</th><td><input type="text" name="username"></td></tr>';
 		echo '<tr><th>'.t("Passwort").':</th><td><input type="password" name="password"></td></tr>';
 		echo '</table><input type="submit" value="'.t("Einloggen").'"></form>';
