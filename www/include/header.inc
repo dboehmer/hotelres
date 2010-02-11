@@ -94,8 +94,20 @@ echo '<?xml version="1.0" ?>
 echo "<title>" . t($PAGE_TITLE) . "</title>
 </head>";
 
-// include stylesheet for layout being nice & shiny
+// include JavaScript libraries
+/*echo '<script src="js/AnchorPosition.js" type="text/javascript"></script>';
+echo '<script src="js/CalendarPopup.js" type="text/javascript"></script>';
+echo '<script src="js/date.js" type="text/javascript"></script>';
+echo '<script src="js/PopupWindow.js" type="text/javascript"></script>';*/
+
+// JS library datepicker
+echo '<script src="js/datepicker.js" type="text/javascript"></script>';
+echo '<link rel="stylesheet" media="screen" type="text/css" href="css/datepicker.css">';
+
+// favicon picuture in browser window title bar or tab title
 echo '<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">';
+
+// include stylesheet for layout being nice & shiny
 echo '<link rel="stylesheet" media="screen" type="text/css" href="css/screen.css">';
 
 echo '<body>';
