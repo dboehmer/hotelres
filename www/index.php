@@ -52,7 +52,7 @@ else
         echo '<table><tr><th>'.t("Name").'</th><th>'.t("Personenzahl").'</th><th>'.t("Reist ab").'</th><th>'.t("Details").'</th></tr>';
         foreach ($guests as $guest)
             {
-                echo '<tr><td>'.$guest['name'].'</td><td style="text-align:center;">'.$guest['persons'].'</td><td>'.$guest['end'].'</td><td><a href="schedule.php?edit='.$guest['booking'].'">Details</a></td></tr>';
+                echo '<tr><td>'.$guest['name'].'</td><td style="text-align:center;">'.$guest['persons'].'</td><td>'.own_date_format("%d.%m.%Y",$guest['end'],0).'</td><td><a href="schedule.php?edit='.$guest['booking'].'">Details</a></td></tr>';
             }
         echo '</table>';
     }

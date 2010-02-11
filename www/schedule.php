@@ -121,7 +121,7 @@ elseif ($_GET['schedule']==0)
         <td><?php echo t("Jahr");?>:</td>
           <td><select name="year" size="1">
           	<?php
-			for($i=2010; $i <= 2020; $i++)
+			for($i=$year-5; $i <= $year+5; $i++)
 			{
             	echo "<option value=\"".$i."\"";
                 
