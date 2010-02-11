@@ -41,9 +41,10 @@ echo "<p>".t("Dieses Projekt wurde im Rahmen eines BA-Studiums erstellt von")."<
 
 <?php
 echo '<p>'.t_replace("aus der Seminargruppe %s.", false, "IT2007").'</p>'; 
+
+echo '<h3>'.t("Anschrift").'</h3>';
 ?>
 
-<h3>Anschrift</h3>
 <div class="vcard">
  <p class="fn">Staatliche Berufsakademie Leipzig</p>
  <div class="adr">
