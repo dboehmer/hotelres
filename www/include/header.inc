@@ -96,7 +96,7 @@ echo '<body>';
 
 if ($_SESSION['login'])
 	{
-		echo '<div style="float:left;">'.t("Eingeloggt als ").$_SESSION['username'].' &middot; ';
+		echo '<div style="float:left;">'.t("Eingeloggt als %s", $_SESSION['username']).' &middot; ';
 		echo '<a href="'.url_add_parameter($_SESSION['REQUEST_URI'],"logout","true").'">'.t("Ausloggen").'</a></div>';
 		
 	}
