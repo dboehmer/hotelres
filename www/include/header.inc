@@ -96,7 +96,7 @@ echo '<body>';
 
 if ($_SESSION['login'])
 	{
-		echo '<div style="float:left;">'.t("Eingeloggt als %s", $_SESSION['username']).' &middot; ';
+		echo '<div style="float:left;">'.t("Eingeloggt als %s", false, $_SESSION['username']).' &middot; ';
 		echo '<a href="'.url_add_parameter($_SESSION['REQUEST_URI'],"logout","true").'">'.t("Ausloggen").'</a></div>';
 		
 	}
@@ -132,6 +132,11 @@ echo '<div style="clear:both"><a href="index.php">Start</a>
 // main headline on the website -- $PAGE_HEADLINE *must* be defined in the .php file!
 echo "<h2>" . t($PAGE_HEADLINE) . "</h2></div>";
 
+// show warning if debugging mode is turned on
+if ($DEBUG)
+    {
+        messages_add("<p>".t("Debugging-Modus eingeschaltet: Für Wartungszwecke etc. werden interne Variablen etc. angezeigt. Setzen Sie \$DEBUG in der Datei include/config.inc auf false, wenn Sie das nicht mehr benötigen. Der eingeschaltete Debugging-Mode ist ein Sicherheitsrisiko!")."</p>", "warn");
+    }
 
 // show any information posted from code above
 messages_show();
