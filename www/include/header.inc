@@ -1,6 +1,6 @@
 <?php
 /*
- *      include/header.inc
+ *      www/include/header.inc
  *      
  *      Copyright 2010 Daniel Böhmer <daniel.boehmer@it2007.ba-leipzig.de> and
  *                     Patrick Nicolaus <patrick.nicolaus@it2007.ba-leipzig.de>

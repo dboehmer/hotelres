@@ -1,6 +1,6 @@
 <?php
 /*
- *      index.php
+ *      www/index.php
  *      
  *      Copyright 2010 Daniel Böhmer <daniel.boehmer@it2007.ba-leipzig.de> and
  *                     Patrick Nicolaus <patrick.nicolaus@it2007.ba-leipzig.de>
