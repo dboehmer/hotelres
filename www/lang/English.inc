@@ -46,5 +46,7 @@ $translation["Dieses Projekt wurde im Rahmen eines Software-Projekt für ein BA-
 $translation["aus der Seminargruppe %s."]=
         "from the seminar group %s.";
 $translation["Anschrift"]="Mail address";
+$translation["Telefon"]="Phone";
+$translation["E-Mail"]="E-mail";
 
 ?>

@@ -56,9 +56,9 @@ echo '<h3>'.t("Anschrift").'</h3>';
   <span class="country-name">Deutschland</span>
  </div>
  <div class="tel">
-  <div class="home">0341 / 42743-330</div>
+  <p><strong><?php echo t("Telefon");?>:</strong> <span class="home">0341 / 42743-330</span></p>
  </div>
- <div><a class="email" href="mailto:info@ba-leipzig.de">info@ba-leipzig.de</a></div>
+ <p><strong><?php echo t("E-Mail");?>:</strong> <a class="email" href="mailto:info@ba-leipzig.de">info@ba-leipzig.de</a></p>
 </div>
 
 <?php
