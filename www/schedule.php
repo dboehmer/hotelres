@@ -82,6 +82,8 @@ elseif ($_GET['schedule']==0)
         <tr><td><?php echo t("Monat");?>:</td>
           <td><select name="month" size="1"> 
      <?php
+            if (!$year) $year=strftime("%Y");
+            if (!$month) $month=intval(strftime("%m"));
      
             for ($i=1; $i<=12; $i++)
                 {
