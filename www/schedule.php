@@ -32,11 +32,53 @@ include('include/header.inc');
 
 if ($_POST['update'] == 1)
 {
-		good_query('UPDATE guests SET firstname="'.$_POST['firstname'].'", lastname="'.$_POST['lastname'].'", street="'.$_POST['street'].'", number="'.$_POST['number'].'", zip="'.$_POST['zip'].'", city="'.$_POST['city'].'", country="'.$_POST['country'].'", phone="'.$_POST['phone'].'", email="'.$_POST['email'].'" WHERE id="'.$_POST['guest'].'"');
-		
-		good_query('UPDATE bookings SET comment="'.$_POST['comment'].'", begin="'.own_date_format("%Y-%m-%d",$_POST['begin'],0).'", end="'.own_date_format("%Y-%m-%d",$_POST['end'],0).'" WHERE guest="'.$_POST['guest'].'"');
-		
-		messages_add("<p>".t("Daten erfolgreich aktualisiert.")."</p>");
+    $insert_flag = 1;
+    
+    if ((empty($_POST['begin'])) OR (empty($_POST['end'])))
+    {
+        messages_add("<p>".t("Datum nicht eingegeben.")."</p>", "error");
+        $insert_flag = 0;
+    }// if
+    else
+    {
+        if ((check_date($_POST['begin']) == 0) OR (check_date($_POST['end']) == 0))
+        {
+            messages_add("<p>".t("Datum nicht gültig.")."</p>", "error"); 
+            $insert_flag = 0;
+        }// if
+        else
+        {	
+            if (strtotime($_POST['begin']) > strtotime($_POST['end']))
+            {
+                messages_add("<p>".t("Kein gültiger Zeitraum.")."</p>", "error"); 
+                $insert_flag = 0;
+            }// if
+            else
+            {				
+                //$bookings_rooms = good_query_table('SELECT a.room as roomid, b.name AS roomname, b.id FROM bookings as a RIGHT JOIN rooms AS b ON a.room = b.id WHERE begin<="'.own_date_format("%Y-%m-%d",$_POST['end'],0).'" AND end>="'.own_date_format("%Y-%m-%d",$_POST['begin'],0).'" GROUP BY roomid');
+                $concurring_bookings = good_query_value('SELECT COUNT(*) FROM bookings WHERE
+                            (end>"'.own_date_format("%Y-%m-%d",$_POST['begin'],0).'")
+                            AND (begin<"'.own_date_format("%Y-%m-%d",$_POST['end'],0).'")
+                            AND (room = (SELECT room FROM bookings WHERE guest='.$_POST['guest'].'))
+                            AND NOT (guest = '.$_POST['guest'].')');
+                if ($concurring_bookings > 0)
+                {
+                    //if ($rooms['roomid'] == $_POST['room'])
+                    $insert_flag = 0;
+                    messages_add("<p>".t("Zimmer ".$rooms['roomname']." im Zeitraum vom ".$_POST['begin']." bis ".$_POST['end']." nicht verfügbar.")."</p>", "error");
+                }// foreach
+            }// else
+        }// else
+    }// else
+    
+    if ($insert_flag)
+        {
+            good_query('UPDATE guests SET firstname="'.$_POST['firstname'].'", lastname="'.$_POST['lastname'].'", street="'.$_POST['street'].'", number="'.$_POST['number'].'", zip="'.$_POST['zip'].'", city="'.$_POST['city'].'", country="'.$_POST['country'].'", phone="'.$_POST['phone'].'", email="'.$_POST['email'].'" WHERE id="'.$_POST['guest'].'"');
+            
+            good_query('UPDATE bookings SET comment="'.$_POST['comment'].'", begin="'.own_date_format("%Y-%m-%d",$_POST['begin'],0).'", end="'.own_date_format("%Y-%m-%d",$_POST['end'],0).'" WHERE guest="'.$_POST['guest'].'"');
+            
+            messages_add("<p>".t("Daten erfolgreich aktualisiert.")."</p>");
+        }
 }// if
 
 if ($_GET['delete'] > 0)
