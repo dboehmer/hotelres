@@ -34,7 +34,7 @@ if ($_POST['update'] == 1)
 {
 		good_query('UPDATE guests SET firstname="'.$_POST['firstname'].'", lastname="'.$_POST['lastname'].'", street="'.$_POST['street'].'", number="'.$_POST['number'].'", zip="'.$_POST['zip'].'", city="'.$_POST['city'].'", country="'.$_POST['country'].'", phone="'.$_POST['phone'].'", email="'.$_POST['email'].'" WHERE id="'.$_POST['guest'].'"');
 		
-		good_query('UPDATE bookings SET comment="'.$_POST['comment'].'" WHERE guest="'.$_POST['guest'].'"');
+		good_query('UPDATE bookings SET comment="'.$_POST['comment'].'", begin="'.own_date_format("%Y-%m-%d",$_POST['begin'],0).'", end="'.own_date_format("%Y-%m-%d",$_POST['end'],0).'" WHERE guest="'.$_POST['guest'].'"');
 		
 		messages_add("<p>".t("Daten erfolgreich aktualisiert.")."</p>");
 }// if
@@ -278,7 +278,7 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 if ($_GET['edit'] > 0)
 {
 
-$guests_guest = good_query_table('SELECT a.id,a.firstname, a.lastname, a.street, a.number, a.zip, a.city, a.country, a.phone, a.email, b.id, b.comment, b.guest FROM guests AS a RIGHT JOIN bookings AS b ON a.id = b.guest WHERE a.id="'.$_GET['edit'].'"');
+$guests_guest = good_query_table('SELECT a.id,a.firstname, a.lastname, a.street, a.number, a.zip, a.city, a.country, a.phone, a.email, b.id, b.comment, b.guest, b.begin, b.end FROM guests AS a RIGHT JOIN bookings AS b ON a.id = b.guest WHERE a.id="'.$_GET['edit'].'"');
 
 echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]['lastname'].'';
 ?>
@@ -317,7 +317,15 @@ echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]
 	</table></td>
 
 	<td><table border="0">
-    	<tr><td><?php echo t("Kommentar");?>:</td>
+    	<tr><td><?php echo t("Datum Einchecken");?>:</td>
+        <td><input type="text" name="begin" value="<?php echo own_date_format("%d.%m.%Y",$guests_guest[0]['begin'],0)?>">
+        <script language="javascript">document.write(' <input type="button" value="Kalender" onclick="displayDatePicker(\'begin\', this)">');</script></td></tr>
+        
+    	<tr><td><?php echo t("Datum Auschecken");?>:</td>
+        <td><input type="text" name="end" value="<?php echo own_date_format("%d.%m.%Y",$guests_guest[0]['end'],0)?>">
+        <script language="javascript">document.write(' <input type="button" value="Kalender" onclick="displayDatePicker(\'end\', this)">');</script></td></tr>
+        
+        <tr><td><?php echo t("Kommentar");?>:</td>
         <td><textarea name="comment" rows="5" cols="42"><?php echo $guests_guest[0]['comment']?></textarea></td></tr>
         
         </table></td></tr>
