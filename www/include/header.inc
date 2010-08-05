@@ -150,6 +150,7 @@ add_nav_link("booking.php",  "Reservierung");
 add_nav_link("schedule.php",  "Belegungsplan");
 add_nav_link("usermgmt.php",  "Benutzerverwaltung");
 add_nav_link("room.php",  "Zimmerverwaltung");
+add_nav_link("statistics.php",    "Statistik");
 add_nav_link("imprint.php",  "Impressum");
 echo '</div>';
 
