@@ -27,6 +27,8 @@
 $PAGE_TITLE='Zimmerverwaltung';
 $PAGE_HEADLINE='Zimmer hinzufügen und entfernen';
 
+define("BATCH_CHAR", "#");
+
 include('include/header.inc');
 
 // intro paragraph
@@ -56,11 +58,10 @@ else
 		messages_show();
         
         
-		$_POST['insert'] = 0;
 	}// if
 	
 	
-	if ($_POST['insert'] == 1)
+	elseif ($_POST['insert'] == 1)
 	{
 		good_query('INSERT INTO rooms (name,capacity) VALUES ("'.$_POST['name'].'", "'.$_POST['capacity'].'")',2);
 				
@@ -78,6 +79,44 @@ else
 		
 		$_POST['insert'] = 0;
 	}// if
+    
+    /* batch creation of rooms, e.g. "Room 001"--"Room 120" */
+    elseif ($_POST['batchcreation'] == 1) {
+        $capacity = $_POST['capacity'];
+        $first = $_POST['first'];
+        $last = $_POST['last'];
+        $name = $_POST['name'];
+        
+        // change if range is given in wrong direction (e.g. 8 to 1 => 1 to 8)
+        if ($last < $first) {
+            list($high,$low) = array($low,$high);
+        }
+        
+        
+        if ($_POST['leadingzeros']) {
+            // room 001 -- room 120
+            $format = str_replace(BATCH_CHAR, "%0" . strlen($last) . "d", $name);
+        }
+        else {
+            // room 1 -- room 120
+            $format = str_replace(BATCH_CHAR, "%d", $name);
+        }
+        
+        
+        for ($i=$first; $i<=$last; $i++) {
+            $room = sprintf($format, $i);
+            
+            // remember 1st room name for message
+            if (!isset($firstroom)) $firstroom = $room;
+            
+            //messages_add("<p>".t("Erstelle Raum &quot;$room&quot;</p>"));
+            good_query("INSERT INTO rooms (name, capacity) VALUES ('$room', '$capacity')", 2);
+            
+        }
+        
+        messages_add("<p>Räume &quot;$firstroom&quot; bis &quot;$room&quot; mit jeweils $capacity Personen erstellt.</p>");
+        messages_show();
+    }
 		
 	echo "<h3>".t("Verfügbare Zimmer")."</h3>";
 	
@@ -106,19 +145,49 @@ else
 	<form action="room.php" method="post">
 	
 	<table border="0">
-		<td><?php echo t("Name");?>:</td>
+    <tr>
+		<td><?php echo t("Zimmername");?>:</td>
 		<td><input type="text" name="name"></td>
-	
-		<td><?php echo t("Personen");?>:</td>
+	</tr><tr>
+		<td><?php echo t("Personenzahl");?>:</td>
 		<td><input type="text" name="capacity"></td>
+    </tr>
 	</table>
 	
 	<input type="hidden" name="insert" value="1">
 	
-	<input type="submit" value="<?php echo t("Hinzufügen");?>">
-	<input type="reset" value="<?php echo t("Zurücksetzen");?>">
+	<p><input type="submit" value="<?php echo t("Hinzufügen");?>">
+	<input type="reset" value="<?php echo t("Zurücksetzen");?>"></p>
 	
 	</form>
+    
+    <? echo "<h3>" . t("Massenerstellung") . "</h3>";
+    
+    echo "<p>".t("Erstellen Sie eine Reihe von Räumen mit gleichem Namen und fortlaufenden Nummern.")."</p>"; ?>
+    
+    <form action="room.php" method="post">
+    <input type="hidden" name="batchcreation" value="1" />
+    
+    <table>
+        <tr>
+            <td><? echo t("Zimmername"); ?>:</td>
+            <td><input type="text" name="name" value="Zimmer #"> (<code><? echo htmlentities(BATCH_CHAR);?></code> wird durch die Nummer ersetzt)</td>
+        </tr><tr>
+            <td><? echo t("Erste Nummer"); ?>:</td>
+            <td><input type="text" name="first" value="1"></td>
+        </tr><tr>
+            <td><? echo t("Letzte Nummer"); ?>:</td>
+            <td><input type="text" name="last" value="100"></td>
+        </tr><tr>
+		<td><?php echo t("Personenzahl pro Zimmer");?>:</td>
+		<td><input type="text" name="capacity"></td>
+    </tr>
+    </table>
+    
+    <p><input type="checkbox" name="leadingzeros"> führende Nullen verwenden (Beispiel: Zimmer 001&ndash;Zimmer 120)</p>
+    
+    <p><input type="submit" value="<? echo t("Alle erstellen");?>"></p>
+    </form>
 		
 	<?php
 }// else
