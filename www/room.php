@@ -125,14 +125,17 @@ else
 	echo '<form><table>';
 	echo '<tr><th>'.t("Name").'</th>
 			  <th>'.t("Personen").'</th>
-			  <th>'.t("").'</th></tr>';
+			  <th>'.t("Entfernen").'</th></tr>';
 			
 	foreach ($rooms_rooms as $rooms)
 	{
 		echo '<td>'.$rooms['name'].'</td>';
 		echo '<td>'.$rooms['capacity'].'</td>';
 		
-		echo '<td><a href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'].'?show=0',"room",$rooms['roomid']).'">'.t("Entfernen").'</a></td></tr>';
+        // JavaScript code for question "Do you really want to delete?"
+        $js = "return confirm('". t_replace("Möchten Sie das Zimmer &quot;%s&quot; wirklich löschen?", false, $rooms['name']) ."');";
+        
+		echo '<td><a onclick="'.$js.'" href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'].'?show=0',"room",$rooms['roomid']).'">'.t("Entfernen").'</a></td></tr>';
 	}// foreach
 			
 	echo '</table>';	
