@@ -170,4 +170,7 @@ if ($_GET['view']==1)
 	Plot(12,$temp1,$temp2,$temp3,5,$year);                       
 	print "</td></tr></table></html>";
 }
+
+include("include/footer.inc");
+
 ?>

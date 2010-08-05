@@ -35,8 +35,9 @@ include('include/header.inc');
 echo "<p>".t("Dieses Projekt wurde im Rahmen eines Software-Projekt für ein BA-Studium erstellt von")."</p>";
 ?>
 <ul>
-<li>Daniel Böhmer</li>
-<li>Patrick Nicolaus</li>
+<li>Daniel Böhmer,</li>
+<li>Patrick Nicolaus und</li>
+<li><? echo t_replace("im %s. Semester", false, 6); ?> Tarek Alchanaa</li>
 </ul>
 
 <?php
