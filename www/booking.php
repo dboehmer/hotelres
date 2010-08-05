@@ -49,7 +49,7 @@ if ($_POST['insert'] == 1)
 			}// if
 			else
 			{	
-				if (strtotime($_POST['begin']) > strtotime($_POST['end']))
+				if (strtotime($_POST['begin']) >= strtotime($_POST['end']))
 				{
 					messages_add("<p>".t("Kein gültiger Zeitraum.")."</p>", "error"); 
 					$insert_flag = 0;
@@ -86,7 +86,7 @@ if ($_POST['insert'] == 1)
 		 
 		$rooms_room = good_query_table("SELECT id, capacity FROM rooms WHERE id='".$_POST['room']."'");		
 		good_query("INSERT INTO bookings (room,guest,persons,begin,end,comment) VALUES 
-('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".own_date_format("%Y-%m-%d",$_POST['begin'],0)."','".own_date_format("%Y-%m-%d",$_POST['end'],0)."','".$_POST['comment']."')",2);
+('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".own_date_format("%Y-%m-%d",$_POST['begin'],0)."','".own_date_format("%Y-%m-%d",$_POST['end'],(60*60*24*-1))."','".$_POST['comment']."')",2);
 
 	    messages_add("<p>".t("Zimmer gebucht.")."</p>");
 		}

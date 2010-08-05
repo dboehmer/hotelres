@@ -88,6 +88,13 @@ function check_date($value)
 		return checkdate($array_date[1],$array_date[0],$array_date[2]);
 	}
 	
+function db_room_engaged($begin, $end, $roomid)
+	{
+		$newRoomEngaged = good_query('SELECT room FROM bookings WHERE begin<="'.$begin.'" AND end>="'.$end.'" AND room="'.$roomid.'"');
+			
+		return good_num(&$newRoomEngaged);
+	}
+	
 function db_count_engaged_rooms($begin, $end)
 	{
 		$newCountRooms = good_query('SELECT a.room, b.id, b.name FROM bookings as a inner join rooms as b on a.room = b.id WHERE begin<="'.$begin.'" AND end>="'.$end.'" GROUP BY b.name');

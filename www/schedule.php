@@ -100,6 +100,7 @@ if ($_GET['schedule']==1)
         
         $year=$_GET['year'];
         $month=$_GET['month'];
+		$selectedroom=$_GET['room'];
     }
 elseif ((!$_GET['show']) && (!$_GET['edit']) && (!$_POST['update']) && (!$_POST['delete']))
     {
@@ -163,7 +164,37 @@ elseif ($_GET['schedule']==0)
                 echo ">".$i."</option>";
            	}
 			?>
-        </select></td></tr>
+        </select></td>
+        
+        <td><?php echo t("Zimmer");?>:</td>
+		<td><select name="room" size="1"> 
+        
+		<?php
+		
+		$rooms = good_query_table("SELECT id, name, capacity FROM rooms ORDER BY name ASC",2);
+		
+		echo '<option value=all>' . t("Alle") . '</option>';
+		
+		if (count($rooms) > 0)
+		{
+			foreach($rooms as $room)
+			{
+				echo '<option value="' . $room['id'] . '"';
+                
+                if ($_POST['room'] == $room['id'])
+                    echo ' selected="selected"';
+                
+                echo '>' . $room['name'] . " (" . $room['capacity']. " " . t($room['capacity']==1 ? "Person" : "Personen") . ')</option>';
+			}
+        }
+        else
+        {
+        	echo '<option value="0">-</option>';
+        }
+        ?>
+        
+        </select></td>
+        
 	</table>
     
     <input type="hidden" name="update" value="0">
@@ -177,6 +208,7 @@ elseif ($_GET['schedule']==0)
 
 if ($show_schedule == 1)
 {
+
 $number_day = strftime("%w",mktime(0,0,0,$month,1,$year));
 $count_days = date("t",mktime(0,0,0,$month,1,$year));
 
@@ -188,8 +220,8 @@ echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$month,1,$year)));
 echo '<table><tr>';
 
 foreach ($WEEKDAY_NAMES as $day)
-    echo '<th>'.$day.'</th>';
-
+  echo '<th>'.$day.'</th>';
+	
 echo '</tr><tr>';
 
 for ($i=1; $i<$number_day; $i++)
@@ -210,22 +242,39 @@ $color_full = array(  255, 191, 191);
 // aimed utilization rate
 $percentage_aimed = 80; // in %
 
-			
 for ($i=1; $i<=$count_days; $i++)
 {
-	$count_engaged_rooms = db_count_engaged_rooms(own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0),own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0));
 	
-	if ($count_all_rooms == 0)
-    {
-        $util=0;
-        $utilization = "-.--";
-    }
+	if ($selectedroom > 0)
+	{
+		$count_engaged_rooms = db_room_engaged(own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0),own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0),$selectedroom);
+	
+		if ($count_engaged_rooms == 0)
+		{
+			$util=0;
+			$utilization = "0.00";
+		}
+		else
+		{
+			$util=100;
+			$utilization = number_format($util,2);
+		}
+	}
 	else
 	{
-        $util = (($count_engaged_rooms * 100) / $count_all_rooms);
-		$utilization = number_format($util,2);
-	}
+		$count_engaged_rooms = db_count_engaged_rooms(own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0),own_date_format("%Y-%m-%d",$i.".".$month.".".$year,0));
 	
+		if ($count_all_rooms == 0)
+    	{
+       		$util=0;
+        	$utilization = "-.--";
+    	}
+		else
+		{
+        	$util = (($count_engaged_rooms * 100) / $count_all_rooms);
+			$utilization = number_format($util,2);
+		}
+	}
 
     // CALCULATE COLORS FOR VISUALIZATION OF UTIL.
     
@@ -273,6 +322,8 @@ for ($i=1; $i<=$count_days; $i++)
 echo '</tr></table>';
 }// if
 
+
+
 if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 {
 	if (! empty($_GET['show']))
@@ -308,7 +359,7 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 		echo '<td>'.$booking['lastname'].'</td>';
 		echo '<td>'.$booking['persons'].'</td>';
 		echo '<td>'.own_date_format("%d.%m.%Y",$booking['begin'],0).'</td>';
-		echo '<td>'.own_date_format("%d.%m.%Y",$booking['end'],0).'</td>';
+		echo '<td>'.own_date_format("%d.%m.%Y",$booking['end'],(60*60*24)).'</td>';
 		echo '<td>'.$booking['comment'].'</td>';
 		
 		echo '<td><a href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'].'?show='.$bookingdate.'',"delete",$booking['bookingid']).'">'.t("Stornieren").'</a></td></tr>';
