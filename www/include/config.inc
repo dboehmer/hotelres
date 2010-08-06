@@ -38,6 +38,9 @@ $MYSQL_USERNAME="hotelres";
 $MYSQL_PASSWORD="hotelres";
 $MYSQL_DATABASE="hotelres";
 
+// URL path for accessing web server from outside
+$URL_PATH_EXTERNAL = "http://burjalarab.example/hotelres/";
+
 // name of the accomodation and 1st-level headline
 $HOTEL_NAME="Burj Al Arab";
 
