@@ -89,9 +89,9 @@ if ($_POST['insert'] == 1)
 		good_query("INSERT INTO bookings (room,guest,persons,begin,end,security_token,comment) VALUES 
 ('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".own_date_format("%Y-%m-%d",$_POST['begin'],0)."','".own_date_format("%Y-%m-%d",$_POST['end'],(60*60*24*-1))."',SHA1(RAND()),'".$_POST['comment']."')",2);
         
-        if ($_POST['sendmail']) {
+        if ($_POST['sendmail'] && preg_match("/^.+@.+\.\w+$/", $_POST['email'])) {
             $booking = good_query_assoc("SELECT id, security_token FROM bookings WHERE id=" . good_last());
-            messages_add("<p>Sende Mail an ".$_POST['email']." mit Link "."</p>");
+            messages_add("<p>Sende Mail an ".$_POST['email']." mit Link ".getInformationURL($booking['id'],$booking['security_token'])."</p>");
             /*mail($_POST['email'], // recipient
                 t_replace("Ihre Reservierung im %s", false, $HOTEL_NAME),
                 getInformationURL($booking['id'],$booking['security_token']));*/
