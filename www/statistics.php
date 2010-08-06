@@ -144,9 +144,9 @@ for ($i=0; $i < 12; $i++) {
         )
         FROM bookings ') ;
     
-        
-    
-    $temp1[$i] = $monat[$i]; 
+	$count_bookings = good_query_value('SELECT COUNT(id) FROM bookings WHERE begin>"'.own_date_format("%Y-%m-%d","01-".$j."-".$year,0).'" AND end<"'.own_date_format("%Y-%m-%d",$ende."-".$j."-".$year,0).'" ');
+	
+    $temp1[$i] = $monat[$i]+$count_bookings; 
 }
 
 $temp2[0] = "Januar";	
