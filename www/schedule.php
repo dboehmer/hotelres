@@ -437,7 +437,7 @@ echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]
     </table></td>
 </table>
 
-<p><? 
+<p><?php
 echo t("Informations-Link für den Gast:");
 $url = getInformationURL($guests_guest[0]['id'], $guests_guest[0]['security_token']);
 echo " <a href=\"$url\">$url</a>";?>

@@ -67,7 +67,7 @@ echo '<tr><th>'.t("E-Mail").'</th><td>'.$booking['email'].'</td></tr>';
 
 echo '</table>';
 
-echo '<p>'.t_replace("Sie haben gebucht vom %s zum %s.", false, 
+echo '<p>'.t_replace("Sie haben gebucht vom %s bis zum %s.", false, 
     own_date_format("%d.%m.%Y",$booking['begin'],0),
     own_date_format("%d.%m.%Y",$booking['end'],60*60*24)).'</p>';
 
