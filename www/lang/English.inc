@@ -38,6 +38,7 @@ $translation["Reservierung"]="Booking";
 $translation["Belegungsplan"]="Schedule";
 $translation["Benutzerverwaltung"]="User management";
 $translation["Zimmerverwaltung"]="Room management";
+$translation["Statistik"]="Statistics";
 $translation["Impressum"]="Imprint";
 
 // imprint
