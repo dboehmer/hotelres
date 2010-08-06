@@ -383,7 +383,7 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 if ($_GET['edit'] > 0)
 {
 
-$guests_guest = good_query_table('SELECT a.id,a.firstname, a.lastname, a.street, a.number, a.zip, a.city, a.country, a.phone, a.email, b.id, b.comment, b.guest, b.begin, b.end FROM guests AS a RIGHT JOIN bookings AS b ON a.id = b.guest WHERE a.id="'.$_GET['edit'].'"');
+$guests_guest = good_query_table('SELECT a.id,a.firstname, a.lastname, a.street, a.number, a.zip, a.city, a.country, a.phone, a.email, b.id, b.comment, b.guest, b.begin, b.end, b.security_token FROM guests AS a RIGHT JOIN bookings AS b ON a.id = b.guest WHERE a.id="'.$_GET['edit'].'"');
 
 echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]['lastname'].'';
 ?>
@@ -437,12 +437,18 @@ echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]
     </table></td>
 </table>
 
+<p><? 
+echo t("Informations-Link für den Gast:");
+$url = getInformationURL($guests_guest[0]['id'], $guests_guest[0]['security_token']);
+echo " <a href=\"$url\">$url</a>";?>
+</p>
+
 <input type="hidden" name="update" value="1">
 <input type="hidden" name="schedule" value="0">
 <input type="hidden" name="date" value="<?php echo $_GET['show'];?>"  method="get">
 <input type="hidden" name="guest" value="<?php echo $guests_guest[0]['id'];?>">
     
-<input type="submit" value="<?php echo t("Aktualisieren");?>">
+<p><input type="submit" value="<?php echo t("Aktualisieren");?>"></p>
 
 </form>
 
