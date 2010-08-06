@@ -174,7 +174,7 @@ else
     <table>
         <tr>
             <td><?php echo t("Zimmername"); ?>:</td>
-            <td><input type="text" name="name" value="Zimmer #"> (<code><? echo htmlentities(BATCH_CHAR);?></code> wird durch die Nummer ersetzt)</td>
+            <td><input type="text" name="name" value="Zimmer #"> (<code><? echo htmlentities(BATCH_CHAR);?></code>wird durch die Nummer ersetzt)</td>
         </tr><tr>
             <td><?php echo t("Erste Nummer"); ?>:</td>
             <td><input type="text" name="first" value="1"></td>
