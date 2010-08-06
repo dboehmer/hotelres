@@ -164,7 +164,7 @@ else
 	
 	</form>
     
-    <? echo "<h3>" . t("Massenerstellung") . "</h3>";
+    <?php echo "<h3>" . t("Massenerstellung") . "</h3>";
     
     echo "<p>".t("Erstellen Sie eine Reihe von Räumen mit gleichem Namen und fortlaufenden Nummern.")."</p>"; ?>
     
@@ -173,13 +173,13 @@ else
     
     <table>
         <tr>
-            <td><? echo t("Zimmername"); ?>:</td>
+            <td><?php echo t("Zimmername"); ?>:</td>
             <td><input type="text" name="name" value="Zimmer #"> (<code><? echo htmlentities(BATCH_CHAR);?></code> wird durch die Nummer ersetzt)</td>
         </tr><tr>
-            <td><? echo t("Erste Nummer"); ?>:</td>
+            <td><?php echo t("Erste Nummer"); ?>:</td>
             <td><input type="text" name="first" value="1"></td>
         </tr><tr>
-            <td><? echo t("Letzte Nummer"); ?>:</td>
+            <td><?php echo t("Letzte Nummer"); ?>:</td>
             <td><input type="text" name="last" value="100"></td>
         </tr><tr>
 		<td><?php echo t("Personenzahl pro Zimmer");?>:</td>
@@ -189,7 +189,7 @@ else
     
     <p><input type="checkbox" name="leadingzeros"> führende Nullen verwenden (Beispiel: Zimmer 001&ndash;Zimmer 120)</p>
     
-    <p><input type="submit" value="<? echo t("Alle erstellen");?>"></p>
+    <p><input type="submit" value="<?php echo t("Alle erstellen");?>"></p>
     </form>
 		
 	<?php
