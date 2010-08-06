@@ -429,7 +429,7 @@ echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]
         <script language="javascript">document.write(' <input type="button" value="Kalender" onclick="displayDatePicker(\'begin\', this)">');</script></td></tr>
         
     	<tr><td><?php echo t("Datum Auschecken");?>:</td>
-        <td><input type="text" name="end" value="<?php echo own_date_format("%d.%m.%Y",$guests_guest[0]['end'],0)?>">
+        <td><input type="text" name="end" value="<?php echo own_date_format("%d.%m.%Y",$guests_guest[0]['end'],(60*60*24))?>">
         <script language="javascript">document.write(' <input type="button" value="Kalender" onclick="displayDatePicker(\'end\', this)">');</script></td></tr>
         
         <tr><td><?php echo t("Kommentar");?>:</td>
