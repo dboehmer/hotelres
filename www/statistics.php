@@ -46,9 +46,11 @@ else {
         
         <td><?php echo t("Jahr");?>:</td>
           <td><select name="year" size="1">
-          	<?php 
+          	<?php
+            
+            $thisyear=date('Y');
 		
-			for($i=2010; $i <= 2015; $i++)
+			for($i=$thisyear; $i <= $thisyear+9; $i++)
 			{
             	echo "<option value=\"".$i."\"";
                 
