@@ -372,7 +372,9 @@ if ((! empty($_GET['show'])) OR (! empty($_POST['date'])))
 		echo '<td>'.own_date_format("%d.%m.%Y",$booking['end'],(60*60*24)).'</td>';
 		echo '<td>'.$booking['comment'].'</td>';
 		
-		echo '<td><a href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'].'?show='.$bookingdate.'',"delete",$booking['bookingid']).'">'.t("Stornieren").'</a></td></tr>';
+        $js = "return confirm('". t_replace("Möchten Sie die Buchung von %s wirklich stornieren und löschen?", false, $booking['firstname']." ".$booking['lastname']) ."');";
+        
+		echo '<td><a onclick="'.$js.'" href="'.url_add_parameter($_SERVER['ORIG_PATH_INFO'].'?show='.$bookingdate.'',"delete",$booking['bookingid']).'">'.t("Stornieren").'</a></td></tr>';
 	}// foreach
 			
 	echo '</table>';	
