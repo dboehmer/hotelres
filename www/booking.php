@@ -85,8 +85,8 @@ if ($_POST['insert'] == 1)
 		$guest_id = good_last();
 		 
 		$rooms_room = good_query_table("SELECT id, capacity FROM rooms WHERE id='".$_POST['room']."'");		
-		good_query("INSERT INTO bookings (room,guest,persons,begin,end,comment) VALUES 
-('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".own_date_format("%Y-%m-%d",$_POST['begin'],0)."','".own_date_format("%Y-%m-%d",$_POST['end'],0)."','".$_POST['comment']."')",2);
+		good_query("INSERT INTO bookings (room,guest,persons,begin,end,security_token,comment) VALUES 
+('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".own_date_format("%Y-%m-%d",$_POST['begin'],0)."','".own_date_format("%Y-%m-%d",$_POST['end'],0)."',SHA1(RAND()),'".$_POST['comment']."')",2);
 
 	    messages_add("<p>".t("Zimmer gebucht.")."</p>");
 		}

@@ -42,6 +42,7 @@ CREATE TABLE bookings(
     guest INT NOT NULL,   -- points to guests.id
 	begin DATE NOT NULL, -- start date
 	end DATE NOT NULL,   -- end date
+    security_token VARCHAR(20) NOT NULL,   -- hash for authenticating e-mail links
 	comment varchar(500)   -- free field for entering useful information, e.g. special wishes
 	);
 
