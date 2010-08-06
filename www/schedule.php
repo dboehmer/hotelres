@@ -219,6 +219,16 @@ echo utf8_encode(strftime("%B %Y",mktime(0,0,0,$month,1,$year)));
 
 echo '<table><tr>';
 
+if ($selectedroom > 0)
+{
+	$rooms = good_query_table("SELECT id, name FROM rooms WHERE id='".$selectedroom."'",2);
+	echo ''. $rooms[0]['name'] .'';
+}
+else
+{
+	echo "Gesamtübersicht";
+}
+
 foreach ($WEEKDAY_NAMES as $day)
   echo '<th>'.$day.'</th>';
 	
