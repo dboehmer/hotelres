@@ -38,11 +38,14 @@ $translation["Reservierung"]="Booking";
 $translation["Belegungsplan"]="Schedule";
 $translation["Benutzerverwaltung"]="User management";
 $translation["Zimmerverwaltung"]="Room management";
+$translation["Statistik"]="Statistics";
 $translation["Impressum"]="Imprint";
 
 // imprint
 $translation["Dieses Projekt wurde im Rahmen eines Software-Projekt für ein BA-Studium erstellt von"]=
         "This project was realized as a software project for a study at Berufsakademie Leipzig by";
+$translation["und"]="and";
+$translation["im %s. Semester"]="in the %s. term";
 $translation["aus der Seminargruppe %s."]=
         "from the seminar group %s.";
 $translation["Anschrift"]="Mail address";
