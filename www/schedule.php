@@ -222,11 +222,11 @@ echo '<table><tr>';
 if ($selectedroom > 0)
 {
 	$rooms = good_query_table("SELECT id, name FROM rooms WHERE id='".$selectedroom."'",2);
-	echo ''. $rooms[0]['name'] .'';
+	echo "<h3>".t($rooms[0]['name'])."</h3>";
 }
 else
 {
-	echo "Gesamtübersicht";
+	echo "<h3>".t("Gesamtübersicht")."</h3>";
 }
 
 foreach ($WEEKDAY_NAMES as $day)

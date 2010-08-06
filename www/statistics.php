@@ -120,6 +120,8 @@ function GenerateRandomColor() {
     
 }
 
+echo "<h3>".t("Übernachtungen pro Monat")."</h3>";
+
 for ($i=0; $i < 12; $i++) {
     $j = $i + 1;
     if ( $j==1 || $j==3 || $j==5 || $j==7 || $j==8 || $j==10 || $j==12 ) {
