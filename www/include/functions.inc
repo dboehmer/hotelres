@@ -42,6 +42,10 @@ function url_add_parameter($url, $parameter, $value)
 		return($newUrl);
 	}
 
+function getInformationURL($id, $security_token) {
+    return $GLOBALS['URL_PATH_EXTERNAL'] . "/guestinfo.php?id=$id&token=$security_token";
+}
+
 function array2htmlColor(array $rgb)
     {
         for ($i=0; $i<3; $i++)

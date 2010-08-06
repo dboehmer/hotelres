@@ -87,7 +87,15 @@ if ($_POST['insert'] == 1)
 		$rooms_room = good_query_table("SELECT id, capacity FROM rooms WHERE id='".$_POST['room']."'");		
 		good_query("INSERT INTO bookings (room,guest,persons,begin,end,security_token,comment) VALUES 
 ('".$rooms_room[0]['id']."','".$guest_id."','".$rooms_room[0]['capacity']."','".own_date_format("%Y-%m-%d",$_POST['begin'],0)."','".own_date_format("%Y-%m-%d",$_POST['end'],0)."',SHA1(RAND()),'".$_POST['comment']."')",2);
-
+        
+        if ($_POST['sendmail']) {
+            $booking = good_query_assoc("SELECT id, security_token FROM bookings WHERE id=" . good_last());
+            messages_add("<p>Sende Mail an ".$_POST['email']." mit Link "."</p>");
+            /*mail($_POST['email'], // recipient
+                t_replace("Ihre Reservierung im %s", false, $HOTEL_NAME),
+                getInformationURL($booking['id'],$booking['security_token']));*/
+        }
+        
 	    messages_add("<p>".t("Zimmer gebucht.")."</p>");
 		}
 	else
@@ -169,7 +177,11 @@ add_input_field("Datum Auschecken", "end", "<script language=\"javascript\">docu
         <tr><td><?php echo t("Kommentar");?>:</td>
         <td><textarea name="comment" rows="5" cols="42"><?php echo htmlentities($_POST['comment']); ?></textarea></td></tr>
         
-        </table></td></tr>
+        </table>
+        
+        <p><input type="checkbox" name="sendmail" checked="checked"/> E-Mail mit Informations-Link an Gast schicken</p>
+        
+        </td></tr>
     </table></td>
 </table>
 

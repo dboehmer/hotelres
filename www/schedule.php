@@ -378,7 +378,7 @@ echo '<br />Kundendaten von '.$guests_guest[0]['firstname'].' '.$guests_guest[0]
 
 <p><? 
 echo t("Informations-Link für den Gast:");
-$url = $URL_PATH_EXTERNAL . "/guestinfo.php?id=" . $guests_guest[0]['id'] . "&token=" . $guests_guest[0]['security_token'];
+$url = getInformationURL($guests_guest[0]['id'], $guests_guest[0]['security_token']);
 echo " <a href=\"$url\">$url</a>";?>
 </p>
 
